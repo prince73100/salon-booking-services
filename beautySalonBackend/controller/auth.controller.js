@@ -1,7 +1,7 @@
 import { User } from "../model/user.model.js"
 import Apierror from "../utility/Apierror.js"
 import asyncfunhandler from "../utility/asyncFunction.js"
-
+import {genToken} from '../utility/genreateToken.js'
 const handleSignUp = asyncfunhandler(async (req, res, next) => {
     const { firstname, lastname, phone, email, address, password } = req.body
     if (firstname === "" || email === "") {
@@ -29,12 +29,12 @@ const handleSignUp = asyncfunhandler(async (req, res, next) => {
 
 const handlelogin = asyncfunhandler(async (req, res, next) => {
     const { email, password } = req.body
-    if (email === "" && password) {
-        return next(new Apierror('Email and password must be require', 409))
+    if (email === "" && password ==="") {
+        return next(new Apierror('Email and password must be require', 400))
     }
     const user = await User.findOne({ email })
     if (!user) {
-        return next(new Apierror('User not exist or invalid', 409))
+        return next(new Apierror('User not exist or invalid', 404))
     }
     const isCheckPassword = await user.isCorrectPassword(password)
     if (!isCheckPassword) {

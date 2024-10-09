@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+// eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { customeraction } from '../../../store/customerStore'
@@ -9,9 +11,8 @@ const navigation = useNavigate()
     const onLogout = ()=>{
         dispatch(customeraction.toUpdatestate(undefined))
         dispatch(customeraction.toUpdateToken(""))
-        localStorage.removeItem('jwt_token')
-        localStorage.removeItem("states")
-        localStorage.removeItem('expireIndate')
+        localStorage.removeItem('jwt')
+        localStorage.removeItem('exipreIn')
         navigation('/login')
     }
 

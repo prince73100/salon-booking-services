@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
@@ -8,13 +8,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { customeraction } from '../../../store/customerStore';
 import mainlogo from '../../assets/logo/main_logo.png'
 function Header() {
-  const token = localStorage.getItem("jwt_token")
+  const token = localStorage.getItem("jwt")
   const { state, profilename } = useSelector(store => store.customerSlice)
 
   const dispatch = useDispatch()
   const [name, setname] = useState({});
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/user/profile/${token}`).then((res) => {
+    axios.get(`http://localhost:3000/api/v1/user/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((res) => {
       let firstchar = res.data.user.firstname.charAt(0).toUpperCase();
       dispatch(customeraction.toupdateProfile(firstchar))
       setname(res.data.user)

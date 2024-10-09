@@ -1,4 +1,3 @@
-import React from 'react'
 import salonbanner from '../../assets/salon_banner.jpg'
 import Sercomponent from './Sercomponent.jsx'
 import { useSelector } from 'react-redux'
@@ -18,7 +17,7 @@ function Servicepage() {
             </div>
             <div className="w-full flex justify-center  items-center mt-8  ">
                 <div className="service-element w-11/12 ml-4 flex flex-row gap-8 justify-center flex-wrap">
-                    {services_provide.map((item) => <Sercomponent item={item} />)}
+                    {services_provide.map((item,index) => <Sercomponent key={index} item={item} />)}
                 </div>
             </div>
         </div>

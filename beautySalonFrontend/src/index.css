@@ -169,6 +169,13 @@ hr{
 .artist-full-details{
     margin-top: 71px;
 }
+.salon_partner{
+    display: flex;
+    justify-content: center;
+}
+.salon-sup-container{
+    width: 78%;
+}
 /* .services-box {
     animation: scroll 20s linear infinite; 
   } */

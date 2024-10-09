@@ -1,38 +1,24 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { customeraction } from '../../../store/customerStore'
-useDispatch
+
 function Loginpage() {
-    const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
     const navigation = useNavigate()
+
     const login = async (data) => {
-        if (data.email === "" && data.password === "") {
-            alert("Both field are require")
-            return;
-        }
+
         try {
-            await axios.post('http://localhost:3000/api/v1/user/login', data)
-                .then((res) => {
-                    const status = " " + res.data.status
-                    if (status.charAt(1) === '4') {
-                        alert(res.data.message)
-                    }
-                    else {
-                        const expireIndate = new Date().getTime() + 1 * 24 * 60 * 60 * 1000
-                        dispatch(customeraction.toUpdatestate(true))
-                        localStorage.setItem('jwt_token', res.data.token);
-                        localStorage.setItem("states", true)
-                        localStorage.setItem('expireIndate', expireIndate)
-                        navigation("/")
-                    }
-                })
+            const res = await axios.post('http://localhost:3000/api/v1/user/login', data)
+            const expireIn = Date.now() + 1 * 24 * 60 * 60 * 1000;
+            const token = res.data.token
+            localStorage.setItem('jwt', token)
+            localStorage.setItem('exipreIn', expireIn)
+            navigation('/')
+            window.location.reload()
         } catch (error) {
-            console.log(error.message);
+            alert(error.response.data.message)
         }
     }
     return (
@@ -46,13 +32,13 @@ function Loginpage() {
                         <div className="sm:col-span-4">
                             <div className="mt-2">
                                 <input
-                                    type="text"
+                                    type="email"
                                     name="email"
                                     id="first-name"
                                     autoComplete="given-name"
                                     placeholder='Email-Id'
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4"
-                                    {...register("email")}
+                                    {...register("email", { required: true })}
                                 />
                             </div>
                         </div>
@@ -65,7 +51,7 @@ function Loginpage() {
                                     autoComplete="given-name"
                                     placeholder='Password'
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4"
-                                    {...register("password")}
+                                    {...register("password", { required: true })}
                                 />
                             </div>
                         </div>

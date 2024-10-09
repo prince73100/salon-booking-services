@@ -7,11 +7,10 @@ import bodymassage from '../src/assets/sevicepic/bodymassage.jpg'
 const datafromlocal = () => {
     try {
         const currentDate = Date.now()
-        const expireIndate = localStorage.getItem('expireIndate')
+        const expireIndate = localStorage.getItem('exipreIn')
         if (currentDate > expireIndate) {
-            localStorage.removeItem('jwt_token')
-            localStorage.removeItem('expireIndate')
-            localStorage.removeItem('states')
+            localStorage.removeItem('jwt')
+            localStorage.removeItem('exipreIn')
             return false
         }
         return true

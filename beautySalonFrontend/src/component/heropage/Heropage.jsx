@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { FaSearch } from "react-icons/fa";
 import Sercomponent from '../service/Sercomponent.jsx'
+import SalonContainers from '../salonBox/SalonContainers.jsx'
 function Heropage() {
   const { state, services_provide } = useSelector(store => store.customerSlice)
   return (
@@ -25,6 +26,20 @@ function Heropage() {
           <Link to={`${state === true ? "/bookingdetail" : "/login"}`} className='text-white bg-rose-600 p-4 rounded-3xl px-8 cursor-pointer font-bold'>Book Appoitment</Link>
         </div>
       </div>
+
+      {/* our respected salon */}
+
+      <div className='containers mt-8 '>
+        <div className='hero-image'>
+          <h1 className='text-center font-serif text-4xl font-bold mt-4' >Our Buisness Partner</h1>
+        </div>
+        <div className="salon_partner">
+          <div className="salon-sup-container">
+            <SalonContainers />
+          </div>
+        </div>
+      </div>
+
       {/* top trending services */}
       <div className="containers top-trending-services  ">
         <div className="top-sub-trending-services  ">
@@ -32,7 +47,7 @@ function Heropage() {
             <div className='text-center font-serif text-4xl font-bold'> Top Trending Services</div>
           </div>
           <div className="services-box   ">
-            {services_provide.map((item) => <Sercomponent item={item} />)}
+            {services_provide.map((item, index) => <Sercomponent key={index} item={item} />)}
           </div>
         </div>
       </div>
@@ -45,16 +60,6 @@ function Heropage() {
           <Link to={'/artistdetail'} className='artist-photo py-5 flex justify-center flex-row flex-wrap gap-x-14 gap-y-10 mt-10 '>
             {data.map(artiest => <Artiestdetail artiest={artiest} key={Math.random()} />)}
           </Link>
-        </div>
-      </div>
-      {/* our respected salon */}
-
-      <div className='containers mt-8'>
-        <div className='hero-image'>
-          <h1 className='text-center font-serif text-4xl font-bold mt-4' >Our Respected Salon</h1>
-        </div>
-        <div className="artist_center">
-          
         </div>
       </div>
     </>

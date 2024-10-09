@@ -1,9 +1,10 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
 function Sercomponent({ item }) {
   const { state } = useSelector(store => store.customerSlice)
+  console.log(state)
   return (
     <div className='Service-info  min-h-80  mt-4  mr-5' >
       <div className="service-image ml-5" >
