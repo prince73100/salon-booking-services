@@ -1,4 +1,3 @@
-import React from 'react'
 import Jobs from './Jobs'
 import { IoLocationSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom'

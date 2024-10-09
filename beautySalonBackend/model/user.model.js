@@ -23,12 +23,11 @@ const userSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        required: [true, "Enter your address"]
     },
     role: {
         type: String,
-        enum: ["user", "admin", "artist", "salon"],
-        default: "user"
+        enum: ["User", "Admin", "Artist", "Salon"],
+        default: "User"
     },
     password: {
         type: String,

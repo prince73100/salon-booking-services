@@ -2,10 +2,13 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { customeraction } from '../../../store/customerStore'
+import { useDispatch } from 'react-redux'
 
 function Loginpage() {
     const { register, handleSubmit } = useForm()
     const navigation = useNavigate()
+    const dispatch = useDispatch();
 
     const login = async (data) => {
 
@@ -15,8 +18,19 @@ function Loginpage() {
             const token = res.data.token
             localStorage.setItem('jwt', token)
             localStorage.setItem('exipreIn', expireIn)
-            navigation('/')
-            window.location.reload()
+            localStorage.setItem('role',res.data.user.role)
+            dispatch(customeraction.toUpdatestate(true))
+            if (res.data.user.role === "Artist") {
+                navigation('/jobs')
+            }else if(res.data.user.role === "Salon"){
+                navigation('/salonbusiness')
+            }
+            else if(res.data.user.role === "Admin"){
+                navigation('#')
+            }
+            else{
+                navigation('/')
+            }
         } catch (error) {
             alert(error.response.data.message)
         }

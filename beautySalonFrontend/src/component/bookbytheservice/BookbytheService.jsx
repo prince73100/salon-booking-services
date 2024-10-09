@@ -1,4 +1,3 @@
-import React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import daygidplugin from '@fullcalendar/daygrid'
 import timegridplugin from '@fullcalendar/timegrid'

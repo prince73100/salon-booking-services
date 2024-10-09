@@ -46,8 +46,8 @@ function Herosection() {
                         We Are Offers
                     </div>
                     <div className="offers-box flex flex-row flex-wrap justify-center gap-20 mt-20">
-                        {offerpage.map((imgsrc) => {
-                            return <div className="offers-sub-box ">
+                        {offerpage.map((imgsrc,index) => {
+                            return <div className="offers-sub-box " key={index} >
                                 <img src={imgsrc.imgname} alt="" width={400} className='hover:rotate-180' />
                             </div>
                         }

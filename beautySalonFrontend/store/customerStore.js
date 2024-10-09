@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import {  createSlice } from '@reduxjs/toolkit'
 import hairimg from '../src/assets/sevicepic/hair.jpg'
 import handfeet from '../src/assets/sevicepic/handandfeet.jpg'
 import makeupimg from '../src/assets/sevicepic/makeup.jpg'
@@ -33,7 +33,7 @@ const tokenformlocal = () => {
 }
 
 const customerSlice = createSlice({
-    name: "customerSlice",
+    name: "user",
     initialState: {
         state: datafromlocal(),
         profilename: '',
@@ -106,17 +106,5 @@ const customerSlice = createSlice({
     }
 })
 
-
-const customerStore = configureStore({
-    reducer: {
-        customerSlice: customerSlice.reducer
-    },
-    middleware: getDefaultMiddleware => getDefaultMiddleware({
-        serializableCheck: false
-    })
-})
-
-
 export const customeraction = customerSlice.actions
-
-export default customerStore;
+export default customerSlice.reducer

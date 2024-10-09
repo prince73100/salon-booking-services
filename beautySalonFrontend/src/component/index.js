@@ -13,7 +13,9 @@ import Servicebookdetail from "./service/Servicebookdetail";
 import Servicepage from "./service/Servicepage";
 import Loginpage from "./signuploginpage/Loginpage";
 import SignUpLogin from "./signuploginpage/SignUpLogin";
-
+import Job from './artistPanel/Job'
+import Herosection from "./salonPanel/createSalonBusiness/HomePage";
+import RegisteredBusiness from "./salonPanel/registeredBusiness/RegisteredBusiness";
 export {
     Artiestdetail,
     Artistfulldetail,
@@ -29,5 +31,8 @@ export {
     Servicebookdetail,
     Servicepage,
     Loginpage,
-    SignUpLogin
+    SignUpLogin,
+    Job,
+    Herosection,
+    RegisteredBusiness
 }

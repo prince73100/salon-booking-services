@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 
 function Servicepage() {
-    const {services_provide} = useSelector(store => store.customerSlice)
+    const {services_provide} = useSelector(store => store.user)
     
     return (
         <div className='main-service-page'>

@@ -13,7 +13,7 @@ function Header() {
     alljob.forEach(element => {
         alljobs.push(element.salonname)
     });
-    
+
     const [searchKeyword, setSearchkeyword] = useState('')
     const [suggestion, setsuggetion] = useState([])
     const handleChange = (e) => {

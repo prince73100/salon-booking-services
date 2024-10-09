@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
 function Sercomponent({ item }) {
-  const { state } = useSelector(store => store.customerSlice)
+  const { state } = useSelector(store => store.user)
   console.log(state)
   return (
     <div className='Service-info  min-h-80  mt-4  mr-5' >

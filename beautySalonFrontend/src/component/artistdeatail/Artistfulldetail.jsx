@@ -1,4 +1,3 @@
-import React from 'react'
 import { PiStudentFill } from "react-icons/pi";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";

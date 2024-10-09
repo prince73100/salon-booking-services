@@ -1,4 +1,3 @@
-import React from 'react'
 import Artiestdetail from '../artistdeatail/Artiestdetail'
 import data from '../../../artistdata.js'
 import salonbanner from '../../assets/salon_banner.jpg'
@@ -8,7 +7,7 @@ import { FaSearch } from "react-icons/fa";
 import Sercomponent from '../service/Sercomponent.jsx'
 import SalonContainers from '../salonBox/SalonContainers.jsx'
 function Heropage() {
-  const { state, services_provide } = useSelector(store => store.customerSlice)
+  const { state, services_provide } = useSelector(store => store.user)
   return (
     <>
       {/* banner page */}

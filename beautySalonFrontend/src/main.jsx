@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import customerStore from '../store/customerStore.js'
+import { store } from '../store/index.js'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import {
@@ -14,7 +14,10 @@ import {
   Payment,
   Appointment,
   Artistfulldetail,
-  BookbytheService
+  BookbytheService,
+  Job,
+  Herosection,
+  RegisteredBusiness
 } from './component/index.js'
 
 
@@ -32,14 +35,17 @@ const router = createBrowserRouter([
       { path: '/appoitment', element: <Appointment /> },
       { path: '/artistdetail', element: <Artistfulldetail /> },
       { path: '/bookingService', element: <BookbytheService /> },
-      { path: '/paymentdeatails', element: <Payment /> }
+      { path: '/paymentdeatails', element: <Payment /> },
+      { path: '/jobs', element: <Job /> },
+      {path:'/salonbusiness',element:<Herosection/>},
+      {path:'/regiteredbusiness',element:<RegisteredBusiness/>}
     ]
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Provider store={customerStore}>
+    <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>,

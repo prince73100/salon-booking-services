@@ -13,6 +13,7 @@ const navigation = useNavigate()
         dispatch(customeraction.toUpdateToken(""))
         localStorage.removeItem('jwt')
         localStorage.removeItem('exipreIn')
+        localStorage.removeItem('role')
         navigation('/login')
     }
 

@@ -3,7 +3,7 @@ import Apierror from "../utility/Apierror.js"
 import asyncfunhandler from "../utility/asyncFunction.js"
 import {genToken} from '../utility/genreateToken.js'
 const handleSignUp = asyncfunhandler(async (req, res, next) => {
-    const { firstname, lastname, phone, email, address, password } = req.body
+    const { firstname, lastname, phone, email, address, password,confirmPassword } = req.body
     if (firstname === "" || email === "") {
         return next(new Apierror('Firstname and email must be require', 400))
     }
@@ -16,8 +16,9 @@ const handleSignUp = asyncfunhandler(async (req, res, next) => {
         lastname,
         phone,
         email,
-        address,
-        password
+        role:req.body.role || 'user',
+        password,
+        confirmPassword
     })
     res.status(201).json({
         status: 'success',
@@ -48,7 +49,8 @@ const handlelogin = asyncfunhandler(async (req, res, next) => {
     res.cookie('token', token, option).status(200).json({
         status: 'success',
         message: "User Loged In",
-        token
+        token,
+        user 
     })
 })
 

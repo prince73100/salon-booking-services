@@ -1,4 +1,3 @@
-import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
@@ -7,7 +6,9 @@ function SignUpLogin() {
     const navigate = useNavigate()
     const signUp = async (data) => {
         try {
+            // eslint-disable-next-line no-unused-vars
             const user = await axios.post('http://localhost:3000/api/v1/user/signup', data)
+            console.log(data)
             navigate("/login")
         } catch (error) {
             console.log(error.response.data.message);
@@ -75,15 +76,19 @@ function SignUpLogin() {
                         </div>
                         <div className="sm:col-span-4">
                             <div className="mt-2">
-                                <input
-                                    type="text"
-                                    name="first-name"
-                                    id="address"
-                                    autoComplete="given-name"
-                                    placeholder='Address'
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4"
-                                    {...register('address', { required: true })}
-                                />
+                                <select
+                                    id="country"
+                                    name="country"
+                                    {...register('role', { required: true })}
+                                    autoComplete="country-name"
+                                    className="block  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                >
+                                    <option disabled>--Select role--</option>
+                                    <option>User</option>
+                                    <option>Artist</option>
+                                    <option>Salon</option>
+                                    <option>Admin</option>
+                                </select>
                             </div>
                         </div>
                         <div className="sm:col-span-4">
