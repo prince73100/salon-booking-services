@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar{
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+      background: #eae6e6; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ed4c5a; 
+    }
+.font-page-details input{
+border:  none;
+outline:  none;
+}
+.register-login{
+  width: 80%;
+}
