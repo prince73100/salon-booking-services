@@ -1,8 +1,9 @@
 import { Jobpost } from "../model/jobpost.model.js"
 import { Salon } from "../model/salon.model.js"
 import { Service } from "../model/services.model.js"
+import asyncfunhandler from "../utility/asyncFunction.js"
 import { genToken } from "../utility/genreateToken.js"
-
+import { Salonregistered } from "../model/salonregistered.model.js"
 const salonsignup = async (req, res) => {
     const { salonname, salontype, address, email, phonenumber, password, gpslocation } = req.body
     try {
@@ -38,7 +39,6 @@ const salonsignup = async (req, res) => {
         })
     }
 }
-
 const salonLogin = async (req, res) => {
     try {
         const { phonenumber, password } = req.body
@@ -82,7 +82,6 @@ const salonLogin = async (req, res) => {
         })
     }
 }
-
 const salonLogout = async (req, res) => {
     try {
         const artist = await Salon.findByIdAndUpdate(req.user.id, { states: false }, { new: true }).select("-password")
@@ -96,16 +95,14 @@ const salonLogout = async (req, res) => {
         })
     }
 }
-// POSTING A JOB
-
 const handlePostjob = async (req, res) => {
     try {
         const { Jobtitle, salary, address, responsibility, education, jobtitle, skill } = req.body
-        const salobPostJobs = await Salon.findById({_id:req.user.id})
+        const salobPostJobs = await Salon.findById({ _id: req.user.id })
         console.log(salobPostJobs);
-        
+
         const job = await Jobpost.create({
-            salonname:salobPostJobs.salonname,
+            salonname: salobPostJobs.salonname,
             Jobtitle,
             salary,
             address,
@@ -133,7 +130,6 @@ const handlePostjob = async (req, res) => {
         })
     }
 }
-
 // Add services 
 const addServices = async (req, res) => {
     try {
@@ -165,7 +161,6 @@ const addServices = async (req, res) => {
     }
 }
 // get all salon
-
 const getSalon = async (req, res) => {
     try {
         const salon = await Salon.find()
@@ -198,28 +193,38 @@ const getServices = async (req, res) => {
         })
     }
 }
-
 //  get All Job posted by any salon
-
-const getAllposted = async(req,res)=>{
+const getAllposted = async (req, res) => {
     try {
         const allJob = await Jobpost.find();
-        if(!allJob){
+        if (!allJob) {
             return res.json({
-                message:"Not have any job post now",
-                status:404
+                message: "Not have any job post now",
+                status: 404
             })
         }
         res.status(200).json({
-            message:"All jobs",
+            message: "All jobs",
             allJob
         })
     } catch (error) {
         res.status(500).json({
-            message:error.message
+            message: error.message
         })
     }
 }
+
+
+// handle Registered methods
+
+const handleRegistered = asyncfunhandler(async (req, res, next) => {
+    req.body.owner = req.user.id
+    const registeredSalon = await Salonregistered.create(req.body);
+    res.status(201).json({
+        status: 'success',
+        registeredSalon
+    })
+})
 
 
 
@@ -231,5 +236,8 @@ export {
     getSalon,
     salonLogout,
     handlePostjob,
-    getAllposted
+    getAllposted,
+
+
+    handleRegistered
 }

@@ -19,6 +19,7 @@ import {
   Herosection,
   RegisteredBusiness
 } from './component/index.js'
+import Addservices from './component/salonPanel/addServices/Addservices.jsx'
 
 
 
@@ -38,7 +39,8 @@ const router = createBrowserRouter([
       { path: '/paymentdeatails', element: <Payment /> },
       { path: '/jobs', element: <Job /> },
       {path:'/salonbusiness',element:<Herosection/>},
-      {path:'/regiteredbusiness',element:<RegisteredBusiness/>}
+      {path:'/regiteredbusiness',element:<RegisteredBusiness/>},
+      {path:'/addServices',element:<Addservices/>}
     ]
   }
 ])
@@ -50,3 +52,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Provider>
   </React.StrictMode>,
 )
+
+

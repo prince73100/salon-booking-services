@@ -21,4 +21,13 @@ const authenticate = asyncfunhandler(async (req, res, next) => {
     next();
 })
 
+export const restrictTo = (...role)=>{
+     return (req,res,next)=>{
+        if(!role.includes(req.user.role)){
+            return next(new Apierror('your are not able to use this resources',403))
+        }
+        next()
+     }
+}
+
 export default authenticate
