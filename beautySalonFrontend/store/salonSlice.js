@@ -10,11 +10,11 @@ const serviceSlice = createSlice({
             state.service.push(action.payload);
         },
         deleteServices: (state, action) => {
-            const service = action.payload
-            state.service = state.service.filter((services) => services != service)
+            const serviceId = action.payload
+            state.service = state.service.filter((services) => services._id != serviceId)
         },
-        tosetstates:(state,action)=>{
-            state.states = action.payload
+        handleAllServices:(state,action)=>{
+            state.service = action.payload
         }
     }
 })

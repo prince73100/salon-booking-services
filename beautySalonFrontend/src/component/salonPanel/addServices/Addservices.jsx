@@ -7,12 +7,13 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { serviceAction } from "../../../../store/salonSlice";
 import axios from 'axios'
 function Addservices() {
+    const { service } = useSelector(store => store.salon)
+    // console.log(service)
     const token = localStorage.getItem('jwt')
     const serviceRef = useRef();
     const priceRef = useRef();
     const [imagePath, setImagePath] = useState('')
-    const [servicelength, setserviceslength] = useState(0)
-    const [servicedata,setServiceData] = useState([])
+
     const languages = [
         'Waxing',
         'Hair Cuts',
@@ -28,7 +29,6 @@ function Addservices() {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const dispatch = useDispatch();
-    const { service } = useSelector(store => store.salon)
     const handleChange = (event) => {
         const value = event.target.value;
         setQuery(value);
@@ -43,9 +43,27 @@ function Addservices() {
     };
     const handleSuggestionClick = (suggestion) => {
         setQuery(suggestion);
-        dispatch(serviceAction.addService(suggestion))
         setSuggestions([]);
     };
+
+    const handleDeleteServices = async (serviceId) => {
+        try {
+            if (serviceId) {
+                const res = await axios.delete(`http://localhost:3000/api/v1/salon/deleteservices/${serviceId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                if(res.data.status === 'success'){
+                    dispatch(serviceAction.deleteServices(serviceId))
+                }
+            } else {
+                alert('please provide service id')
+            }
+        } catch (error) {
+            console.log("Error:", error)
+        }
+    }
 
     const handleAddService = async () => {
         const services = serviceRef.current.value;
@@ -58,13 +76,15 @@ function Addservices() {
         formdata.append('serviceName', services);
         formdata.append('price', price);
         formdata.append('image', imagePath);
-        const servicesResult = await axios.post('  http://localhost:3000/api/v1/salon/addServices', formdata, {
+        const servicesResult = await axios.post('http://localhost:3000/api/v1/salon/addServices', formdata, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(servicesResult)
+        if (servicesResult.data.status === 'success') {
+            dispatch(serviceAction.addService(servicesResult.data.newServices))
+        }
     }
 
     const fetchAllServices = async () => {
@@ -73,12 +93,13 @@ function Addservices() {
                 Authorization: `Bearer ${token}`
             }
         })
-        setServiceData(res.data.allServices)
-        setserviceslength(res.data.allServices.length)
+        if (res.data.status === 'success') {
+            dispatch(serviceAction.handleAllServices(res.data.allServices))
+        }
     }
     useEffect(() => {
         fetchAllServices()
-    }, [servicelength])
+    }, [service.length])
 
     return (
         <>
@@ -89,12 +110,12 @@ function Addservices() {
                         <div className=" w-1/3 ">
                             <h1 className="text-start  font-serif text-3xl font-bold pt-10">Your Services</h1>
                             {
-                                servicedata.map((ser, index) => <div className="flex justify-between mt-5" key={index} >
-                                    <img src={ser.image} alt="image" style={{width:'50px', height:'50px'}}/>
-                                        <h1 className="font-serif text-xl font-bold">{ser.serviceName}</h1>
-                                        <h2 className="font-serif text-xl font-bold">{ser.price}</h2>
-                                        <RiDeleteBin5Line size={24} className="cursor-pointer" color="red" />
-                                    </div>
+                                service.map((ser, index) => <div className="flex justify-between mt-5" key={index} >
+                                    <img src={ser.image} alt="image" style={{ width: '50px', height: '50px' }} />
+                                    <h1 className="font-serif text-xl font-bold">{ser.serviceName}</h1>
+                                    <h2 className="font-serif text-xl font-bold">{ser.price}</h2>
+                                    <RiDeleteBin5Line size={24} className="cursor-pointer" color="red" onClick={() => handleDeleteServices(ser._id)} />
+                                </div>
                                 )
                             }
 

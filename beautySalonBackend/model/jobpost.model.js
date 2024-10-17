@@ -1,41 +1,32 @@
 import mongoose from "mongoose";
-
 const jobpostSchema = new mongoose.Schema({
-    salonname: {
+    jobtitle: {
         type: String,
-        required: true
-    },
-    Jobtitle: {
-        type: String,
-        required: true
+        required: [true,'Jobtitle must require']
     },
     salary: {
-        type: String,
-        required: true
+        type: Number,
+        required: [true,'salary must be require']
     },
-    address: {
+    location: {
         type: String,
-        required: true
-    },
-    responsibility: {
-        type: String,
-        required: true
+        required: [true,'location must be require']
     },
     education: {
         type: String,
-        required: true
-    },
-    jobtitle: {
-        type: String,
-        required: true
+        required: [true,'education or qualification are require']
     },
     skill: {
         type: String,
-        required: true
+        required: [true,'skill must be require']
+    },
+    jobdescription:{
+        type:String,
+        require:[true,'please give job decription']
     },
     bypostjob:{
         type:mongoose.Schema.ObjectId,
-        ref:'Salon'
+        ref:'Salonregistered'
     }
 }, { timestamps: true })
 

@@ -1,10 +1,20 @@
 import { useForm } from "react-hook-form"
-
+import axios from 'axios'
 function Anouncejob() {
+    const token = localStorage.getItem('jwt');
     const { register, handleSubmit } = useForm()
 
-    const hadleRegistered = () => {
-        
+    const hadleRegistered = async (data) => {
+        try {
+            const result = await axios.post('http://localhost:3000/api/v1/salon/postingjob', data, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log(result)
+        } catch (error) {
+            console.log("Error:", error)
+        }
     }
     return (
         <div className="registered-business-container mt-24">
@@ -12,15 +22,14 @@ function Anouncejob() {
             <div className=" flex justify-center mt-5">
                 <div className="registered-form w-10/12 flex  ">
                     <div className="left-side-container w-1/2 bg-rose-500 flex items-center justify-center ">
-                        <h1 className="text-center font-serif text-6xl font-bold text-white"> Registered <br /> and
-                            <br />  Grow Your Business</h1>
+                        <h1 className="text-center font-serif text-6xl font-bold text-white"> Post a Job which is available for Artist </h1>
                     </div>
                     <form onSubmit={handleSubmit(hadleRegistered)} className="form-container w-1/2 bg-white">
                         <div className="border-b border-gray-900/10 pb-12 pl-4">
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
                                     <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Salon Name
+                                        Job Title
                                     </label>
                                     <div className="mt-2">
                                         <input
@@ -28,7 +37,7 @@ function Anouncejob() {
                                             name="first-name"
                                             type="text"
                                             autoComplete="given-name"
-                                            {...register("salonName", { required: true })}
+                                            {...register("jobtitle", { required: true })}
                                             className=" px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         />
                                     </div>
@@ -36,46 +45,37 @@ function Anouncejob() {
 
                                 <div className="sm:col-span-3">
                                     <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Salon Type
+                                        Location
                                     </label>
                                     <div className="mt-2">
-                                        <select
+                                        <input
                                             id="country"
                                             name="country"
+                                            type="text"
                                             autoComplete="country-name"
-                                            {...register("salonType", { required: true })}
+                                            {...register("location", { required: true })}
                                             className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                        >
-                                            <option disabled>--Select Salon Type--</option>
-                                            <option>Beauty salons</option>
-                                            <option>Nail salons</option>
-                                            <option>Facials</option>
-                                            <option>Spa salons</option>
-                                            <option>Hybrid salon</option>
-                                            <option>Massages</option>
-                                            <option>Belle Curls</option>
-                                            <option>Evolve Salon</option>
-                                        </select>
+                                        />
                                     </div>
                                 </div>
-                                <div className="col-span-6">
+                                <div className="col-span-3">
                                     <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Contact Number
+                                        Salary
                                     </label>
                                     <div className="mt-2">
                                         <input
                                             id="phone"
                                             name="street-address"
-                                            type="text"
+                                            type="number"
                                             autoComplete="phone"
-                                            {...register("phone", { required: true })}
+                                            {...register("salary", { required: true })}
                                             className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         />
                                     </div>
                                 </div>
-                                <div className="col-span-6">
+                                <div className="col-span-3">
                                     <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Street address
+                                        Education
                                     </label>
                                     <div className="mt-2">
                                         <input
@@ -83,15 +83,15 @@ function Anouncejob() {
                                             name="street-address"
                                             type="text"
                                             autoComplete="street-address"
-                                            {...register("address", { required: true })}
+                                            {...register("education", { required: true })}
                                             className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="sm:col-span-4 sm:col-start-1">
+                                <div className="sm:col-span-3 sm:col-start-1">
                                     <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
-                                        City
+                                        Skill Require
                                     </label>
                                     <div className="mt-2">
                                         <input
@@ -99,23 +99,23 @@ function Anouncejob() {
                                             name="city"
                                             type="text"
                                             autoComplete="address-level2"
-                                            {...register("city", { required: true })}
+                                            {...register("skill", { required: true })}
                                             className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="sm:col-span-2">
+                                <div className="sm:col-span-3">
                                     <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
-                                        State / Province
+                                        Job Description
                                     </label>
                                     <div className="mt-2">
-                                        <input
+                                        <textarea
                                             id="region"
                                             name="region"
                                             type="text"
                                             autoComplete="address-level1"
-                                            {...register("state", { required: true })}
+                                            {...register("jobdec", { required: true })}
                                             className="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         />
                                     </div>

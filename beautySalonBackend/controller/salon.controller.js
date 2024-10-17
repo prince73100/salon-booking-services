@@ -3,44 +3,11 @@ import { Salon } from "../model/salon.model.js"
 import asyncfunhandler from "../utility/asyncFunction.js"
 import { Salonregistered } from "../model/salonregistered.model.js"
 import { Services } from "../model/services.model.js"
+import Apierror from "../utility/Apierror.js"
 
 
 
-const handlePostjob = async (req, res) => {
-    try {
-        const { Jobtitle, salary, address, responsibility, education, jobtitle, skill } = req.body
-        const salobPostJobs = await Salon.findById({ _id: req.user.id })
-        console.log(salobPostJobs);
 
-        const job = await Jobpost.create({
-            salonname: salobPostJobs.salonname,
-            Jobtitle,
-            salary,
-            address,
-            responsibility,
-            education,
-            jobtitle,
-            skill,
-            bypostjob: req.user.id
-        })
-
-        if (!job) {
-            return res.json({
-                message: "some thing wrong try again",
-                status: 400
-            })
-        }
-
-        res.status(200).json({
-            message: "Application Apply Successfully",
-            job
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
 // Add services 
 const addServices = async (req, res) => {
     try {
@@ -83,34 +50,41 @@ const getSalon = async (req, res) => {
 
     }
 }
+
+
 //  get All Job posted by any salon
-const getAllposted = async (req, res) => {
-    try {
-        const allJob = await Jobpost.find();
-        if (!allJob) {
-            return res.json({
-                message: "Not have any job post now",
-                status: 404
-            })
-        }
-        res.status(200).json({
-            message: "All jobs",
-            allJob
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
+const getAllposted = asyncfunhandler(async (req, res, next) => {
+    const allJob = await Jobpost.find();
+    if (!allJob) {
+        return next(new Apierror('Not have any job post now', 404))
     }
-}
+    res.status(200).json({
+        status: 'success',
+        allJob
+    })
+})
 
-
-
-
-
-
-
-
+// handle posting a job
+const handlePostjob = asyncfunhandler(async (req, res, next) => {
+    console.log(req.user)
+    const currentSalon = await Salonregistered.find({ owner: req.user._id })
+    if (!currentSalon) {
+        return next(new Apierror('Salon is not registered', 401))
+    }
+    const job = await Jobpost.create({
+        jobtitle: req.body.jobtitle,
+        salary: req.body.salary,
+        location: req.body.location,
+        education: req.body.education,
+        skill: req.body.skill,
+        jobdescription: req.body.jobdec,
+        bypostjob: currentSalon[0]._id
+    })
+    res.status(200).json({
+        Status: 'success',
+        job
+    })
+})
 
 // GET ALL Registered SALON
 const getAllSalon = asyncfunhandler(async (req, res, next) => {
@@ -158,7 +132,14 @@ const handleAddServices = asyncfunhandler(async (req, res, next) => {
         newServices
     })
 })
-
+// delete Services
+const haldleDeleteServices=asyncfunhandler(async(req,res,next)=>{
+    const result = await Services.findByIdAndDelete(req.params.serviceId)
+    res.status(200).json({
+        status:'success',
+        result:null
+    })
+})
 
 export {
     addServices,
@@ -171,6 +152,7 @@ export {
     getServices,
     handleRegistered,
     handleAddServices,
-    getAllSalon
+    getAllSalon,
+    haldleDeleteServices
 }
 
