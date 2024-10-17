@@ -2,6 +2,7 @@ import { User } from "../model/user.model.js"
 import Apierror from "../utility/Apierror.js"
 import asyncfunhandler from "../utility/asyncFunction.js"
 import {genToken} from '../utility/genreateToken.js'
+
 const handleSignUp = asyncfunhandler(async (req, res, next) => {
     const { firstname, lastname, phone, email, address, password,confirmPassword } = req.body
     if (firstname === "" || email === "") {

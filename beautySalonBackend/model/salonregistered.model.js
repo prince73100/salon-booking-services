@@ -1,41 +1,38 @@
 import mongoose from 'mongoose'
 
 const salonRegisteredSchema = new mongoose.Schema({
-    salonName:{
-        type:String,
-        required:[true,"Name must be require"],
+    salonName: {  
+        type: String,
     },
-    salonType:{
-        type:String,
-        required:[true,'Give a salon name']
+    salonType: {
+        type: String,
+        required: [true, 'Give a salon name']
     },
-    phone:{
-        type:String,
-        unique:true,
-        require:[true,'please enter a phone number']
+    phone: {
+        type: String,
+        unique: true,
     },
-    address:{
-        type:String,
-        required:[true,'Enter your salon address']
+    address: {
+        type: String,
     },
-    city:{
-        type:String
+    city: {
+        type: String
     },
-    state:{
-        type:String
+    state: {
+        type: String
     },
-    location:{
-        type:{
-            type:String,
-            default:'Point',
-            enum:['Point']
+    location: {
+        type: {
+            type: String,
+            default: 'Point',
+            enum: ['Point']
         },
-        coordinates :[Number]
+        coordinates: [Number]
     },
-    owner:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 
-export const Salonregistered  = mongoose.model('Salonregistered',salonRegisteredSchema)
+export const Salonregistered = mongoose.model('Salonregistered', salonRegisteredSchema)

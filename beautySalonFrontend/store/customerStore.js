@@ -96,7 +96,7 @@ const customerSlice = createSlice({
             state.services = action.payload
         },
         toAddServiceforbooking: (state, action) => {
-            state.totalbookprice += action.payload.price
+            state.totalbookprice += Number(action.payload.price)
             state.selectserviceforbook.push(action.payload)
         },
         toRemoveService: (state, action) => {

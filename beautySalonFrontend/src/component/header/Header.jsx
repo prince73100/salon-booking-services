@@ -79,6 +79,7 @@ function Header() {
           {(state === true && role === 'user') && <li><Link to={'#'}>Gallery</Link></li>}
           {(state === true && role === 'user') && <li><Link to={'#'}>About</Link></li>}
           {(state === true && role === 'Salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
+          {(state === true && role === 'Salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
           {/* Artist */}
           {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
           {/* salon route */}

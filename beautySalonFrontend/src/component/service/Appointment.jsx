@@ -1,51 +1,47 @@
-import React, { useEffect } from 'react'
+/* eslint-disable no-unused-vars */
+import { useEffect } from 'react'
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { customeraction } from '../../../store/customerStore'
+import { useId } from 'react'
 
 function Appointment() {
   const { register, handleSubmit } = useForm()
-  const { appointmentData, salon, services, selectserviceforbook, totalbookprice } = useSelector(store => store.customerSlice)
+  const { appointmentData, salon, services, selectserviceforbook, totalbookprice } = useSelector(store => store.user)
   const dispatch = useDispatch()
 
   const onhandleSubmit = (data) => {
     // console.log( typeof JSON.parse(data))
+    console.log(data)
   }
 
+  // handle get all services a salon 
   const onandleChange = (e) => {
-    const salonname = e.target.value
-    axios.get(`http://localhost:3000/api/v1/salon/getservices/${salonname}`).then((res) => {
-      const status = " " + res.data.status
-      if (status.charAt(1) === '4') {
-        alert(res.data.message)
-        return;
-      }
-      dispatch(customeraction.toserviceHandle(res.data.services.servicesname))
+    const salonid = e.target.value
+    axios.get(`http://localhost:3000/api/v1/salon/getservice/${salonid}`).then((res) => {
+      dispatch(customeraction.toserviceHandle(res.data.allServices))
     })
   }
 
+  // for add services
   const onhandleSelectService = (e) => {
-    console.log(JSON.parse(e.target.value))
     dispatch(customeraction.toAddServiceforbooking(JSON.parse(e.target.value)))
   }
 
-
-  const hanleremoveService=(id,price)=>{
-     dispatch(customeraction.toRemoveService({id:id,price:price}))
+// Remove select services
+  const hanleremoveService = (id, price) => {
+    dispatch(customeraction.toRemoveService({ id: id, price: price }))
   }
-
-
-
+ // For fetch all Salon
   useEffect(() => {
     axios.get('http://localhost:3000/api/v1/salon/getallsalon').then((res) => {
-      dispatch(customeraction.tosalonhandle(res.data.salon))
+      dispatch(customeraction.tosalonhandle(res.data.getAllSalon))
     })
   }, [])
 
-
   return (
-    <form onSubmit={handleSubmit(onhandleSubmit)} className="border-b relative left-10 border-gray-900/10 pb-12 mt-5 w-11/12">
+    <form onSubmit={handleSubmit(onhandleSubmit)} className="border-b relative left-10 border-gray-900/10 pb-12 mt-20 w-11/12">
       <h2 className=" font-bold leading-7 text-gray-900 text-center text-4xl border-b-2 pb-4">Book Appointment</h2>
       <div className="dtae mt-4 relative left-10 ">
         <h2 className='text-xl font-bold'>{appointmentData.dateStr?.substr(0, 10)}</h2>
@@ -82,7 +78,7 @@ function Appointment() {
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option value="">--select--</option>
-                {salon.map((item) => <option key={item.salonname} value={item.salonname}>{item.salonname}</option>)}
+                {salon.map((item) => <option key={item.salonName} value={item._id}>{item.salonName}</option>)}
               </select>
             </div>
           </div>
@@ -98,9 +94,6 @@ function Appointment() {
                 {...register("duration", { required: true })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
-                <option>5 min</option>
-                <option>10 min</option>
-                <option>15 min</option>
                 <option>30 min</option>
                 <option>1 hr</option>
                 <option>2 hr</option>
@@ -121,7 +114,10 @@ function Appointment() {
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option value="">--select--</option>
-                {services.map((item, index) => <option key={index} value={JSON.stringify({ id:Math.floor(Math.random()*100+1), service: item, price: 55 })} >{item}</option>)}
+                {services?.map((item, index) => <option key={index} value={JSON.stringify({
+                  id: Math.floor(Math.random()*100 + 1), service: item.serviceName
+                  , price: item.price
+                })} >{item.serviceName}</option>)}
               </select>
             </div>
           </div>

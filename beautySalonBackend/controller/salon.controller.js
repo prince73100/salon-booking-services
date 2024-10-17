@@ -1,100 +1,11 @@
 import { Jobpost } from "../model/jobpost.model.js"
 import { Salon } from "../model/salon.model.js"
-import { Service } from "../model/services.model.js"
 import asyncfunhandler from "../utility/asyncFunction.js"
-import { genToken } from "../utility/genreateToken.js"
 import { Salonregistered } from "../model/salonregistered.model.js"
-const salonsignup = async (req, res) => {
-    const { salonname, salontype, address, email, phonenumber, password, gpslocation } = req.body
-    try {
-        const existUser = await Salon.findOne({ email })
-        if (existUser) {
-            return res.json({
-                message: "user already exist",
-                status: 409
-            })
-        }
-        const user = await Salon.create({
-            salonname,
-            salontype,
-            email,
-            address,
-            phonenumber,
-            gpslocation,
-            password
-        })
-        if (!user) {
-            return res.json({
-                message: "usernot not created! Check all field all correct",
-                status: 400
-            })
-        }
-        res.status(201).json({
-            user,
-            message: "New user created successfully"
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
-const salonLogin = async (req, res) => {
-    try {
-        const { phonenumber, password } = req.body
-        if (phonenumber == " " && password == "") {
-            return res.json({
-                message: "Both feild are require",
-                status: 409
-            })
-        }
-        const salon = await Salon.findOne({ phonenumber })
-        if (!salon) {
-            return res.json({
-                message: "user is not exist",
-                status: 404
-            })
-        }
+import { Services } from "../model/services.model.js"
 
-        const iscorrect = await salon.isCorrectPassword(password)
-        if (!iscorrect) {
-            return res.json({
-                message: "Invalid Password",
-                status: 409
-            })
-        }
-        const activeSalon = await Salon.findOneAndUpdate({ phonenumber }, { states: true }, { new: true }).select('-password')
-        const token = genToken(salon._id)
 
-        const option = {
-            httpOnly: true,
-            secure: true
-        }
 
-        return res.cookie('token', token, option).status(200).json({
-            message: "Sucessfully Login",
-            token,
-            activeSalon
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
-const salonLogout = async (req, res) => {
-    try {
-        const artist = await Salon.findByIdAndUpdate(req.user.id, { states: false }, { new: true }).select("-password")
-        res.status(200).json({
-            message: "User Logout",
-            artist
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
 const handlePostjob = async (req, res) => {
     try {
         const { Jobtitle, salary, address, responsibility, education, jobtitle, skill } = req.body
@@ -172,27 +83,6 @@ const getSalon = async (req, res) => {
 
     }
 }
-// service for a salon
-const getServices = async (req, res) => {
-    try {
-        const salondata = await Salon.findOne({ salonname: req.params.salonname })
-        const services = await Service.findOne({ salonrefc: salondata._id })
-        if (!services) {
-            return res.json({
-                message: "Not add any services",
-                status: 404
-            })
-        }
-        res.status(200).json({
-            message: "ok",
-            services
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
 //  get All Job posted by any salon
 const getAllposted = async (req, res) => {
     try {
@@ -215,8 +105,37 @@ const getAllposted = async (req, res) => {
 }
 
 
-// handle Registered methods
 
+
+
+
+
+
+
+// GET ALL Registered SALON
+const getAllSalon = asyncfunhandler(async (req, res, next) => {
+    const getAllSalon = await Salonregistered.find().populate('owner')
+    res.status(200).json({
+        status: 'success',
+        result: getAllSalon.length,
+        getAllSalon
+    })
+})
+//GET service for a salon
+const getServices = asyncfunhandler(async (req, res) => {
+    let allServices;
+    if (req.params.salonID) {
+        allServices = await Services.find({ servicesCreatedBy: req.params.salonID }).select('serviceName price image')
+    } else {
+        const currentSalon = await Salonregistered.find({ owner: req.user._id })
+        allServices = await Services.find({ servicesCreatedBy: currentSalon[0]._id }).select('serviceName price image')
+    }
+    res.status(200).json({
+        status: 'success',
+        allServices
+    })
+})
+// handle Registered methods
 const handleRegistered = asyncfunhandler(async (req, res, next) => {
     req.body.owner = req.user.id
     const registeredSalon = await Salonregistered.create(req.body);
@@ -225,19 +144,33 @@ const handleRegistered = asyncfunhandler(async (req, res, next) => {
         registeredSalon
     })
 })
-
+// add service
+const handleAddServices = asyncfunhandler(async (req, res, next) => {
+    const currentSalon = await Salonregistered.find({ owner: req.user._id })
+    const newServices = await Services.create({
+        serviceName: req.body.serviceName,
+        price: req.body.price,
+        image: req.file.filename,
+        servicesCreatedBy: currentSalon[0]._id
+    })
+    res.status(201).json({
+        status: 'success',
+        newServices
+    })
+})
 
 
 export {
-    getServices,
-    salonsignup,
-    salonLogin,
     addServices,
     getSalon,
-    salonLogout,
     handlePostjob,
     getAllposted,
 
 
-    handleRegistered
+
+    getServices,
+    handleRegistered,
+    handleAddServices,
+    getAllSalon
 }
+

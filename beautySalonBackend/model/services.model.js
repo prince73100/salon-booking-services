@@ -1,12 +1,21 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose"
 
 const serviceSchema = new mongoose.Schema({
-    servicesname:[String],
-    salonrefc:{
+    serviceName:{
+        type:String,
+        require:[true,"Service Name must Eneter"]
+    },
+    price:{
+        type:String,
+        require:[true,"Price must be enter"]
+    },
+    image:{
+        type:String
+    },
+    servicesCreatedBy:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Salon"
+        ref:'Salonregistered'
     }
 },{timestamps:true})
 
-
-export const Service=  mongoose.model('Service',serviceSchema);
+export const Services = mongoose.model('Services',serviceSchema)

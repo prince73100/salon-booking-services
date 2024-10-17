@@ -17,7 +17,8 @@ import {
   BookbytheService,
   Job,
   Herosection,
-  RegisteredBusiness
+  RegisteredBusiness,
+  Anouncejob
 } from './component/index.js'
 import Addservices from './component/salonPanel/addServices/Addservices.jsx'
 
@@ -40,7 +41,8 @@ const router = createBrowserRouter([
       { path: '/jobs', element: <Job /> },
       {path:'/salonbusiness',element:<Herosection/>},
       {path:'/regiteredbusiness',element:<RegisteredBusiness/>},
-      {path:'/addServices',element:<Addservices/>}
+      {path:'/addServices',element:<Addservices/>},
+      {path:'/anounceJob',element:<Anouncejob/>}
     ]
   }
 ])
