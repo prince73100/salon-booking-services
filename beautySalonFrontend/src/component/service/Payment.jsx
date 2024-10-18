@@ -1,8 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 function Payment() {
+    const { bookedData } = useSelector(store => store.user)
+    
     return (
-        <div className='payment '>
+        <div className='payment    '>
             <div className="sub-step-bar bg-pink-700 h-20">
                 <div className='ml-10 text-white'>
                     <span className=''> <Link to={'/'}>Home</Link> </span> / Checkout <br />
@@ -12,35 +16,13 @@ function Payment() {
                 </div>
             </div>
             <div className="personal-informaatin mx-14 mt-4 flex justify-between">
-                <div className='w-2/3'>
-                    <div className="heading">
-                        <div className="subheading">
-                            <h3 className='font-serif font-bold text-xl'>Personal Information</h3>
-                        </div>
-                        <div className="input-field mt-4 grid grid-rows-2 grid-cols-2 gap-5 ">
-                            <div className='border rounded-lg border-gray-800'>
-                                <input type="text" placeholder=' First Name' style={{ outline: 'none', border: "none", padding: '5px' }} />
-                            </div>
-                            <div className='border rounded-lg border-gray-800'>
-                                <input type="text" placeholder=' Last Name' style={{ outline: 'none', border: "none", padding: '5px' }} />
-                            </div>
-                            <div className='border rounded-lg border-gray-800'>
-                                <input type="email" placeholder='email' style={{ outline: 'none', border: "none", padding: '5px' }} />
-                            </div>
-                            <div className='border rounded-lg border-gray-800'>
-                                <input type="text" placeholder='Phone' style={{ outline: 'none', border: "none", padding: '5px' }} />
-                            </div>
-                            <div className="askloginornot font-serif text-lg">
-                                Existing Customer ? <span className='text-pink-700'>Click here to login</span>
-                            </div>
-                        </div>
-                    </div>
+                <div className='w-2/3'>  
                     <hr className='my-5' />
                     <div className="pament-detail">
                         <div className="pay-heading">
                             <h3 className='font-serif font-bold text-xl'>Payment method</h3>
                             <div className="radio-btn mt-4">
-                                <input type="radio" className='mr-4' />
+                                <input type="radio" className='mr-4' name='payment' value={'credit_card'}/>
                                 <span className='font-serif font-bold'>Credit Card</span>
                             </div>
                         </div>
@@ -66,8 +48,8 @@ function Payment() {
                             </div>
                         </div>
                         <div className="otheer-option flex my-5">
-                            <input type="radio" className='mr-5' />
-                            <h3 className='font-serif font-bold'>Paypal</h3>
+                            <input type="radio" className='mr-5' name='payment' value={'upi'} />
+                            <h3 className='font-serif font-bold'>UPI</h3>
                         </div>
                         <div className="check-term-condition font-serif font-bold">
                             <input type="checkbox" />
@@ -80,28 +62,25 @@ function Payment() {
                 </div>
 
                 <div className='verticle_line'>
-                    
+
                 </div>
 
                 <div className="booking-summary mr-28">
                     <div className="">
                         <h3 className='font-serif font-bold text-xl'>Booking Summary</h3>
                     </div>
-                    <div className="service_name mt-10 flex justify-between">
-                       <div>Body Massage</div>
-                       <div>500</div>
+                    {bookedData?.selectserviceforbook?.map((item, index) => <div className="service_name mt-5 flex justify-between" key={index}>
+                        <div>{item?.service}</div>
+                        <div>{item?.price}</div>
                     </div>
-                    <div className="service_name mt-10 flex justify-between">
-                       <div>Total</div>
-                       <div>500</div>
-                    </div>
-                    <div className="service_name mt-1 flex justify-between">
-                       <div>Discount</div>
-                       <div>- 500</div>
-                    </div>
+                    )}
+                    {/* <div className="service_name mt-1 flex justify-between">
+                        <div>Discount</div>
+                        <div>- 500</div>
+                    </div> */}
                     <div className="service_name mt-5 border-t-2 border-b-2 flex justify-between">
-                       <div>Payble Amonut</div>
-                       <div>- 500</div>
+                        <div>Payble Amonut</div>
+                        <div>{bookedData?.totalbookprice}</div>
                     </div>
                     <div className="promo_code mt-10 flex">
                         <input type="number" placeholder='Enter Your Promo code' className=' promocode_input' />

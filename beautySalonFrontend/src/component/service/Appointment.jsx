@@ -4,16 +4,22 @@ import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { customeraction } from '../../../store/customerStore'
-import { useId } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 
 function Appointment() {
   const { register, handleSubmit } = useForm()
+  const navigation = useNavigate()
   const { appointmentData, salon, services, selectserviceforbook, totalbookprice } = useSelector(store => store.user)
   const dispatch = useDispatch()
 
   const onhandleSubmit = (data) => {
-    // console.log( typeof JSON.parse(data))
+    data.Service = JSON.parse(data.Service)
+    data.totalbookprice = totalbookprice
+    data.selectserviceforbook = selectserviceforbook
     console.log(data)
+    dispatch(customeraction.handlebookData(data))
+    navigation('/paymentdeatails')
   }
 
   // handle get all services a salon 
@@ -29,11 +35,11 @@ function Appointment() {
     dispatch(customeraction.toAddServiceforbooking(JSON.parse(e.target.value)))
   }
 
-// Remove select services
+  // Remove select services
   const hanleremoveService = (id, price) => {
     dispatch(customeraction.toRemoveService({ id: id, price: price }))
   }
- // For fetch all Salon
+  // For fetch all Salon
   useEffect(() => {
     axios.get('http://localhost:3000/api/v1/salon/getallsalon').then((res) => {
       dispatch(customeraction.tosalonhandle(res.data.getAllSalon))
@@ -57,7 +63,7 @@ function Appointment() {
                 id="first-name"
                 name="starttime"
                 type="Date"
-                value={appointmentData.dateStr?.substr(0, 10)}
+                value={appointmentData?.dateStr?.substr(0, 10)}
                 {...register("starttime", { required: true })}
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -115,29 +121,15 @@ function Appointment() {
               >
                 <option value="">--select--</option>
                 {services?.map((item, index) => <option key={index} value={JSON.stringify({
-                  id: Math.floor(Math.random()*100 + 1), service: item.serviceName
+                  id: item._id, service: item.serviceName
                   , price: item.price
                 })} >{item.serviceName}</option>)}
               </select>
             </div>
           </div>
-          <div className="sm:col-span-full sm:col-start-1">
-            <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
-              Appointment Notes
-            </label>
-            <div className="mt-2">
-              <textarea
-                id="city"
-                name="appointment"
-                type="text"
-                {...register("appointment", { required: true })}
-                autoComplete="address-level2"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
+          
           <div className="sm:col-span-2 sm:col-start-1">
-            <div className="mt-2">
+            <div className="mt-20">
               <input
                 id="city"
                 name="appointment"
@@ -148,7 +140,7 @@ function Appointment() {
             </div>
           </div>
         </div>
-        <div className="vertical ml-5  bg-slate-600 w-0.5" style={{ height: "425px", position: "absolute", top: "45px", left: "670px" }}>
+        <div className="vertical ml-5  bg-slate-600 w-0.5" style={{ height: "450px", position: "absolute", top: "45px", left: "670px" }}>
 
         </div>
         <div className="appointmentreview w-2/5">

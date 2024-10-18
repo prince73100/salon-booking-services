@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
+import crypto from 'crypto';
 const userSchema = new mongoose.Schema({
     firstname: {
         type: String,
@@ -26,8 +27,8 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ["User", "Admin", "Artist", "Salon"],
-        default: "User"
+        enum: ["user", "admin", "artist", "salon"],
+        default: "user"
     },
     password: {
         type: String,
@@ -35,11 +36,13 @@ const userSchema = new mongoose.Schema({
     },
     confirmPassword: {
         type: String,
-        required:true,
-        validate: function(el){
+        required: true,
+        validate: function (el) {
             return el === this.password
         }
-    }
+    },
+    passwordResetToken: String,
+    resetTokenExpireIn: Date
 })
 
 // hashed password
@@ -51,6 +54,13 @@ userSchema.pre('save', async function (next) {
 })
 userSchema.methods.isCorrectPassword = function (newPassword) {
     return bcrypt.compare(newPassword, this.password)
+}
+
+userSchema.methods.createResetToken = function () {
+    const resetToken = crypto.randomBytes(32).toString('hex')
+    this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+    this.resetTokenExpireIn = Date.now() + 10 * 60 * 1000;
+    return resetToken;
 }
 
 export const User = mongoose.model('User', userSchema)

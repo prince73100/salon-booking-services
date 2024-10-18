@@ -38,7 +38,7 @@ const customerSlice = createSlice({
         state: datafromlocal(),
         profilename: '',
         token: tokenformlocal() || "",
-        appointmentData: {},
+        bookedData: {},
         salon: [],
         services: [],
         selectserviceforbook: [],
@@ -102,6 +102,9 @@ const customerSlice = createSlice({
         toRemoveService: (state, action) => {
             state.totalbookprice -= action.payload.price
            state.selectserviceforbook =  state.selectserviceforbook.filter((item) => item.id !== action.payload.id)
+        },
+        handlebookData:(state,action)=>{
+            state.bookedData = action.payload
         }
     }
 })
