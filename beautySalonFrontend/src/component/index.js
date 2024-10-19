@@ -17,6 +17,8 @@ import Job from './artistPanel/Job'
 import Herosection from "./salonPanel/createSalonBusiness/HomePage";
 import RegisteredBusiness from "./salonPanel/registeredBusiness/RegisteredBusiness";
 import Anouncejob from "./salonPanel/jobpostanounce/AnounceJob";
+import ForgetpasswordPage from "./signuploginpage/ForgetpasswordPage";
+import ResetPassword from "./signuploginpage/ResetPassword";
 export {
     Artiestdetail,
     Artistfulldetail,
@@ -36,5 +38,7 @@ export {
     Job,
     Herosection,
     RegisteredBusiness,
-    Anouncejob
+    Anouncejob,
+    ForgetpasswordPage,
+    ResetPassword
 }

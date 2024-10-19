@@ -61,6 +61,7 @@ const handlelogin = asyncfunhandler(async (req, res, next) => {
 
 const forgetPassword = asyncfunhandler(async (req, res, next) => {
     // 1.get user by email
+    console.log(req.body)
     const user = await User.findOne({ email: req.body.email })
     if (!user) {
         return next(new Apierror('this user not exist or invalid user', 404))
@@ -68,14 +69,15 @@ const forgetPassword = asyncfunhandler(async (req, res, next) => {
     // 2. then create a reset token which store in DB in encrypt version and return actual reset token in the email
     const resetToken = user.createResetToken()
     await user.save({ validateBeforeSave: false });
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/user/resetpassword/${resetToken}`;
+    const resetUrl = `http://localhost:5173/resetpassword/${resetToken}`;
     const message = `Forget your password?Submit a patch request with your new password and passwordConfirm to ${resetUrl}.\n IF you did not forget your password,please ingnore this email`;
-
+    const html = `<a href=${resetUrl}>click here to reset password</a>`
     try {
         sendEmail({
             email: user.email,
             subject: 'This token is valid for 10 min',
-            message
+            message,
+            html
         })
         res.status(200).json({
             status: 'success',

@@ -18,7 +18,9 @@ import {
   Job,
   Herosection,
   RegisteredBusiness,
-  Anouncejob
+  Anouncejob,
+  ForgetpasswordPage,
+  ResetPassword
 } from './component/index.js'
 import Addservices from './component/salonPanel/addServices/Addservices.jsx'
 
@@ -39,10 +41,14 @@ const router = createBrowserRouter([
       { path: '/bookingService', element: <BookbytheService /> },
       { path: '/paymentdeatails', element: <Payment /> },
       { path: '/jobs', element: <Job /> },
-      {path:'/salonbusiness',element:<Herosection/>},
-      {path:'/regiteredbusiness',element:<RegisteredBusiness/>},
-      {path:'/addServices',element:<Addservices/>},
-      {path:'/anounceJob',element:<Anouncejob/>}
+      { path: '/salonbusiness', element: <Herosection /> },
+      { path: '/regiteredbusiness', element: <RegisteredBusiness /> },
+      { path: '/addServices', element: <Addservices /> },
+      { path: '/anounceJob', element: <Anouncejob /> },
+      { path: '/forgetPassword', element: <ForgetpasswordPage /> },
+      { path: '/resetpassword/:token', element: <ResetPassword /> },
+
+
     ]
   }
 ])

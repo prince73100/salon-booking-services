@@ -68,6 +68,7 @@ function Loginpage() {
                                     {...register("password", { required: true })}
                                 />
                             </div>
+                        <Link className='text-rose-500 font-bold pt-4' to={'/forgetPassword'}>Forget your password?</Link>
                         </div>
                         <div className="sm:col-span-4">
                             <div className="mt-2">

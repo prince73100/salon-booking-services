@@ -16,7 +16,8 @@ const sendEmail = async option => {
         from: "prince <princepjng85@gmail.com>",
         to: option.email,
         subject: option.subject,
-        text: option.message
+        text: option.message,
+        html:option.html
     }
     // 3. send mail
     await tranporter.sendMail(mailOption)
