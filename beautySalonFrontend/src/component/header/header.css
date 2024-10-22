@@ -16,7 +16,7 @@
     align-items: center;
 }
 
-.list-item ul {
+.list-items ul {
     display: flex;
     gap: 50px;
     list-style: none;
@@ -24,8 +24,16 @@
     margin: 0px 0px 0px 0px;
 }
 
-.list-item ul li {
+.list-items ul li {
     cursor: pointer;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    padding: 5px 10px;
+    border: 1px solid rgb(217, 208, 208);
+    border-radius: 3px;
+}
+.list-items ul li:hover {
+   background-color: rgb(225, 29, 72);
+   color: white;
 }
 
 .profile {

@@ -12,6 +12,9 @@ const bookingSchema = new mongoose.Schema({
         default: 'pending',
         enum: ['pending', 'cancel', 'confirem']
     },
+    ispayment:{
+        
+    },
     salonID: {
         type: mongoose.Schema.ObjectId,             // For Services Id
         ref: 'Services'

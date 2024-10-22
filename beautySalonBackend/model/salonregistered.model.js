@@ -35,4 +35,6 @@ const salonRegisteredSchema = new mongoose.Schema({
     }
 })
 
+salonRegisteredSchema.index({location:'2dsphere'});
+
 export const Salonregistered = mongoose.model('Salonregistered', salonRegisteredSchema)

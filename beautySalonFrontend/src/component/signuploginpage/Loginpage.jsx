@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { customeraction } from '../../../store/customerStore'
 import { useDispatch } from 'react-redux'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Loginpage() {
     const { register, handleSubmit } = useForm()
     const navigation = useNavigate()
@@ -32,9 +33,10 @@ function Loginpage() {
                 navigation('/')
             }
         } catch (error) {
-            alert(error.response.data.message)
+            toast.error(error.response.data.message)
         }
     }
+  
     return (
         <div className="form w-1/2 mt-10  ml-80  rounded-lg border-2 border-black border-rose-500 mt-8 ">
             <div className='p-10'>
@@ -86,6 +88,7 @@ function Loginpage() {
                 <div className="sm:col-span-full mt-10">
                     <p className='text-lg font-semibold'>New user? <Link to={'/signup'} className='text-rose-500'>Sign Up</Link> </p>
                 </div>
+                <ToastContainer />
             </div>
         </div>
     )

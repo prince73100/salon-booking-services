@@ -2,44 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-.mt-8{
+.mt-8 {
     margin-top: 80px;
 }
-.containers{
+
+.containers {
     width: 100%;
-}
-::-webkit-scrollbar{
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-    background: #eae6e6; 
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #ed4c5a; 
-  }
-.footerContainer{
-    background-color: rgb(16, 15, 15);
-    width: 100%;
-    height: 400px;
-    margin-top: 40px;
-    color: white;
-    display: flex;
-   justify-content: center;
 }
 
-.footerSuBcontainer{
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #eae6e6;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ed4c5a;
+}
+
+
+.footerSuBcontainer {
     display: flex;
     justify-content: space-between;
     width: 70%;
     height: 80%;
     margin-top: 40px;
 }
-.header-logo{
+
+.header-logo {
     background-color: white;
     height: fit-content;
 }
 
-.serchBar{
+.serchBar {
     position: absolute;
     top: 200px;
     left: 25%;
@@ -47,9 +44,10 @@
     display: flex;
     justify-content: center;
     width: 50%;
-    
+
 }
-.serchBar input{
+
+.serchBar input {
     width: fit-content;
     padding-left: 10px;
     outline: none;
@@ -59,7 +57,7 @@
     width: 50%;
 }
 
-.searchlogo{
+.searchlogo {
     background-color: rgb(241, 60, 60);
     width: 50px;
     display: flex;
@@ -69,45 +67,49 @@
     border-bottom-left-radius: 5px;
 }
 
-.booking-detail-container{
+.booking-detail-container {
     margin-top: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.booking-subdetails-container{
+
+.booking-subdetails-container {
     width: 80%;
     padding-top: 50px;
 }
-.stepbar{
+
+.stepbar {
     margin-top: 71px;
 }
 
-.bookingdeatils{
+.bookingdeatils {
     margin-top: 50px;
 }
 
-.booking_timing{
+.booking_timing {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
     width: 50%;
 }
 
-.salon-list{
+.salon-list {
     width: 45%;
     border-radius: 5px;
 }
 
-hr{
+hr {
     margin-top: 40px;
     border: 1px solid white;
 }
-.total_amount_details{
+
+.total_amount_details {
     width: 40%;
     margin-top: 50px;
 }
-.total_flex{
+
+.total_flex {
     display: flex;
     width: 70%;
     justify-content: space-between;
@@ -115,17 +117,17 @@ hr{
     left: 10%;
 }
 
-.payment{
+.payment {
     margin-top: 71px;
 }
 
-.verticle_line{
-    height:100vh;
+.verticle_line {
+    height: 100vh;
     width: 2px;
     background-color: rgb(222, 53, 90);
 }
 
-.promocode_input{
+.promocode_input {
     background-color: rgb(218, 219, 220);
     padding-left: 5px;
     border: none;
@@ -134,7 +136,8 @@ hr{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
-.promo_btn{
+
+.promo_btn {
     height: 40px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -143,39 +146,57 @@ hr{
     padding-left: 5px;
     padding-right: 5px;
 }
-.top-trending-services{
+
+.top-trending-services {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
-}
-.artist_center{
-    display: flex;
-    justify-content: center;
-}
-.top-sub-trending-services{
-    width: 80%;
-}
-.artist-photo{
-    width: 80%;
-}
-.Service-info{
-    min-width: 300px;
-}
-.services-box{
-    display: flex;
-    overflow-x: scroll;
 }
 
-.artist-full-details{
-    margin-top: 71px;
-}
-.salon_partner{
+.artist_center {
     display: flex;
     justify-content: center;
 }
-.salon-sup-container{
-    width: 78%;
+
+
+.Service-info {
+    min-width: 300px;
+    animation-name: slideInBox;
+    animation-duration: 20s;
+    animation-timing-function: linear;
+    animation-delay: 0.01s;
+    animation-iteration-count: infinite;
+    /* animation-direction: alternate; */
+    /* animation: slideInBox 15s forwards infinite; */
 }
+
+@keyframes slideInBox {
+    0% {
+        transform: translateX(550%);
+    }
+
+
+    100% {
+        transform: translateX(-580%);
+    }
+}
+
+
+.services-box {
+    display: flex;
+    overflow-x: hidden;
+}
+
+.artist-full-details {
+    margin-top: 71px;
+}
+
+.salon_partner {
+    display: flex;
+    justify-content: center;
+}
+
+.salon-sup-container {}
+
 .search {
     display: flex;
     justify-content: space-around;
@@ -193,14 +214,16 @@ hr{
     border: none;
     outline: none;
 }
+
 /* .services-box {
     animation: scroll 20s linear infinite; 
   } */
 @keyframes scroll {
     0% {
-      transform: translateX(0);
+        transform: translateX(0);
     }
+
     100% {
-      transform: translateX(-100%);
+        transform: translateX(-100%);
     }
-  }
+}

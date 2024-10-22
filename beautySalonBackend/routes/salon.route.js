@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
     addServices,
+    findSalonWith_in,
     getAllposted,
     getAllSalon,
     getSalon,
@@ -22,6 +23,11 @@ router.route('/getalljobs').get(getAllposted)
 router.route('/getservice/:salonID').get(getServices)
 router.route('/getservices').get(authenticate,getServices)
 
+
+
+
+// find salon with in range 
+router.route('/findSalon_with-in/distance/:distance/center/:latlng').get(findSalonWith_in)
 
 // for post job route
 router.route('/postingjob').post(authenticate,handlePostjob)

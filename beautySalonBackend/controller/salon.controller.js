@@ -52,6 +52,22 @@ const getSalon = async (req, res) => {
 }
 
 
+// find salon within range        findSalon_with-in/distance/:distance/center/:latlng
+
+const findSalonWith_in = asyncfunhandler(async (req, res, next) => {
+    const { distance, latlng } = req.params;
+    const [lat, lng] = latlng.split(',');
+    const lnglat = [lng, lat];
+    const radius = distance / 6378.1;
+    const response = await Salonregistered.find({ location: { $geoWithin: { $centerSphere: [lnglat, radius] } } })
+    res.status(200).json({
+        status: 'success',
+        result: response.length,
+        response
+    })
+})
+
+
 //  get All Job posted by any salon
 const getAllposted = asyncfunhandler(async (req, res, next) => {
     const allJob = await Jobpost.find();
@@ -133,11 +149,11 @@ const handleAddServices = asyncfunhandler(async (req, res, next) => {
     })
 })
 // delete Services
-const haldleDeleteServices=asyncfunhandler(async(req,res,next)=>{
+const haldleDeleteServices = asyncfunhandler(async (req, res, next) => {
     const result = await Services.findByIdAndDelete(req.params.serviceId)
     res.status(200).json({
-        status:'success',
-        result:null
+        status: 'success',
+        result: null
     })
 })
 
@@ -153,6 +169,7 @@ export {
     handleRegistered,
     handleAddServices,
     getAllSalon,
-    haldleDeleteServices
+    haldleDeleteServices,
+    findSalonWith_in
 }
 

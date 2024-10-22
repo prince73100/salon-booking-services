@@ -71,13 +71,13 @@ function Header() {
           {suggestion.map((item, index) => <div key={index} onClick={() => handlefindSalon(item)} className='border-b hover:bg-rose-100 hover:cursor-pointer' >{item}</div>)}
         </div>
       }
-      <div className='list-item'>
+      <div className='list-items'>
         <ul>
           <li>Home</li>
           {/* User */}
-          {(state === true && role === 'user') && <li><Link to={'/service'}>Service</Link></li>}
+          <li><Link to={'/service'}>Service</Link></li>
           {(state === true && role === 'user') && <li><Link to={'#'}>Gallery</Link></li>}
-          {(state === true && role === 'user') && <li><Link to={'#'}>About</Link></li>}
+          <li><Link to={'#'}>About</Link></li>
           {(state === true && role === 'Salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
           {(state === true && role === 'Salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
           {/* Artist */}
@@ -89,7 +89,7 @@ function Header() {
               <Popup trigger={<button className="profile">{profilename}</button>} position="bottom right">
                 <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
               </Popup>
-            </li> : <li> <Link to={'/signup'}>SignUp</Link>/<Link to={'/login'}>Login</Link>  </li>}
+            </li> : <ul><li><Link to={'/signup'}>SignUp</Link></li> <li><Link to={'/login'}>Login</Link></li> </ul>}
         </ul>
       </div>
     </header>
@@ -98,3 +98,5 @@ function Header() {
 
 
 export default Header
+
+{/* <li> <Link to={'/signup'}>SignUp</Link>/<Link to={'/login'}>Login</Link>  </li>} */ }

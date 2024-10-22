@@ -1,0 +1,155 @@
+[
+    {
+        "_id": "670bc7c6e7100952cd16686a",
+        "salonName": "balbeer barber shop",
+        "salonType": "Facials",
+        "phone": "6789786543",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                77.3193728,
+                29.4453248
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    },
+    {
+        "_id": "670bc7c6e7100952cd16687a",
+        "salonName": "balbeer first shop",
+        "salonType": "Facials first",
+        "phone": "6789786544",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                82.956187,
+                26.422184
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    },
+    {
+        "_id": "670bc7c6e7100952cd16688a",
+        "salonName": "balbeer two shop",
+        "salonType": "Facials two",
+        "phone": "6789786545",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                82.971121,
+                26.416074
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    },
+    {
+        "_id": "670bc7c6e7100952cd16689a",
+        "salonName": "balbeer three shop",
+        "salonType": "Facials three",
+        "phone": "6789786546",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                82.958762,
+                26.415958
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    },
+    {
+        "_id": "670bc7c6e7100952cd16690a",
+        "salonName": "balbeer four shop",
+        "salonType": "Facials four",
+        "phone": "6789786547",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                82.934257,
+                26.432330
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    },
+    {
+        "_id": "670bc7c6e7100952cd16691a",
+        "salonName": "balbeer five shop",
+        "salonType": "Facials five",
+        "phone": "6789786548",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                77.051224,
+                28.620210
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    },
+    {
+        "_id": "670bc7c6e7100952cd16692a",
+        "salonName": "balbeer six shop",
+        "salonType": "Facials six",
+        "phone": "6789786549",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                77.048709,
+                28.621773
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    },
+    {
+        "_id": "670bc7c6e7100952cd16693a",
+        "salonName": "balbeer seven shop",
+        "salonType": "Facials seven",
+        "phone": "6789786550",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                77.055503,
+                28.620855
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    },
+    {
+        "_id": "670bc7c6e7100952cd16694a",
+        "salonName": "balbeer eight shop",
+        "salonType": "Facials eight",
+        "phone": "6789786551",
+        "address": "jahangeerganj",
+        "city": "Ambedkar nagar",
+        "state": "uttar pradesh",
+        "location": {
+            "coordinates": [
+                 77.050486,
+                 28.618285
+            ],
+            "type": "Point"
+        },
+        "owner": "67081d472b8eee13106ef5ae"
+    }
+]

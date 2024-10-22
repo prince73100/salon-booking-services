@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 function SignUpLogin() {
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
@@ -8,10 +9,9 @@ function SignUpLogin() {
         try {
             // eslint-disable-next-line no-unused-vars
             const user = await axios.post('http://localhost:3000/api/v1/user/signup', data)
-            console.log(data)
             navigate("/login")
         } catch (error) {
-            console.log(error.response.data.message);
+            toast.error(error.response.data.message)
         }
     }
     return (
@@ -135,6 +135,7 @@ function SignUpLogin() {
                 <div className="sm:col-span-full mt-10">
                     <p className='text-lg font-semibold'>Existing user? <Link to={'/login'} className='text-rose-500'>Login</Link> </p>
                 </div>
+                <ToastContainer />
             </div>
         </div>
     )

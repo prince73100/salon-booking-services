@@ -81,7 +81,7 @@ const forgetPassword = asyncfunhandler(async (req, res, next) => {
         })
         res.status(200).json({
             status: 'success',
-            message: 'token send to email.'
+            message: 'Reset token send to email. Click link for reset password'
         })
     } catch (error) {
         user.passwordResetToken = undefined
