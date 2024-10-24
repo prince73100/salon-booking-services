@@ -1,4 +1,4 @@
-import {  createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import hairimg from '../src/assets/sevicepic/hair.jpg'
 import handfeet from '../src/assets/sevicepic/handandfeet.jpg'
 import makeupimg from '../src/assets/sevicepic/makeup.jpg'
@@ -39,14 +39,14 @@ const customerSlice = createSlice({
         profilename: '',
         token: tokenformlocal() || "",
         bookedData: {},
-        salon: [],
+        salon_with_in_range: [],
         services: [],
         selectserviceforbook: [],
         totalbookprice: 0,
-        services_provide:[
+        services_provide: [
             {
                 imgSrc: hairimg,
-                services: 'Hair Cutting',
+                services: 'Hair Care',
                 price: 500
             },
             {
@@ -74,7 +74,7 @@ const customerSlice = createSlice({
                 services: 'Body Massage',
                 price: 400
             }
-        ]
+        ],
     },
     reducers: {
         toUpdatestate: (state, action) => {
@@ -90,7 +90,7 @@ const customerSlice = createSlice({
             state.appointmentData = action.payload
         },
         tosalonhandle: (state, action) => {
-            state.salon = action.payload
+            state.salon_with_in_range = action.payload
         },
         toserviceHandle: (state, action) => {
             state.services = action.payload
@@ -101,9 +101,9 @@ const customerSlice = createSlice({
         },
         toRemoveService: (state, action) => {
             state.totalbookprice -= action.payload.price
-           state.selectserviceforbook =  state.selectserviceforbook.filter((item) => item.id !== action.payload.id)
+            state.selectserviceforbook = state.selectserviceforbook.filter((item) => item.id !== action.payload.id)
         },
-        handlebookData:(state,action)=>{
+        handlebookData: (state, action) => {
             state.bookedData = action.payload
         }
     }

@@ -6,6 +6,7 @@ import sendEmail from "../utility/sendEmail.js"
 import crypto from 'crypto'
 
 const handleSignUp = asyncfunhandler(async (req, res, next) => {
+    console.log(req.body)
     const { firstname, lastname, phone, email, address, password, confirmPassword } = req.body
     if (firstname === "" || email === "") {
         return next(new Apierror('Firstname and email must be require', 400))

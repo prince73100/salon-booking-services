@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
+import { useEffect } from 'react';
 function SignUpLogin() {
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
@@ -14,8 +15,11 @@ function SignUpLogin() {
             toast.error(error.response.data.message)
         }
     }
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scrolls to the top (x, y)
+    }, []);
     return (
-        <div className="form w-1/2 mt-8  ml-80  rounded-lg border-2 border-rose-500 ">
+        <div className="form w-1/2 mt-8  ml-80  rounded-lg  shadow-lg shadow-rose-500/100  ">
             <div className='p-10'>
                 <div className="heading w-3/4 ml-60 pt-2">
                     <h1 className='font-serif font-bold text-2xl'>Sign Up</h1>
@@ -84,10 +88,10 @@ function SignUpLogin() {
                                     className="block  w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                 >
                                     <option disabled>--Select role--</option>
-                                    <option>User</option>
-                                    <option>Artist</option>
-                                    <option>Salon</option>
-                                    <option>Admin</option>
+                                    <option>user</option>
+                                    <option>artist</option>
+                                    <option>salon</option>
+                                    <option>admin</option>
                                 </select>
                             </div>
                         </div>
@@ -126,7 +130,7 @@ function SignUpLogin() {
                                     name="first-name"
                                     id="submit"
                                     autoComplete="given-name"
-                                    className="block cursor-pointer w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4 bg-pink-600 "
+                                    className="block cursor-pointer w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4 bg-rose-500 "
                                 />
                             </div>
                         </div>

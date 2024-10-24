@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       { path: '/payment', element: <Payment /> },
       { path: '/appoitment', element: <Appointment /> },
       { path: '/artistdetail', element: <Artistfulldetail /> },
-      { path: '/bookingService', element: <BookbytheService /> },
+      { path: '/bookingService/:serviceId/:serviceName/:price', element: <BookbytheService /> },
       { path: '/paymentdeatails', element: <Payment /> },
       { path: '/jobs', element: <Job /> },
       { path: '/salonbusiness', element: <Herosection /> },

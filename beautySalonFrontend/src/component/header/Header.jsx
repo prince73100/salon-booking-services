@@ -62,7 +62,7 @@ function Header() {
         <Link to={'/'}><img src={mainlogo} alt="" /></Link>
       </div>
 
-      {(state === true && role === 'Artist') && <div className="search w-1/4">
+      {(state === true && role === 'artist') && <div className="search w-1/4">
         <IoIosSearch />
         <input type="search" placeholder='Search Salon for job' onChange={handleChange} value={searchKeyword} />
       </div>}
@@ -75,21 +75,22 @@ function Header() {
         <ul>
           <li>Home</li>
           {/* User */}
-          <li><Link to={'/service'}>Service</Link></li>
+          {(state===true && role === 'salon') ? <></>:<li><Link to={'/service'}>Service</Link></li>}
+          
           {(state === true && role === 'user') && <li><Link to={'#'}>Gallery</Link></li>}
           <li><Link to={'#'}>About</Link></li>
-          {(state === true && role === 'Salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
-          {(state === true && role === 'Salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
+          {(state === true && role === 'salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
+          {(state === true && role === 'salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
           {/* Artist */}
           {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
           {/* salon route */}
-          {(state === true && role === 'Salon') && <li><Link to={'/addServices'}>Add Services</Link></li>}
+          {(state === true && role === 'salon') && <li><Link to={'/addServices'}>Add Services</Link></li>}
           {state === true ?
-            <li>
+            <>
               <Popup trigger={<button className="profile">{profilename}</button>} position="bottom right">
                 <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
               </Popup>
-            </li> : <ul><li><Link to={'/signup'}>SignUp</Link></li> <li><Link to={'/login'}>Login</Link></li> </ul>}
+            </> : <ul><li><Link to={'/signup'}>SignUp</Link></li> <li><Link to={'/login'}>Login</Link></li> </ul>}
         </ul>
       </div>
     </header>

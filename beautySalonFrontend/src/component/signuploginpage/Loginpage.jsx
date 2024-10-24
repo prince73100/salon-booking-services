@@ -6,6 +6,7 @@ import { customeraction } from '../../../store/customerStore'
 import { useDispatch } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react'
 function Loginpage() {
     const { register, handleSubmit } = useForm()
     const navigation = useNavigate()
@@ -21,12 +22,12 @@ function Loginpage() {
             localStorage.setItem('exipreIn', expireIn)
             localStorage.setItem('role',res.data.user.role)
             dispatch(customeraction.toUpdatestate(true))
-            if (res.data.user.role === "Artist") {
+            if (res.data.user.role === "artist") {
                 navigation('/jobs')
-            }else if(res.data.user.role === "Salon"){
+            }else if(res.data.user.role === "salon"){
                 navigation('/salonbusiness')
             }
-            else if(res.data.user.role === "Admin"){
+            else if(res.data.user.role === "admin"){
                 navigation('#')
             }
             else{
@@ -36,16 +37,18 @@ function Loginpage() {
             toast.error(error.response.data.message)
         }
     }
-  
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scrolls to the top (x, y)
+    }, []);
     return (
-        <div className="form w-1/2 mt-10  ml-80  rounded-lg border-2 border-black border-rose-500 mt-8 ">
+        <div className="form w-1/2 mt-10  ml-80  rounded-lg shadow-lg shadow-rose-600/100 mt-8 ">
             <div className='p-10'>
                 <div className="heading w-3/4 ml-60 pt-2">
                     <h1 className='font-serif font-bold text-2xl'>Login</h1>
                 </div>
                 <form onSubmit={handleSubmit(login)} className='ml-20 w-3/4'>
                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div className="sm:col-span-4">
+                        <div className="sm:col-span-6">
                             <div className="mt-2">
                                 <input
                                     type="email"
@@ -58,7 +61,7 @@ function Loginpage() {
                                 />
                             </div>
                         </div>
-                        <div className="sm:col-span-4">
+                        <div className="sm:col-span-6">
                             <div className="mt-2">
                                 <input
                                     type="text"
@@ -70,23 +73,23 @@ function Loginpage() {
                                     {...register("password", { required: true })}
                                 />
                             </div>
-                        <Link className='text-rose-500 font-bold pt-4' to={'/forgetPassword'}>Forget your password?</Link>
+                        <Link className='text-rose-500 font-serif font-bold pt-4' to={'/forgetPassword'}>Forget your password?</Link>
                         </div>
-                        <div className="sm:col-span-4">
+                        <div className="sm:col-span-6">
                             <div className="mt-2">
                                 <input
                                     type="submit"
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4 bg-pink-600 "
+                                    className=" text-3xl font-bold block cursor-pointer w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4 bg-rose-500 "
                                 />
                             </div>
                         </div>
                     </div>
                 </form>
                 <div className="sm:col-span-full mt-10">
-                    <p className='text-lg font-semibold'>New user? <Link to={'/signup'} className='text-rose-500'>Sign Up</Link> </p>
+                    <p className='text-lg font-bold font-serif'>New user? <Link to={'/signup'} className='text-rose-500'>Sign Up</Link> </p>
                 </div>
                 <ToastContainer />
             </div>

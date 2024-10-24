@@ -17,12 +17,16 @@ import calendericon from '../../assets/icon/calendericon.png'
 import enjoyicon from '../../assets/icon/enjoyicon.png'
 import selecticon from '../../assets/icon/selecticon.png'
 import Testinomials from '../Testinomial/Testinomials.jsx'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { customeraction } from '../../../store/customerStore.js'
+import axios from 'axios'
 
 
 
 const Boxchooseus = ({ image, context }) => {
   return <>
-    <div className="bg-white w-60 shadow-2xl  hover:-translate-y-1 hover:scale-110 hover:bg-rose-100 duration-300">
+    <div className="bg-white w-60 shadow-inner  hover:-translate-y-1 hover:scale-110 hover:bg-rose-100 duration-300">
       <div className="imag  flex justify-center py-2">
         <img src={image} alt="c" className='w-20' />
       </div>
@@ -34,8 +38,12 @@ const Boxchooseus = ({ image, context }) => {
 }
 
 function Heropage() {
-  const { state, services_provide } = useSelector(store => store.user)
+  const { state, services_provide, salon_with_in_range } = useSelector(store => store.user)
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to the top (x, y)
+  }, []);
   const boxContent = [
     {
       image: verifypersion,
@@ -73,6 +81,20 @@ function Heropage() {
     }
   ]
 
+  const fetchSalonWithIn = async () => {
+    try {
+      const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/1/center/27.2072704,78.0468224`)
+      dispatch(customeraction.tosalonhandle(res.data.response))
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to the top (x, y)
+  }, []);
+  useEffect(() => {
+    fetchSalonWithIn()
+  }, []);
   return (
     <>
       {/* banner page */}
@@ -102,7 +124,7 @@ function Heropage() {
             <div className='flex justify-center py-5'>
               <div className='w-11/12'>
                 <p className='font-serif text-center'>Discover a world of luxury, relaxation, and personal care at your fingertips. Whether you're looking to book your next salon visit, connect with talented beauty artists, or offer your own professional services, [Your Website Name] is here to make it easy.</p>
-                <p className='font-serif text-center pt-5'>Indulge in a seamless booking experience with trusted salons and artists in your area. From haircuts to makeup and spa treatments, we’ve got all your beauty needs covered. Your journey to effortless beauty starts here!</p>
+                <p className='font-serif text-center pt-5 pb-10'>Indulge in a seamless booking experience with trusted salons and artists in your area. From haircuts to makeup and spa treatments, we’ve got all your beauty needs covered. Your journey to effortless beauty starts here!</p>
               </div>
             </div>
           </div>
@@ -111,13 +133,26 @@ function Heropage() {
 
       {/* our respected salon */}
 
-      <div className='containers mt-2 mb-20'>
+      <div className='containers mt-2 mb-20 h-fit'>
         <div className='hero-image flex justify-center'>
           <h1 className='text-center font-serif text-4xl font-bold mb-5 pb-10 w-11/12' >Nearest Salon for you</h1>
         </div>
+        <div className='flex justify-center mb-5'>
+          <div className='w-11/12'>
+            <div>
+              <label htmlFor="distance" className='font-serif font-bold text-lg'>Distance</label><br />
+              <select name="cars" id="distance" style={{ border: '1px solid black' }}>
+                <option value="" disabled>--Select Distance--</option>
+                <option value="1">0-1 km</option>
+                <option value="5">2-5 km</option>
+                <option value="8">5-8 km</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <div className="salon_partner">
-          <div className="salon-sup-container w-11/12">
-            <SalonContainers />
+          <div className="salon-sup-container w-11/12 flex justify-start gap-16 flex-wrap">
+            {salon_with_in_range?.map((item, index) => <SalonContainers key={index} item={item} />)}
           </div>
         </div>
       </div>

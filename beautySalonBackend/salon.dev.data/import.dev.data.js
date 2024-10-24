@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Salonregistered } from "../model/salonregistered.model.js";
+import { User } from "../model/user.model.js";
 import fs from 'fs'
 import dotenv from 'dotenv'
 

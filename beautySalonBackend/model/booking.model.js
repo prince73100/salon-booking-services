@@ -4,6 +4,9 @@ const bookingSchema = new mongoose.Schema({
     serviceName: {
         type: String
     },
+    price: {
+        type: Number
+    },
     serviceDateAndTime: {
         type: Date
     },
@@ -12,8 +15,9 @@ const bookingSchema = new mongoose.Schema({
         default: 'pending',
         enum: ['pending', 'cancel', 'confirem']
     },
-    ispayment:{
-        
+    ispayment: {
+        type: Boolean,
+        default: false
     },
     salonID: {
         type: mongoose.Schema.ObjectId,             // For Services Id

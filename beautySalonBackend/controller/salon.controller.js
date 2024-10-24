@@ -4,6 +4,7 @@ import asyncfunhandler from "../utility/asyncFunction.js"
 import { Salonregistered } from "../model/salonregistered.model.js"
 import { Services } from "../model/services.model.js"
 import Apierror from "../utility/Apierror.js"
+import { uploadOncloudinary } from "../utility/cloundinary.js"
 
 
 
@@ -51,6 +52,34 @@ const getSalon = async (req, res) => {
     }
 }
 
+
+
+// get All Service but unique 
+const getUniqueServices = asyncfunhandler(async (req, res, next) => {
+    //1 .find all the salon with in range
+    const { distance, latlng } = req.params;
+    const [lat, lng] = latlng.split(',');
+    const lnglat = [lng, lat];
+    const radius = distance / 6378.1;
+    const response = await Salonregistered.find({ location: { $geoWithin: { $centerSphere: [lnglat, radius] } } }).select('_id')
+    const salonId = response.map(salon => salon._id);
+    // 2. get all salon 
+    let services = await Services.find().sort('price');
+
+    let uniqueServices = [];
+    salonId.forEach((item) => {
+        services.forEach((el)=>{
+            if(el.servicesCreatedBy === item._id){
+                console.log(el.servicesCreatedBy === item._id)
+            }
+        })
+    })
+    res.status(201).json({
+        status: 'success',
+        result: uniqueServices.length,
+        uniqueServices
+    })
+})
 
 // find salon within range        findSalon_with-in/distance/:distance/center/:latlng
 
@@ -127,10 +156,23 @@ const getServices = asyncfunhandler(async (req, res) => {
 })
 // handle Registered methods
 const handleRegistered = asyncfunhandler(async (req, res, next) => {
-    req.body.owner = req.user.id
-    const registeredSalon = await Salonregistered.create(req.body);
+    const paths = await uploadOncloudinary(req.file.path)
+    const registeredSalon = await Salonregistered.create({
+        salonName: req.body.salonName,
+        salonType: req.body.salonType,
+        phone: req.body.phone,
+        address: req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        location: {
+            coordinates: [Number(req.body.location.split(',')[0]), Number(req.body.location.split(',')[1])]
+        },
+        imageofSalon: paths.url,
+        owner: req.user.id
+    })
     res.status(201).json({
         status: 'success',
+        message: 'Your Business Registered Successfully',
         registeredSalon
     })
 })
@@ -170,6 +212,7 @@ export {
     handleAddServices,
     getAllSalon,
     haldleDeleteServices,
-    findSalonWith_in
+    findSalonWith_in,
+    getUniqueServices
 }
 

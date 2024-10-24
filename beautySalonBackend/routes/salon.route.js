@@ -6,6 +6,7 @@ import {
     getAllSalon,
     getSalon,
     getServices,
+    getUniqueServices,
     haldleDeleteServices,
     handleAddServices,
     handlePostjob,
@@ -24,7 +25,8 @@ router.route('/getservice/:salonID').get(getServices)
 router.route('/getservices').get(authenticate,getServices)
 
 
-
+//find unique services uniqueServices
+router.route('/uniqueServices/distance/:distance/center/:latlng').get(getUniqueServices)
 
 // find salon with in range 
 router.route('/findSalon_with-in/distance/:distance/center/:latlng').get(findSalonWith_in)
@@ -34,7 +36,7 @@ router.route('/postingjob').post(authenticate,handlePostjob)
 
 router.route('/getallsalon').get(getAllSalon)
 // Registered salon route         authenticate
-router.route('/rgistered').post(authenticate,handleRegistered)   
+router.route('/rgistered').post(authenticate,upload.single('image'),handleRegistered)   
 router.route('/addServices').post(authenticate,upload.single('image'),handleAddServices)
 // delete Services
 router.route('/deleteservices/:serviceId').delete(authenticate,haldleDeleteServices)

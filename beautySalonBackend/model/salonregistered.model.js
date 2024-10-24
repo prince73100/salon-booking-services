@@ -29,6 +29,10 @@ const salonRegisteredSchema = new mongoose.Schema({
         },
         coordinates: [Number]
     },
+    imageofSalon:{
+        type:String,
+        require:true
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

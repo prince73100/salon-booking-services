@@ -1,17 +1,17 @@
+/* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
-import salimg from '../../assets/salonimg/image.png'
-function SalonContainers() {
+function SalonContainers({item}) {
     return (
-        <div className="salon-container w-1/4 ">
+        <div className="salon-container" style={{maxWidth:'250px'}}>
             <div className="salon-img">
-                <img src={salimg} alt="image 1" />
+                <img src={item.imageofSalon} alt="image 1" style={{height:"300px"}} />
             </div>
             <div className="salon-content">
                 <p className='text-xl font-bold'>
-                    salon testing first
+                    {item.salonName}
                 </p>
                 <p className="address mb-5">
-                    Ambedkar nagar
+                    {item.address}
                 </p>
                 <Link className='bg-rose-500 font-serif p-3 px-5 text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Book Now</Link>
             </div>

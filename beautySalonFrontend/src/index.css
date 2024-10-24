@@ -91,11 +91,11 @@
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    width: 50%;
+    width: 64%;
 }
 
 .salon-list {
-    width: 45%;
+    width: 35%;
     border-radius: 5px;
 }
 
@@ -106,7 +106,6 @@ hr {
 
 .total_amount_details {
     width: 40%;
-    margin-top: 50px;
 }
 
 .total_flex {
@@ -161,14 +160,16 @@ hr {
 .Service-info {
     min-width: 300px;
     animation-name: slideInBox;
-    animation-duration: 20s;
+    animation-duration: 30s;
     animation-timing-function: linear;
     animation-delay: 0.01s;
     animation-iteration-count: infinite;
     /* animation-direction: alternate; */
     /* animation: slideInBox 15s forwards infinite; */
 }
-
+.Service-info:hover{
+    
+}
 @keyframes slideInBox {
     0% {
         transform: translateX(550%);
