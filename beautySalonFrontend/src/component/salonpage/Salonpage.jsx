@@ -12,7 +12,6 @@ function Salonpage() {
         const SingleSalon = await axios.get(`http://localhost:3000/api/v1/salon/getsalonById/${salonId}`)
         setSalon(SingleSalon.data.salonbyId)
     }
-    console.log(salon)
     useEffect(() => {
         fetchImage();
     }, [])
@@ -27,8 +26,8 @@ function Salonpage() {
                     }
                 }
             )
-            setServices(servicesProvide.data.allServices)
             console.log(servicesProvide)
+            setServices(servicesProvide.data.allServices)
         } catch (error) {
             console.log("Error=", error)
         }
@@ -56,7 +55,7 @@ function Salonpage() {
                         <div className='' style={{ width: '40%' }}>
                             <h1 className='text-center font-bold text-xl font-serif'>Provide Services</h1>
                             <div className="services-container flex ">
-                                {service.map((el, index) => <Sercomponents item={el} key={index} textSize={'text-xs'} ispriceDisplay={true}/>)}
+                                {service.map((el, index) => <Sercomponents item={el} key={index} textSize={'text-xs'} ispriceDisplay={true} />)}
                             </div>
                         </div>
                     </div>

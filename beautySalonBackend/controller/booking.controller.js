@@ -16,7 +16,7 @@ const createBooking = asyncfunhandler(async (req, res, next) => {
     })
 })
 
-const bookedConfirm = asyncfunhandler(async (req, res) => {
+const bookedConfirm = asyncfunhandler(async (req, res, next) => {
     console.log(req.body)
 
     const newBooking = new Booking({
@@ -24,14 +24,26 @@ const bookedConfirm = asyncfunhandler(async (req, res) => {
         razorpayOrderId: req.body.razorpayOrderId,
         serviceName: req.body.bookedData.serviceName,
         price: req.body.bookedData.price,
+        salonID: req.body.bookedData.salonId,
+        bookedBy: req.user.id,
+        serviceDateAndTime: req.body.bookedData.date
     });
 
     await newBooking.save();
-
     res.json({ message: 'Booking confirmed!' });
+})
+
+
+const getBookingDetailById = asyncfunhandler(async (req, res, next) => {
+    const bookingDetails = await Booking.find({ salonID: req.params.salonid });
+    res.status(200).json({
+        status: 'success',
+        bookingDetails
+    })
 })
 
 export {
     createBooking,
-    bookedConfirm
+    bookedConfirm,
+    getBookingDetailById
 }

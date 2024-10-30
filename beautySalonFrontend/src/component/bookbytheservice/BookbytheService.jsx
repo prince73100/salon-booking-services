@@ -12,9 +12,9 @@ import axios from 'axios'
 function BookbytheService() {
   const { salon_with_in_range } = useSelector(store => store.user)
   const dispatch = useDispatch()
-  const { price, serviceName, salonNames } = useParams()
+  const { price, serviceName, salonNames, salonId } = useParams()
   const [dates, setdates] = useState()
-  const [salonName, setsalonName] = useState('')
+  const [booking, setbooking] = useState([])
   const navigation = useNavigate()
 
   // run after click on the calender
@@ -25,14 +25,14 @@ function BookbytheService() {
       return
     }
     setdates(data.dateStr)
-    console.log(data)
   }
   const handleServices = () => {
     const serivcesData = {
       date: dates,
       salonNames,
       price,
-      serviceName
+      serviceName,
+      salonId
     }
     if (serivcesData.date === "") {
       alert("Please Enter All detail")
@@ -50,13 +50,32 @@ function BookbytheService() {
       console.log(error.message)
     }
   }
+
+  // Fetch Booking Detail for a specifi detail
+  const fetchBookingDetailForSalon = async () => {
+    try {
+      const res = await axios.get(`http://localhost:3000/api/v1/booked/getSalon/${salonId}`)
+      const scheduleArray = res.data.bookingDetails.map((el) => {
+        const obj = {}
+        obj.title = 'Booked',
+          obj.start = el.serviceDateAndTime
+        obj.color = '#ff0001'
+        return obj
+      })
+      setbooking(scheduleArray)
+    } catch (error) {
+      console.log("ERROR:", error)
+    }
+  }
   useEffect(() => {
     window.scrollTo(0, 0); // Scrolls to the top (x, y)
   }, []);
 
   useEffect(() => {
-    fetchSalonWithIn()
+    fetchSalonWithIn();
+    fetchBookingDetailForSalon();
   }, []);
+
 
   return (
     <div className='booking-detail-container bg-gradient-to-t from-rose-100 to-rose-400'>
@@ -83,6 +102,8 @@ function BookbytheService() {
               validRange={{
                 start: new Date().toISOString().split("T")[0], // Disable past dates
               }}
+
+              events={booking}
             />
           </div>
           {/* <div className="salon-list bg-white ">

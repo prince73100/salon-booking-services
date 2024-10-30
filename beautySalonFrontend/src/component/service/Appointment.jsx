@@ -127,7 +127,7 @@ function Appointment() {
               </select>
             </div>
           </div>
-          
+
           <div className="sm:col-span-2 sm:col-start-1">
             <div className="mt-20">
               <input

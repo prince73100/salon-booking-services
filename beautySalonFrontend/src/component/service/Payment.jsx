@@ -4,13 +4,18 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 function Payment() {
+    const token = localStorage.getItem('jwt')
     const { bookedData } = useSelector(store => store.user)
 
     console.log(bookedData)
     const handlePayment = async () => {
         try {
             // 1. create order
-            const orderResponse = await axios.post('http://localhost:3000/api/v1/booked/order', bookedData)
+            const orderResponse = await axios.post('http://localhost:3000/api/v1/booked/order', bookedData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             console.log(orderResponse)
             //2. Open Razorpay payment modal with order_id and other details
 
@@ -26,8 +31,12 @@ function Payment() {
                         razorpayPaymentId: paymentId,
                         razorpayOrderId: orderId,
                         bookedData
+                    }, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
                     });
-                     console.log(res)
+                    console.log(res)
                     alert('Payment Successful!');
                 },
                 theme: {
@@ -137,3 +146,8 @@ function Payment() {
 }
 
 export default Payment
+
+
+
+
+// bookingService/${item?._id}/${item?.serviceName}/${item.price}/${item?.servicesCreatedBy?._id}/${item?.servicesCreatedBy?.salonName}` : '/login'

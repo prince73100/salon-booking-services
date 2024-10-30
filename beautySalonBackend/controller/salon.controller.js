@@ -89,10 +89,10 @@ const getAllSalon = asyncfunhandler(async (req, res, next) => {
 const getServices = asyncfunhandler(async (req, res) => {
     let allServices;
     if (req.params.salonID) {
-        allServices = await Services.find({ servicesCreatedBy: req.params.salonID }).select('serviceName price image')
+        allServices = await Services.find({ servicesCreatedBy: req.params.salonID }).populate('servicesCreatedBy')
     } else {
         const currentSalon = await Salonregistered.find({ owner: req.user._id })
-        allServices = await Services.find({ servicesCreatedBy: currentSalon[0]._id }).select('serviceName price image')
+        allServices = (await Services.find({ servicesCreatedBy: currentSalon[0]._id })).populate('servicesCreatedBy')
     }
     res.status(200).json({
         status: 'success',

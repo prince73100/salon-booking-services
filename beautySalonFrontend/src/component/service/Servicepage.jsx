@@ -12,7 +12,6 @@ import { customeraction } from '../../../store/customerStore.js'
 
 export function Sercomponents({ item, ispriceDisplay = false, textSize = 'text-xl', isSalonnameDisplay }) {
     const { state } = useSelector(store => store.user)
-
     return (
         <div className='Service-infos  min-h-80  mt-4' >
             <div className="service-image ml-5" >
