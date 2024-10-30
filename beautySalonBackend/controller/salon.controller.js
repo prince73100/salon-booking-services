@@ -7,82 +7,28 @@ import Apierror from "../utility/Apierror.js"
 import { uploadOncloudinary } from "../utility/cloundinary.js"
 
 
-
-
-// Add services 
-const addServices = async (req, res) => {
-    try {
-        const data = req.body
-        const userId = req.user.id
-        const sservices = await Service.findOne({ salonrefc: userId })
-        if (sservices) {
-            const servicename = sservices.servicesname
-            const response = await Service.findOneAndUpdate({ salonrefc: userId }, {
-                servicesname: [...servicename, ...data]
-            }, { new: true })
-            return res.json({
-                message: "ADD",
-                response
-            })
-        }
-        const resultServices = await Service.create({
-            servicesname: data,
-            salonrefc: req.user.id
-        })
-        res.status(200).json({
-            message: "add",
-            resultServices
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
-// get all salon
-const getSalon = async (req, res) => {
-    try {
-        const salon = await Salon.find()
-        return res.status(200).json({
-            message: "Get all salon ",
-            salon
-        })
-    } catch (error) {
-
-    }
-}
-
-
+// get salon by SalonID
+const getSalonById = asyncfunhandler(async (req, res, next) => {
+    const salonbyId = await Salonregistered.findById(req.params.salonId).select('-location -__v').populate('owner')
+    res.status(200).json({
+        status: 'success',
+        salonbyId
+    })
+})
 
 // get All Service but unique 
 const getUniqueServices = asyncfunhandler(async (req, res, next) => {
-    //1 .find all the salon with in range
-    const { distance, latlng } = req.params;
-    const [lat, lng] = latlng.split(',');
-    const lnglat = [lng, lat];
-    const radius = distance / 6378.1;
-    const response = await Salonregistered.find({ location: { $geoWithin: { $centerSphere: [lnglat, radius] } } }).select('_id')
-    const salonId = response.map(salon => salon._id);
-    // 2. get all salon 
-    let services = await Services.find().sort('price');
-
+    // 1. get all salon 
+    let services = await Services.find().populate('servicesCreatedBy')
     let uniqueServices = [];
-    salonId.forEach((item) => {
-        services.forEach((el)=>{
-            if(el.servicesCreatedBy === item._id){
-                console.log(el.servicesCreatedBy === item._id)
-            }
-        })
-    })
     res.status(201).json({
         status: 'success',
-        result: uniqueServices.length,
-        uniqueServices
+        result: services.length,
+        services
     })
 })
 
 // find salon within range        findSalon_with-in/distance/:distance/center/:latlng
-
 const findSalonWith_in = asyncfunhandler(async (req, res, next) => {
     const { distance, latlng } = req.params;
     const [lat, lng] = latlng.split(',');
@@ -95,7 +41,6 @@ const findSalonWith_in = asyncfunhandler(async (req, res, next) => {
         response
     })
 })
-
 
 //  get All Job posted by any salon
 const getAllposted = asyncfunhandler(async (req, res, next) => {
@@ -178,11 +123,12 @@ const handleRegistered = asyncfunhandler(async (req, res, next) => {
 })
 // add service
 const handleAddServices = asyncfunhandler(async (req, res, next) => {
+    const path = await uploadOncloudinary(req.file.path)
     const currentSalon = await Salonregistered.find({ owner: req.user._id })
     const newServices = await Services.create({
         serviceName: req.body.serviceName,
         price: req.body.price,
-        image: req.file.filename,
+        image: path.url,
         servicesCreatedBy: currentSalon[0]._id
     })
     res.status(201).json({
@@ -199,20 +145,21 @@ const haldleDeleteServices = asyncfunhandler(async (req, res, next) => {
     })
 })
 
+
+
+
+
+
 export {
-    addServices,
-    getSalon,
     handlePostjob,
     getAllposted,
-
-
-
     getServices,
     handleRegistered,
     handleAddServices,
     getAllSalon,
     haldleDeleteServices,
     findSalonWith_in,
-    getUniqueServices
+    getUniqueServices,
+    getSalonById
 }
 

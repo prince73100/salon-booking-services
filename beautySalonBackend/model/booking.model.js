@@ -5,7 +5,7 @@ const bookingSchema = new mongoose.Schema({
         type: String
     },
     price: {
-        type: Number
+        type: String
     },
     serviceDateAndTime: {
         type: Date
@@ -20,12 +20,18 @@ const bookingSchema = new mongoose.Schema({
         default: false
     },
     salonID: {
-        type: mongoose.Schema.ObjectId,             // For Services Id
-        ref: 'Services'
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
     },
     bookedBy: {
         type: mongoose.Schema.ObjectId,             // for  user id whhich represent user which is book
         ref: 'User'
+    },
+    razorpayPaymentId:{
+        type:String
+    },
+    razorpayOrderId:{
+        type:String
     }
 }, { timestamps: true })
 

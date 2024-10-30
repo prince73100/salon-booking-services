@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
 import Artiestdetail from '../artistdeatail/Artiestdetail'
 import data from '../../../artistdata.js'
 import salonbanner from '../../assets/sevicepic/image.png'
@@ -82,6 +79,7 @@ function Heropage() {
   ]
 
   const fetchSalonWithIn = async () => {
+    console.log('salon function')
     try {
       const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/1/center/27.2072704,78.0468224`)
       dispatch(customeraction.tosalonhandle(res.data.response))
@@ -89,12 +87,43 @@ function Heropage() {
       console.log(error.message)
     }
   }
+
+  const find_all_service_withInRange = async () => {
+    try {
+      const services = await axios.get('http://localhost:3000/api/v1/salon/uniqueServices')
+      const salonId = salon_with_in_range.map(el => el._id)
+      console.log(salon_with_in_range)
+      const servces_with_in_range = []
+      services.data.services.forEach((el) => {
+        if (salonId.includes(el.servicesCreatedBy._id)) {
+          servces_with_in_range.push(el)
+        }
+      })
+      const unique_Array_with_in_range = servces_with_in_range.reduce((acc, currentv) => {
+        if (!acc.find(item => item.serviceName === currentv.serviceName)) {
+          acc.push(currentv)
+        }
+        return acc
+      }, [])
+      dispatch(customeraction.handleAllServices(services.data.services))
+      dispatch(customeraction.handleShowServices(unique_Array_with_in_range))
+    } catch (error) {
+      console.log("Error=>", error)
+    }
+
+  }
+
+
   useEffect(() => {
     window.scrollTo(0, 0); // Scrolls to the top (x, y)
   }, []);
   useEffect(() => {
     fetchSalonWithIn()
   }, []);
+  useEffect(() => {
+    find_all_service_withInRange();
+  }, [salon_with_in_range])
+
   return (
     <>
       {/* banner page */}

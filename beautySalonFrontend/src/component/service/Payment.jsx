@@ -2,9 +2,46 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 function Payment() {
     const { bookedData } = useSelector(store => store.user)
+
     console.log(bookedData)
+    const handlePayment = async () => {
+        try {
+            // 1. create order
+            const orderResponse = await axios.post('http://localhost:3000/api/v1/booked/order', bookedData)
+            console.log(orderResponse)
+            //2. Open Razorpay payment modal with order_id and other details
+
+            const options = {
+                key: "rzp_test_jQ97VLuhTDd5xp",
+                amount: orderResponse.data.amount,
+                currency: orderResponse.data.currency,
+                order_id: orderResponse.data.razorpayOrderId,
+                handler: async function (response) {
+                    const paymentId = response.razorpay_payment_id;
+                    const orderId = response.razorpay_order_id;
+                    const res = await axios.post('http://localhost:3000/api/v1/booked/confirm', {
+                        razorpayPaymentId: paymentId,
+                        razorpayOrderId: orderId,
+                        bookedData
+                    });
+                     console.log(res)
+                    alert('Payment Successful!');
+                },
+                theme: {
+                    color: "#F37254",
+                },
+            }
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+            console.log(orderResponse)
+        } catch (error) {
+            console.log("ERROR:", error)
+        }
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -23,7 +60,7 @@ function Payment() {
                 <div className='w-2/3'>
                     <hr className='my-5' />
                     <div className="pament-detail">
-                        <div className="pay-heading">
+                        {/* <div className="pay-heading">
                             <h3 className='font-serif font-bold text-xl'>Payment method</h3>
                             <div className="radio-btn mt-4">
                                 <input type="radio" className='mr-4' name='payment' value={'credit_card'} />
@@ -50,7 +87,7 @@ function Payment() {
                                     <input type="number" placeholder='CVV' style={{ padding: '5px', outline: 'none' }} />
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="otheer-option flex my-5">
                             <input type="radio" className='mr-5' name='payment' value={'upi'} />
                             <h3 className='font-serif font-bold'>UPI</h3>
@@ -61,7 +98,7 @@ function Payment() {
                         </div>
                     </div>
                     <div className='my-8'>
-                        <Link to={'/continuetopay'} className='bg-pink-700 text-white font-serif font-bold p-5 rounded-lg'> Confirm and Pay</Link>
+                        <button className='bg-pink-700 text-white font-serif font-bold p-5 rounded-lg' onClick={handlePayment}> Confirm and Pay</button>
                     </div>
                 </div>
                 <div className='verticle_line'>

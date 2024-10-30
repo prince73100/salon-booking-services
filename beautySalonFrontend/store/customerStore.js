@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import hairimg from '../src/assets/sevicepic/hair.jpg'
-import handfeet from '../src/assets/sevicepic/handandfeet.jpg'
-import makeupimg from '../src/assets/sevicepic/makeup.jpg'
-import skinimg from '../src/assets/sevicepic/skin.jpg'
-import bodymassage from '../src/assets/sevicepic/bodymassage.jpg'
+
 const datafromlocal = () => {
     try {
         const currentDate = Date.now()
@@ -43,38 +39,8 @@ const customerSlice = createSlice({
         services: [],
         selectserviceforbook: [],
         totalbookprice: 0,
-        services_provide: [
-            {
-                imgSrc: hairimg,
-                services: 'Hair Care',
-                price: 500
-            },
-            {
-                imgSrc: handfeet,
-                services: 'Hand feet',
-                price: 450
-            },
-            {
-                imgSrc: makeupimg,
-                services: 'Make Up',
-                price: 250
-            },
-            {
-                imgSrc: skinimg,
-                services: 'Skin Care',
-                price: 280
-            },
-            {
-                imgSrc: bodymassage,
-                services: 'Body Massage',
-                price: 400
-            },
-            {
-                imgSrc: bodymassage,
-                services: 'Body Massage',
-                price: 400
-            }
-        ],
+        services_provide: [],
+        AllSerivces:[]
     },
     reducers: {
         toUpdatestate: (state, action) => {
@@ -105,6 +71,12 @@ const customerSlice = createSlice({
         },
         handlebookData: (state, action) => {
             state.bookedData = action.payload
+        },
+        handleShowServices:(state,action)=>{
+            state.services_provide = action.payload;
+        },
+        handleAllServices:(state,action)=>{
+            state.AllSerivces = action.payload
         }
     }
 })

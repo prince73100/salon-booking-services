@@ -1,10 +1,9 @@
 import { Router } from "express";
 import {
-    addServices,
     findSalonWith_in,
     getAllposted,
     getAllSalon,
-    getSalon,
+    getSalonById,
     getServices,
     getUniqueServices,
     haldleDeleteServices,
@@ -19,21 +18,20 @@ import { upload } from "../middleware/multer.js";
 const router = Router()
 
 
-router.route('/addservice/:token').post(authenticate, addServices)
 router.route('/getalljobs').get(getAllposted)
 router.route('/getservice/:salonID').get(getServices)
 router.route('/getservices').get(authenticate,getServices)
+router.route('/getservices/:salonID').get(authenticate,getServices)
 
 
+// GET salon by id
+router.route('/getsalonById/:salonId').get(getSalonById)
 //find unique services uniqueServices
-router.route('/uniqueServices/distance/:distance/center/:latlng').get(getUniqueServices)
-
+router.route('/uniqueServices').get(getUniqueServices)
 // find salon with in range 
 router.route('/findSalon_with-in/distance/:distance/center/:latlng').get(findSalonWith_in)
-
 // for post job route
 router.route('/postingjob').post(authenticate,handlePostjob)
-
 router.route('/getallsalon').get(getAllSalon)
 // Registered salon route         authenticate
 router.route('/rgistered').post(authenticate,upload.single('image'),handleRegistered)   

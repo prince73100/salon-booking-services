@@ -109,6 +109,7 @@ function Addservices() {
                     <div className="w-10/12 flex justify-between">
                         <div className=" w-1/3 ">
                             <h1 className="text-start  font-serif text-3xl font-bold pt-10">Your Services</h1>
+                            {service.length===0 && <div className="mt-10 font-serif font-semibold">No any services add yet</div>}
                             {
                                 service.map((ser, index) => <div className="flex justify-between mt-5" key={index} >
                                     <img src={ser.image} alt="image" style={{ width: '50px', height: '50px' }} />

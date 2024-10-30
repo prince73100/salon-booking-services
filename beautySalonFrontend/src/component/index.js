@@ -19,6 +19,8 @@ import RegisteredBusiness from "./salonPanel/registeredBusiness/RegisteredBusine
 import Anouncejob from "./salonPanel/jobpostanounce/AnounceJob";
 import ForgetpasswordPage from "./signuploginpage/ForgetpasswordPage";
 import ResetPassword from "./signuploginpage/ResetPassword";
+import CostViseServices from "./service/CostViseServices";
+import Salonpage from "./salonpage/Salonpage";
 export {
     Artiestdetail,
     Artistfulldetail,
@@ -40,5 +42,7 @@ export {
     RegisteredBusiness,
     Anouncejob,
     ForgetpasswordPage,
-    ResetPassword
+    ResetPassword,
+    CostViseServices,
+    Salonpage
 }
