@@ -21,7 +21,7 @@ const bookingSchema = new mongoose.Schema({
     },
     salonID: {
         type: mongoose.Schema.ObjectId,
-        ref: 'User'
+        ref: 'Salonregistered'
     },
     bookedBy: {
         type: mongoose.Schema.ObjectId,             // for  user id whhich represent user which is book

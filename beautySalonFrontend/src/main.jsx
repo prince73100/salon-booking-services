@@ -23,7 +23,8 @@ import {
   ForgetpasswordPage,
   ResetPassword,
   CostViseServices,
-  Salonpage
+  Salonpage,
+  Bookinghistory
 } from './component/index.js'
 import Addservices from './component/salonPanel/addServices/Addservices.jsx'
 
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
       { path: '/resetpassword/:token', element: <ResetPassword /> },
       {path:'/select-one-service',element:<CostViseServices/>},
       {path:'/salon-page/:salonId',element:<Salonpage/>},
+      {path:'/history',element:<Bookinghistory/>},
 
 
     ]

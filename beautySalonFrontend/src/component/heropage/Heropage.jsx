@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import Artiestdetail from '../artistdeatail/Artiestdetail'
 import data from '../../../artistdata.js'
 import salonbanner from '../../assets/sevicepic/image.png'
@@ -23,7 +26,7 @@ import axios from 'axios'
 
 const Boxchooseus = ({ image, context }) => {
   return <>
-    <div className="bg-white w-60 shadow-inner  hover:-translate-y-1 hover:scale-110 hover:bg-rose-100 duration-300">
+    <div className="bg-white w-fit shadow-inner  hover:-translate-y-1 hover:scale-110 hover:bg-rose-100 duration-300">
       <div className="imag  flex justify-center py-2">
         <img src={image} alt="c" className='w-20' />
       </div>
@@ -129,11 +132,11 @@ function Heropage() {
       {/* banner page */}
       <div className=' containers main-banner flex justify-center' style={{ marginTop: '70px' }}>
         <div className='w-11/12 bg-rose-100 '>
-          <div className="flex">
-            <div className='w-1/2'>
+          <div className="lg:flex ">
+            <div className=' lg:w-1/2 '>
               <div className=''>
-                <h1 className='text-5xl pt-20 px-2 font-bold font-serif text-center'>Effortless Beauty, Anytime.</h1>
-                <p className='text-justify pt-10 pl-28 w-3/4'>"Discover a seamless booking experience with our beauty salon platform. Effortlessly find and book appointments at top salons with just a few clicks, choosing from a range of skilled and professional artists dedicated to delivering the best in beauty services."</p>
+                <h1 className='text-2xl px-5 pt-5 lg:px-10 lg:text-4xl md:px-10 sm:px-10  font-bold font-serif text-centers md:text-4xl sm:text-3xl'>Effortless Beauty, Anytime.</h1>
+                <p className='text-justify pt-10 px-5'>"Discover a seamless booking experience with our beauty salon platform. Effortlessly find and book appointments at top salons with just a few clicks, choosing from a range of skilled and professional artists dedicated to delivering the best in beauty services."</p>
                 <div className=' w-1/2 mt-10'>
                   <p className='text-center pb-4'>(For professional)</p>
                   <div className='  flex justify-center'>
@@ -142,18 +145,18 @@ function Heropage() {
                 </div>
               </div>
             </div>
-            <div className='w-1/2 flex justify-end'>
-              <img src={salonbanner} alt="" />
+            <div className=' lg:w-1/2 flex justify-center'>
+              <img src={salonbanner} alt=""  />
             </div>
           </div>
 
           <hr className='bg-rose-500  h-1' />
           <div className="welcome_1">
-            <h1 className='text-4xl pt-10 px-2 font-bold font-serif text-center '>Welcome to Parfois – Where Beauty Meets Convenience</h1>
+            <h1 className='text-2xl lg:text-4xl md:text-3xl pt-10 px-2 font-bold font-serif text-center '>Welcome to Parfois – Where Beauty Meets Convenience</h1>
             <div className='flex justify-center py-5'>
               <div className='w-11/12'>
-                <p className='font-serif text-center'>Discover a world of luxury, relaxation, and personal care at your fingertips. Whether you're looking to book your next salon visit, connect with talented beauty artists, or offer your own professional services, [Your Website Name] is here to make it easy.</p>
-                <p className='font-serif text-center pt-5 pb-10'>Indulge in a seamless booking experience with trusted salons and artists in your area. From haircuts to makeup and spa treatments, we’ve got all your beauty needs covered. Your journey to effortless beauty starts here!</p>
+                <p className=' text-center text-sm lg:text-base'>Discover a world of luxury, relaxation, and personal care at your fingertips. Whether you're looking to book your next salon visit, connect with talented beauty artists, or offer your own professional services, [Your Website Name] is here to make it easy.</p>
+                <p className=' text-center pt-5 pb-10 text-sm lg:text-base'>Indulge in a seamless booking experience with trusted salons and artists in your area. From haircuts to makeup and spa treatments, we’ve got all your beauty needs covered. Your journey to effortless beauty starts here!</p>
               </div>
             </div>
           </div>
@@ -162,7 +165,7 @@ function Heropage() {
 
       {/* our respected salon */}
 
-      <div className='containers mt-2 mb-20 h-fit'>
+      <div className='containers mt-12 mb-20 h-fit'>
         <div className='hero-image flex justify-center'>
           <h1 className='text-center font-serif text-4xl font-bold mb-5 pb-10 w-11/12' >Nearest Salon for you</h1>
         </div>
@@ -180,14 +183,14 @@ function Heropage() {
           </div>
         </div>
         <div className="salon_partner">
-          <div className="salon-sup-container w-11/12 flex justify-start gap-16 flex-wrap">
+          <div className="salon-sup-container w-11/12 flex justify-center gap-x-20 gap-y-10 flex-wrap">
             {salon_with_in_range?.map((item, index) => <SalonContainers key={index} item={item} />)}
           </div>
         </div>
       </div>
 
       {/* top trending services */}
-      <div className="service-heading flex justify-center mt-10">
+      <div className="service-heading flex justify-center mt-12">
         <div className='text-center font-serif text-4xl font-bold w-11/12 pb-10'> Top Trending Services</div>
       </div>
       <div className="containers top-trending-services mb-20 ">
@@ -216,7 +219,7 @@ function Heropage() {
         </div>
         <div className="containers main-banner  flex justify-center mt-5">
           <div className="w-11/12">
-            <div className='flex justify-between'>
+            <div className='grid grid-cols-2 gap-x-10 gap-y-5 lg:grid-cols-4 lg:gap-x-5 md:grid-cols-4 md:gap-x-5 sm:grid-cols-4 sm:gap-x-5'>
               {boxContent.map((item, index) => <Boxchooseus key={index} image={item.image} context={item.content} />)}
             </div>
           </div>
@@ -230,7 +233,7 @@ function Heropage() {
         </div>
         <div className="containers main-banner  flex justify-center">
           <div className="w-11/12   mt-5">
-            <div className='flex justify-between'>
+            <div className='grid grid-cols-2 gap-x-10 gap-y-5 lg:grid-cols-4 lg:gap-x-5 md:grid-cols-4 md:gap-x-5 sm:grid-cols-4 sm:gap-x-5'>
               {bookContent.map((item, index) => <Boxchooseus key={index} image={item.image} context={item.content} />)}
             </div>
           </div>
@@ -244,7 +247,7 @@ function Heropage() {
         </div>
         <div className="containers main-banner  flex justify-center">
           <div className="w-11/12  ">
-            <div className='flex justify-between'>
+            <div className='grid grid-cols lg:grid-cols-2  md:grid-cols-2 sm:grid-cols-2'>
               <Testinomials />
               <Testinomials />
             </div>

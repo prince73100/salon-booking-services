@@ -6,11 +6,11 @@ function Footer() {
     return (
         <div className='footer '>
             <div className='footerContainer flex justify-center'>
-                <div className="w-11/12 grid grid-cols-4 gap-5 mt-5">
+                <div className="w-11/12 grid grid-cols-2 grid-x-10 lg:grid-cols-4 lg:gap-x-10 md:grid-cols-4 md:gap-x-10 sm:grid-cols-4 sm:gap-x-10    mt-5 ">
                     <div className='header_logo'>
                         <Link to={'/'}><img src="https://res2.weblium.site/res/5c938446fb27710024481fb9/5cd055827ec61c0023cabda8_optimized.webp" alt="" width={250} /></Link>
                     </div>
-                    <div className='footer_grid'>
+                    <div className='footer_grid '>
                         <p className='footer_text'>Services</p>
                         <ul>
                             <li>Hair Cutting</li>

@@ -31,9 +31,10 @@
     border: 1px solid rgb(217, 208, 208);
     border-radius: 3px;
 }
+
 .list-items ul li:hover {
-   background-color: rgb(225, 29, 72);
-   color: white;
+    background-color: rgb(225, 29, 72);
+    color: white;
 }
 
 .profile {
@@ -46,4 +47,55 @@
     font-size: 20px;
     border-radius: 30px;
     font-weight: 600;
+}
+
+@media (max-width:992px) {
+    .list-items ul {
+        gap: 30px;
+    }
+}
+
+@media (max-width:768px) {
+    .list-items ul {
+        gap: 10px;
+    }
+}
+
+.mobile_view_header {
+    display: none;
+}
+
+@media (max-width:572px) {
+    .list-items ul {
+        gap: 10px;
+    }
+
+    .list-items {
+        display: none;
+    }
+    .mobile_view_header {
+        background-color: rgb(255, 253, 253);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    .mobile-views-list-items{
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        background-color: rgb(249, 84, 84);
+        color: white;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .mobile-views-list-items ul li{
+        padding: 10px 80px;
+    }
 }

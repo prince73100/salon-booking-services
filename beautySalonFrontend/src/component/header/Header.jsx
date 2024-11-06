@@ -9,14 +9,20 @@ import { customeraction } from '../../../store/customerStore';
 import mainlogo from '../../assets/logo/main_logo.png'
 import { IoIosSearch } from "react-icons/io";
 import { authuseraction } from '../../../store/artistSlice';
+import { FaHistory } from "react-icons/fa";
+import { IoReorderThreeOutline } from "react-icons/io5";
+import { IoArrowBack } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom'
 
 
 function Header() {
   const { state, profilename } = useSelector(store => store.user)
   const { alljob } = useSelector(store => store.artistsevices)
   const dispatch = useDispatch()
+  const navigation = useNavigate()
   const token = localStorage.getItem("jwt")
   const role = localStorage.getItem('role')
+  const [mobileView, setMobileView] = useState(false)
   ///searching
   let alljobs = []
   alljob.forEach(element => {
@@ -56,48 +62,118 @@ function Header() {
       console.log(error.message);
     })
   }, [state])
-  return (
-    <header className='header'>
-      <div className='header-logo'>
-        <Link to={'/'}><img src={mainlogo} alt="" /></Link>
-      </div>
 
-      {(state === true && role === 'artist') && <div className="search w-1/4">
-        <IoIosSearch />
-        <input type="search" placeholder='Search Salon for job' onChange={handleChange} value={searchKeyword} />
-      </div>}
-      {
-        suggestion.length > 0 && <div className='absolute top-14 left-96 bg-white p-4 shadow-lg w-56 z-10 '>
-          {suggestion.map((item, index) => <div key={index} onClick={() => handlefindSalon(item)} className='border-b hover:bg-rose-100 hover:cursor-pointer' >{item}</div>)}
+  //handlelogout
+  const onLogout = () => {
+    dispatch(customeraction.toUpdatestate(undefined))
+    dispatch(customeraction.toUpdateToken(""))
+    localStorage.removeItem('jwt')
+    localStorage.removeItem('exipreIn')
+    localStorage.removeItem('role')
+    navigation('/login')
+  }
+  const onhandlesidebar = () => {
+    setMobileView(true)
+  }
+  const onhandlebackbtn = () => {
+    setMobileView(false)
+  }
+  return (
+    <>
+      <header className='header'>
+        <div className='header-logo'>
+          <Link to={'/'}><img src={mainlogo} alt="" /></Link>
         </div>
-      }
-      <div className='list-items'>
-        <ul>
-          <li>Home</li>
-          {/* User */}
-          {(state===true && role === 'salon') ? <></>:<li><Link to={'/service'}>Service</Link></li>}
-          
-          {(state === true && role === 'user') && <li><Link to={'#'}>Gallery</Link></li>}
-          <li><Link to={'#'}>About</Link></li>
-          {(state === true && role === 'salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
-          {(state === true && role === 'salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
-          {/* Artist */}
-          {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
-          {/* salon route */}
-          {(state === true && role === 'salon') && <li><Link to={'/addServices'}>Add Services</Link></li>}
-          {state === true ?
-            <>
-              <Popup trigger={<button className="profile">{profilename}</button>} position="bottom right">
-                <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
-              </Popup>
-            </> : <ul><li><Link to={'/signup'}>SignUp</Link></li> <li><Link to={'/login'}>Login</Link></li> </ul>}
-        </ul>
-      </div>
-    </header>
+        {(state === true && role === 'artist') && <div className="search w-1/4">
+          <IoIosSearch />
+          <input type="search" placeholder='Search Salon for job' onChange={handleChange} value={searchKeyword} />
+        </div>}
+        {
+          suggestion.length > 0 && <div className='absolute top-14 left-96 bg-white p-4 shadow-lg w-56 z-10 '>
+            {suggestion.map((item, index) => <div key={index} onClick={() => handlefindSalon(item)} className='border-b hover:bg-rose-100 hover:cursor-pointer' >{item}</div>)}
+          </div>
+        }
+        <div className='list-items'>
+          <ul>
+            <li>Home</li>
+            {/* User */}
+            {(state === true && role === 'salon') ? <></> : <li><Link to={'/service'}>Service</Link></li>}
+            {(state === true && role === 'user') && <li><Link to={'#'}>Gallery</Link></li>}
+            <li><Link to={'#'}>About</Link></li>
+            {(state === true && role === 'salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
+            {(state === true && role === 'salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
+            {/* Artist */}
+            {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
+            {/* salon route */}
+            {(state === true && role === 'salon') && <li><Link to={'/addServices'}>Add Services</Link></li>}
+            {state === true && role === 'user' && <li className='relative'>
+              <Link to={'/history'}>
+                <FaHistory size={20} />
+              </Link>
+            </li>}
+            {state === true ?
+              <>
+                <Popup trigger={<button className="profile">{profilename}</button>} position="bottom right">
+                  <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
+                </Popup>
+              </> : <ul><li><Link to={'/signup'}>SignUp</Link></li> <li><Link to={'/login'}>Login</Link></li> </ul>}
+
+          </ul>
+        </div>
+      </header>
+
+
+      <header className=' mobile_view_header'>
+        <div className='header-logo'>
+          <Link to={'/'}><img src={mainlogo} alt="" /></Link>
+        </div>
+        {(state === true && role === 'artist') && <div className="search w-1/4">
+          <IoIosSearch />
+          <input type="search" placeholder='Search Salon for job' onChange={handleChange} value={searchKeyword} />
+        </div>}
+        {
+          suggestion.length > 0 && <div className='absolute top-14 left-96 bg-white p-4 shadow-lg w-56 z-10 '>
+            {suggestion.map((item, index) => <div key={index} onClick={() => handlefindSalon(item)} className='border-b hover:bg-rose-100 hover:cursor-pointer' >{item}</div>)}
+          </div>
+        }
+        <div onClick={onhandlesidebar}>
+          < IoReorderThreeOutline size={40} />
+        </div>
+
+        {mobileView && <div className='mobile-views-list-items'>
+          <div className='backbtn' onClick={onhandlebackbtn}>
+            <IoArrowBack size={30} />
+          </div>
+          <ul>
+            <li>Home</li>
+            {/* User */}
+            {(state === true && role === 'salon') ? <></> : <li><Link to={'/service'}>Service</Link></li>}
+            {(state === true && role === 'user') && <li><Link to={'#'}>Gallery</Link></li>}
+            <li><Link to={'#'}>About</Link></li>
+            {(state === true && role === 'salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
+            {(state === true && role === 'salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
+            {/* Artist */}
+            {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
+            {/* salon route */}
+            {(state === true && role === 'salon') && <li><Link to={'/addServices'}>Add Services</Link></li>}
+            {state === true ?
+              <>
+                {/* <Popup trigger={<button className="profile">{profilename}</button>} position="bottom right">
+                  <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
+                </Popup> */}
+                <li onClick={onLogout}>Logout</li>
+              </> : <ul><li><Link to={'/signup'}>SignUp</Link></li> <li><Link to={'/login'}>Login</Link></li> </ul>}
+            {/* {state === true && role === 'user' && <li className='relative'>
+              <Link to={'/history'}>
+                <FaHistory size={20} />
+              </Link>
+            </li>} */}
+          </ul>
+        </div>}
+      </header>
+    </>
   )
 }
 
 
 export default Header
-
-{/* <li> <Link to={'/signup'}>SignUp</Link>/<Link to={'/login'}>Login</Link>  </li>} */ }

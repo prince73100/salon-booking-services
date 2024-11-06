@@ -1,25 +1,29 @@
-
 .footerContainer {
-    background-color:black;
+    background-color: black;
     width: 100%;
-    height: 300px;
+    height: fit-content;
     margin-top: 40px;
     color: white;
 }
-.header_logo img{
+
+.header_logo img {
     background-color: white;
 }
-.footer_grid{
-    margin-top: 25px;
+
+.footer_grid {
+    margin-top: 0px;
+    max-width: 200px;
+    margin-bottom: 20px;
 }
-.footer_text{
+
+.footer_text {
     font-size: 22px;
     font-weight: 700;
     font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
-.footer_grid ul li{
+.footer_grid ul li {
     cursor: pointer;
     font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-font-size: 15px;
+    font-size: 15px;
 }

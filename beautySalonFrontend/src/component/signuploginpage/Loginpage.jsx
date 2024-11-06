@@ -41,13 +41,13 @@ function Loginpage() {
         window.scrollTo(0, 0); // Scrolls to the top (x, y)
     }, []);
     return (
-        <div className="form w-1/2 mt-10  ml-80  rounded-lg shadow-lg shadow-rose-600/100 mt-8 ">
-            <div className='p-10'>
-                <div className="heading w-3/4 ml-60 pt-2">
-                    <h1 className='font-serif font-bold text-2xl'>Login</h1>
+        <div className="form flex justify-center mt-10 rounded-lg  ">
+            <div className='shadow-lg shadow-rose-600/100 mt-8 w-full lg:w-1/2 md:w-3/4 sm:w-11/12'>
+                <div className="heading  pt-2 ">
+                    <h1 className='font-serif text-center font-bold text-2xl'>Login</h1>
                 </div>
-                <form onSubmit={handleSubmit(login)} className='ml-20 w-3/4'>
-                    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <form onSubmit={handleSubmit(login)} className='flex justify-center'>
+                    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 w-3/4 ">
                         <div className="sm:col-span-6">
                             <div className="mt-2">
                                 <input
@@ -62,7 +62,7 @@ function Loginpage() {
                             </div>
                         </div>
                         <div className="sm:col-span-6">
-                            <div className="mt-2">
+                            <div className="mt-2 mb-4">
                                 <input
                                     type="text"
                                     name="first-name"
@@ -73,7 +73,7 @@ function Loginpage() {
                                     {...register("password", { required: true })}
                                 />
                             </div>
-                        <Link className='text-rose-500 font-serif font-bold pt-4' to={'/forgetPassword'}>Forget your password?</Link>
+                        <Link className='text-rose-500 font-serif font-bold my-10' to={'/forgetPassword'}>Forget your password?</Link>
                         </div>
                         <div className="sm:col-span-6">
                             <div className="mt-2">
@@ -82,13 +82,13 @@ function Loginpage() {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className=" text-3xl font-bold block cursor-pointer w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4 bg-rose-500 "
+                                    className="  font-bold block cursor-pointer w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-4 bg-rose-500 "
                                 />
                             </div>
                         </div>
                     </div>
                 </form>
-                <div className="sm:col-span-full mt-10">
+                <div className="sm:col-span-full mt-10 px-20 py-10">
                     <p className='text-lg font-bold font-serif'>New user? <Link to={'/signup'} className='text-rose-500'>Sign Up</Link> </p>
                 </div>
                 <ToastContainer />

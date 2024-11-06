@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 function SalonContainers({ item }) {
+    const { state } = useSelector(store => store.user)
+    console.log(state)
     return (
         <div className="salon-container" style={{ maxWidth: '250px' }}>
             <div className="salon-img">
@@ -13,7 +16,7 @@ function SalonContainers({ item }) {
                 <p className="address mb-5">
                     {item.address}
                 </p>
-                <Link to={`salon-page/${item._id}`} className='bg-rose-500 font-serif p-3 px-5 text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Book Now</Link>
+                <Link to={`${state === true ? `salon-page/${item._id}` : `/login`}`} className='bg-rose-500 font-serif p-3 px-5 text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Book Now</Link>
             </div>
         </div>
     )
