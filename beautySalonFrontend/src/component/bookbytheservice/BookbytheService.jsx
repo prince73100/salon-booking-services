@@ -16,7 +16,6 @@ function BookbytheService() {
   const [dates, setdates] = useState()
   const [booking, setbooking] = useState([])
   const navigation = useNavigate()
-
   // run after click on the calender
   const onclickdate = (data) => {
     const date = new Date(data.dateStr)
@@ -76,6 +75,7 @@ function BookbytheService() {
     fetchBookingDetailForSalon();
   }, []);
 
+  
 
   return (
     <div className='booking-detail-container bg-gradient-to-t from-rose-100 to-rose-400'>
@@ -91,7 +91,7 @@ function BookbytheService() {
             </div>
             <  FullCalendar
               plugins={[daygidplugin, timegridplugin, interactionplugin]}
-              initialView='timeGridDay'
+              initialView="timeGridDay"
               headerToolbar={{
                 start: 'title',
                 center: 'today,prev,next',

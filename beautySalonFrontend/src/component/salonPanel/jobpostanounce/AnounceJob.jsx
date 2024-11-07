@@ -20,14 +20,14 @@ function Anouncejob() {
         <div className="registered-business-container mt-24">
             <h1 className="text-center font-serif text-4xl font-bold">Anounce Job Post</h1>
             <div className=" flex justify-center mt-5">
-                <div className="registered-form w-10/12 flex  ">
-                    <div className="left-side-container w-1/2 bg-rose-500 flex items-center justify-center ">
-                        <h1 className="text-center font-serif text-6xl font-bold text-white"> Post a Job which is available for Artist </h1>
+                <div className="registered-form w-11/12 lg:flex md:flex   ">
+                    <div className=" lg:flex lg:block md:flex md:block left-side-container lg:w-1/2 md:w-1/2 bg-rose-500  items-center justify-center ">
+                        <h1 className="text-4xl text-center font-serif lg:text-5xl md:text-4xl sm:text3xl font-bold text-white"> Post a Job which is available for Artist </h1>
                     </div>
-                    <form onSubmit={handleSubmit(hadleRegistered)} className="form-container w-1/2 bg-white">
+                    <form onSubmit={handleSubmit(hadleRegistered)} className="form-container lg:w-1/2 md:w-1/2  bg-white">
                         <div className="border-b border-gray-900/10 pb-12 pl-4">
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                <div className="sm:col-span-3">
+                                <div className="col-span-6 sm:col-span-3">
                                     <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                         Job Title
                                     </label>
@@ -43,7 +43,7 @@ function Anouncejob() {
                                     </div>
                                 </div>
 
-                                <div className="sm:col-span-3">
+                                <div className="col-span-6 sm:col-span-3">
                                     <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
                                         Location
                                     </label>
@@ -58,7 +58,7 @@ function Anouncejob() {
                                         />
                                     </div>
                                 </div>
-                                <div className="col-span-3">
+                                <div className="col-span-6">
                                     <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                                         Salary
                                     </label>
@@ -73,7 +73,7 @@ function Anouncejob() {
                                         />
                                     </div>
                                 </div>
-                                <div className="col-span-3">
+                                <div className="col-span-6">
                                     <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
                                         Education
                                     </label>
@@ -89,7 +89,7 @@ function Anouncejob() {
                                     </div>
                                 </div>
 
-                                <div className="sm:col-span-3 sm:col-start-1">
+                                <div className="col-span-6 sm:col-span-6 sm:col-start-1">
                                     <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
                                         Skill Require
                                     </label>
@@ -105,7 +105,7 @@ function Anouncejob() {
                                     </div>
                                 </div>
 
-                                <div className="sm:col-span-3">
+                                <div className="col-span-6 sm:col-span-6">
                                     <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
                                         Job Description
                                     </label>
@@ -120,7 +120,7 @@ function Anouncejob() {
                                         />
                                     </div>
                                 </div>
-                                <div className="sm:col-span-3">
+                                <div className="col-span-6 sm:col-span-6">
                                     <div className="mt-2">
                                         <input
                                             id="region"

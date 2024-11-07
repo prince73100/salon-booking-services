@@ -6,7 +6,7 @@ import Popup from 'reactjs-popup';
 import Profile from './Profile';
 import { useSelector, useDispatch } from 'react-redux';
 import { customeraction } from '../../../store/customerStore';
-import mainlogo from '../../assets/logo/main_logo.png'
+import mainlogo from '../../assets/logo/logo.png'
 import { IoIosSearch } from "react-icons/io";
 import { authuseraction } from '../../../store/artistSlice';
 import { FaHistory } from "react-icons/fa";
@@ -78,11 +78,20 @@ function Header() {
   const onhandlebackbtn = () => {
     setMobileView(false)
   }
+
+  const handlelogoRoute = () => {
+    if (localStorage.getItem('role') === 'salon') return "/salonbusiness"
+    if (localStorage.getItem('role') === 'artist') return "/salonbusiness"
+    if (localStorage.getItem('role') === 'user') return "/"
+  }
+
   return (
     <>
       <header className='header'>
         <div className='header-logo'>
-          <Link to={'/'}><img src={mainlogo} alt="" /></Link>
+          <Link to={`${handlelogoRoute()}`}>
+            <img src={mainlogo} alt="" />
+          </Link>
         </div>
         {(state === true && role === 'artist') && <div className="search w-1/4">
           <IoIosSearch />

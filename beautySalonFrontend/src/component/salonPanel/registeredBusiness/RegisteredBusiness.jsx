@@ -2,9 +2,11 @@ import { useForm } from "react-hook-form"
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 function RegisteredBusiness() {
     const [currentLocation, setCurrentLocation] = useState([])
+    const navigation = useNavigate()
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
             setCurrentLocation([position.coords.longitude, position.coords.latitude])
@@ -36,6 +38,11 @@ function RegisteredBusiness() {
                 toast.success(result.data.message, {
                     position: "top-center"
                 });
+                navigation('/addServices')
+            } else {
+                toast.error(result.data.message, {
+                    position: "top-center"
+                });
             }
         } catch (error) {
             console.log(error)
@@ -52,8 +59,8 @@ function RegisteredBusiness() {
                     </div>
                     <form onSubmit={handleSubmit(hadleRegistered)} className="form-container w-full bg-white">
                         <div className="border-b border-gray-900/10 pb-12 pl-4">
-                            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                <div className="sm:col-span-3">
+                            <div className=" mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                <div className="col-span-6 sm:col-span-3">
                                     <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                                         Salon Name
                                     </label>
@@ -69,7 +76,7 @@ function RegisteredBusiness() {
                                     </div>
                                 </div>
 
-                                <div className="sm:col-span-3">
+                                <div className="col-span-6 sm:col-span-3">
                                     <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
                                         Salon Type
                                     </label>
@@ -124,7 +131,7 @@ function RegisteredBusiness() {
                                     </div>
                                 </div>
 
-                                <div className="sm:col-span-4 sm:col-start-1">
+                                <div className="col-span-6 sm:col-span-4 sm:col-start-1">
                                     <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
                                         City
                                     </label>
@@ -140,7 +147,7 @@ function RegisteredBusiness() {
                                     </div>
                                 </div>
 
-                                <div className="sm:col-span-2">
+                                <div className="col-span-6 sm:col-span-2">
                                     <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
                                         State / Province
                                     </label>
@@ -155,7 +162,7 @@ function RegisteredBusiness() {
                                         />
                                     </div>
                                 </div>
-                                <div className="sm:col-span-6">
+                                <div className="col-span-6 sm:col-span-6">
                                     <label htmlFor="region" className="block text-sm font-medium leading-6 text-gray-900">
                                         Upload your best Image
                                     </label>
@@ -170,7 +177,7 @@ function RegisteredBusiness() {
                                         />
                                     </div>
                                 </div>
-                                <div className="sm:col-span-3">
+                                <div className="col-span-6 sm:col-span-3">
                                     <div className="mt-2">
                                         <input
                                             id="region"

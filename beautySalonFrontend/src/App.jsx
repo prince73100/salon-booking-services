@@ -4,6 +4,7 @@ import './App.css'
 import { Outlet } from 'react-router-dom'
 import Footer from './component/footer/Footer'
 function App() {
+  console.log("code start here")
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((postion) => {
       console.log(postion)

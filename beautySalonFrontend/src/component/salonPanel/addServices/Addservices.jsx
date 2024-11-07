@@ -54,7 +54,7 @@ function Addservices() {
                         Authorization: `Bearer ${token}`
                     }
                 })
-                if(res.data.status === 'success'){
+                if (res.data.status === 'success') {
                     dispatch(serviceAction.deleteServices(serviceId))
                 }
             } else {
@@ -103,13 +103,13 @@ function Addservices() {
 
     return (
         <>
-            <div className="registered-business-container mt-16  h-screen">
-                <h1 className="text-center font-serif text-4xl font-bold pt-10">Start Your Business</h1>
-                <div className="  flex justify-center">
-                    <div className="w-10/12 flex justify-between">
-                        <div className=" w-1/3 ">
-                            <h1 className="text-start  font-serif text-3xl font-bold pt-10">Your Services</h1>
-                            {service.length===0 && <div className="mt-10 font-serif font-semibold">No any services add yet</div>}
+            <div className="registered-business-container mt-16 ">
+                <h1 className="bg-rose-500 text-center font-serif text-4xl font-bold py-8 text-white">Start Your Business</h1>
+                <div className="flex justify-center">
+                    <div className="w-10/12 lg:flex lg:justify-evenly md:flex md:justify-evenly gap-x-20">
+                        <div className=" lg:w-1/3 md:w-1/3  ">
+                            <h1 className="lg:text-start lg:text-start text-center text-3xl font-serif lg:text-3xl md:lg:text-3xl  font-bold pt-10">Your Services</h1>
+                            {service.length === 0 && <div className="mt-10 font-serif font-semibold lg:text-start lg:text-start text-center">No any services add yet</div>}
                             {
                                 service.map((ser, index) => <div className="flex justify-between mt-5" key={index} >
                                     <img src={ser.image} alt="image" style={{ width: '50px', height: '50px' }} />
@@ -121,11 +121,11 @@ function Addservices() {
                             }
 
                         </div>
-                        <div className="w-1/3">
-                            <h1 className="text-start font-serif text-3xl font-bold pt-10">Enter Services</h1>
+                        <div className=" lg:w-1/3 md:w-1/3">
+                            <h1 className="  font-serif text-3xl font-bold pt-10 lg:text-start lg:text-start text-center ">Enter Services</h1>
                             <div className="form-content mt-5">
                                 <label htmlFor="serviceName" className="font-serif text-xl font-bold">Services</label>
-                                <div className="mt-2 w-2/3 bg-white rounded mb-5 border" >
+                                <div className="mt-2  bg-white rounded mb-5 border" >
                                     <input type="text" placeholder="Enter services name" className="px-4 py-2 outline-none border-0"
                                         onChange={handleChange}
                                         value={query}
@@ -142,14 +142,14 @@ function Addservices() {
                                     </ul>
                                 )}
                                 <label htmlFor="serviceName" className="font-serif text-xl font-bold">Price</label>
-                                <div className="mt-2 w-2/3 bg-white rounded border mb-4" >
+                                <div className="mt-2  bg-white rounded border mb-4" >
                                     <input type="number" placeholder="Enter Price" className="px-4 py-2 outline-none border-0" ref={priceRef} />
                                 </div>
                                 <label htmlFor="serviceName" className="font-serif text-xl font-bold">Upload Image</label>
-                                <div className="mt-2 w-2/3 bg-white rounded" >
+                                <div className="mt-2 bg-white rounded" >
                                     <input type="file" placeholder="Enter Price" className=" py-2 outline-none border-0" onChange={(e) => setImagePath(e.target.files[0])} />
                                 </div>
-                                <button className="mt-10 px-5 block cursor-pointer rounded-md border-0 py-1.5 text-white sm:text-sm sm:leading-6 pl-4 bg-rose-500" onClick={handleAddService} >ADD</button>
+                                <button className="mt-10 px-20 block cursor-pointer rounded-md border-0 py-1.5 text-white sm:text-sm sm:leading-6  bg-rose-500" onClick={handleAddService} >ADD</button>
                             </div>
                         </div>
                     </div>

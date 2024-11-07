@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import mainlogo from '../../assets/logo/logo.png'
+
 import './footer.css'
 function Footer() {
     return (
@@ -8,7 +10,7 @@ function Footer() {
             <div className='footerContainer flex justify-center'>
                 <div className="w-11/12 grid grid-cols-2 grid-x-10 lg:grid-cols-4 lg:gap-x-10 md:grid-cols-4 md:gap-x-10 sm:grid-cols-4 sm:gap-x-10    mt-5 ">
                     <div className='header_logo'>
-                        <Link to={'/'}><img src="https://res2.weblium.site/res/5c938446fb27710024481fb9/5cd055827ec61c0023cabda8_optimized.webp" alt="" width={250} /></Link>
+                        <Link to={'/'}><img src={mainlogo} alt="" width={250} /></Link>
                     </div>
                     <div className='footer_grid '>
                         <p className='footer_text'>Services</p>

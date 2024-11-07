@@ -26,7 +26,7 @@ function CostViseServices() {
                             {services_provide.map((el, index) => <li key={index} className={`${bgColor===el.serviceName ? 'bg-rose-500 text-white':''}  side-bar-list  py-1 px-2 my-4 font-blod font-serif text-base cursor-pointer`} onClick={() => handleFilterServices(el.serviceName)} >{el.serviceName}</li>)}
                         </ul>
                     </div>
-                    <div className='flex justify-start' style={{width:'70%'}}>
+                    <div className='flex justify-start  ' style={{width:'70%'}}>
                         {category.map((el, index) => <Sercomponents key={index} item={el} ispriceDisplay={true} isSalonnameDisplay={true}/>)}
                     </div>
                 </div>

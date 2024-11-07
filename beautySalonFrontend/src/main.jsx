@@ -5,6 +5,7 @@ import './index.css'
 import { store } from '../store/index.js'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Addservices from './component/salonPanel/addServices/Addservices.jsx'
 
 import {
   Heropage,
@@ -26,10 +27,7 @@ import {
   Salonpage,
   Bookinghistory
 } from './component/index.js'
-import Addservices from './component/salonPanel/addServices/Addservices.jsx'
-
-
-
+import Errorpage from './component/error/Errorpage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -51,11 +49,10 @@ const router = createBrowserRouter([
       { path: '/anounceJob', element: <Anouncejob /> },
       { path: '/forgetPassword', element: <ForgetpasswordPage /> },
       { path: '/resetpassword/:token', element: <ResetPassword /> },
-      {path:'/select-one-service',element:<CostViseServices/>},
-      {path:'/salon-page/:salonId',element:<Salonpage/>},
-      {path:'/history',element:<Bookinghistory/>},
-
-
+      { path: '/select-one-service', element: <CostViseServices /> },
+      { path: '/salon-page/:salonId', element: <Salonpage /> },
+      { path: '/history', element: <Bookinghistory /> },
+      {path:'*',element:<Errorpage/>}
     ]
   }
 ])

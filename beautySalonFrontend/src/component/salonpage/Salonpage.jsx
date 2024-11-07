@@ -42,19 +42,19 @@ function Salonpage() {
             </div>
             <div>
                 <div className="flex justify-center">
-                    <div className="w-11/12 bg-rose-100 mt-5 flex gap-x-40">
-                        <div className=' ' style={{ width: '40%' }}>
+                    <div className="w-11/12 bg-rose-100 mt-5 lg:flex lg:gap-x-30">
+                        <div className='lg:w-1/2'>
                             <div className="" >
                                 <img src={salon?.imageofSalon} alt="" style={{ width: '100%' }} />
-                                <div className='flex justify-between mt-5'>
+                                <div className='flex justify-between mt-5 px-5'>
                                     <p className="font-semibold font-serif">{salon?.salonName}</p>
                                     <p className=" font-serif">{salon.owner?.email}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className='' style={{ width: '40%' }}>
+                        <div className='mt-10 lg:w-1/2'>
                             <h1 className='text-center font-bold text-xl font-serif'>Provide Services</h1>
-                            <div className="services-container flex ">
+                            <div className="services-container flex px-5 flex-wrap justify-center gap-x-5 ">
                                 {service.map((el, index) => <Sercomponents item={el} key={index} textSize={'text-xs'} ispriceDisplay={true} />)}
                             </div>
                         </div>

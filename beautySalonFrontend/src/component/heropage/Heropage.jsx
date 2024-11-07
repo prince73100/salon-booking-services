@@ -1,12 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import Artiestdetail from '../artistdeatail/Artiestdetail'
-import data from '../../../artistdata.js'
 import salonbanner from '../../assets/sevicepic/image.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { FaSearch } from "react-icons/fa";
 import Sercomponent from '../service/Sercomponent.jsx'
 import SalonContainers from '../salonBox/SalonContainers.jsx'
 import verifypersion from '../../assets/icon/verify-icon-removebg-preview.png'
@@ -38,12 +35,24 @@ const Boxchooseus = ({ image, context }) => {
 }
 
 function Heropage() {
-  const { state, services_provide, salon_with_in_range } = useSelector(store => store.user)
+  const { state, services_provide, salon_with_in_range, currentLocation, distance } = useSelector(store => store.user)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      dispatch(
+        customeraction.toupdateCurrentLocation([
+          position.coords.longitude,
+          position.coords.latitude
+        ])
+      );
+    })
+  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0); // Scrolls to the top (x, y)
   }, []);
+
   const boxContent = [
     {
       image: verifypersion,
@@ -82,9 +91,8 @@ function Heropage() {
   ]
 
   const fetchSalonWithIn = async () => {
-    console.log('salon function')
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/1/center/27.2072704,78.0468224`)
+      const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
       dispatch(customeraction.tosalonhandle(res.data.response))
     } catch (error) {
       console.log(error.message)
@@ -122,7 +130,7 @@ function Heropage() {
   }, []);
   useEffect(() => {
     fetchSalonWithIn()
-  }, []);
+  }, [currentLocation,distance]);
   useEffect(() => {
     find_all_service_withInRange();
   }, [salon_with_in_range])
@@ -146,7 +154,7 @@ function Heropage() {
               </div>
             </div>
             <div className=' lg:w-1/2 flex justify-center'>
-              <img src={salonbanner} alt=""  />
+              <img src={salonbanner} alt="" />
             </div>
           </div>
 
@@ -172,8 +180,8 @@ function Heropage() {
         <div className='flex justify-center mb-5'>
           <div className='w-11/12'>
             <div>
-              <label htmlFor="distance" className='font-serif font-bold text-lg'>Distance</label><br />
-              <select name="cars" id="distance" style={{ border: '1px solid black' }}>
+              <label htmlFor="distance" className='font-serif font-bold text-lg'>Distance- <span className='text-rose-600'>[{distance} KM]</span></label><br />
+              <select name="cars" id="distance" style={{ border: '1px solid black' }} onChange={(e) => dispatch(customeraction.toupdateDistance(e.target.value))} >
                 <option value="" disabled>--Select Distance--</option>
                 <option value="1">0-1 km</option>
                 <option value="5">2-5 km</option>
@@ -183,9 +191,13 @@ function Heropage() {
           </div>
         </div>
         <div className="salon_partner">
-          <div className="salon-sup-container w-11/12 flex justify-center gap-x-20 gap-y-10 flex-wrap">
-            {salon_with_in_range?.map((item, index) => <SalonContainers key={index} item={item} />)}
-          </div>
+          {
+            salon_with_in_range?.length === 0 ? <div className='salon-sup-container w-11/12 flex justify-center gap-x-20 gap-y-10 flex-wrap'>
+              <p className='text-rose-600 font-bold text-2xl'>No Any Salon Near By</p>
+            </div> : <div className="salon-sup-container w-11/12 flex justify-center gap-x-20 gap-y-10 flex-wrap">
+              {salon_with_in_range?.map((item, index) => <SalonContainers key={index} item={item} />)}
+            </div>
+          }
         </div>
       </div>
 
@@ -195,9 +207,16 @@ function Heropage() {
       </div>
       <div className="containers top-trending-services mb-20 ">
         <div className="top-sub-trending-services w-11/12 ">
-          <div className="services-box  serive-2 ">
-            {services_provide.map((item, index) => <Sercomponent key={index} item={item} />)}
-          </div>
+          {
+            services_provide.length === 0 ? <div className="services-box  serive-2 flex justify-center ">
+              <h1 className='text-center text-xl font-bold text-rose-500'>
+                Not found Any Services.........
+              </h1>
+            </div> : <div className="services-box  serive-2 ">
+              {services_provide?.map((item, index) => <Sercomponent key={index} item={item} />)}
+            </div>
+          }
+
         </div>
       </div>
       {/* top artist */}

@@ -14,7 +14,7 @@ export function Sercomponents({ item, ispriceDisplay = false, textSize = 'text-x
     const { state } = useSelector(store => store.user)
     return (
         <div className='Service-infos  min-h-80  mt-4' >
-            <div className="service-image ml-5" >
+            <div className="service-image " >
                 <img src={`${item?.image}`} alt="" style={{ width: '250px', height: '160px' }} className='transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300' />
             </div>
             <div className="service-content">

@@ -21,7 +21,7 @@ function Payment() {
 
             const options = {
                 key: "rzp_test_jQ97VLuhTDd5xp",
-                amount: orderResponse.data.amount,
+                amount: orderResponse.data.amount*100,
                 currency: orderResponse.data.currency,
                 order_id: orderResponse.data.razorpayOrderId,
                 handler: async function (response) {

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-
 const datafromlocal = () => {
     try {
         const currentDate = Date.now()
@@ -27,6 +26,15 @@ const tokenformlocal = () => {
         return undefined
     }
 }
+// const fetchliveLocation = () => {
+//     let curlocation = [];
+    
+//     navigator.geolocation.getCurrentPosition((position) => {
+//         curlocation = [position.coords.longitude, position.coords.latitude]
+//     })
+//     console.log(curlocation)
+//     return curlocation
+// }
 
 const customerSlice = createSlice({
     name: "user",
@@ -40,9 +48,17 @@ const customerSlice = createSlice({
         selectserviceforbook: [],
         totalbookprice: 0,
         services_provide: [],
-        AllSerivces:[]
+        AllSerivces: [],
+        currentLocation:[],
+        distance:5
     },
     reducers: {
+        toupdateDistance:(state,action)=>{
+            state.distance = action.payload
+        },
+        toupdateCurrentLocation: (state, action) => {
+            state.currentLocation = action.payload
+        },
         toUpdatestate: (state, action) => {
             state.state = action.payload
         },
@@ -72,10 +88,10 @@ const customerSlice = createSlice({
         handlebookData: (state, action) => {
             state.bookedData = action.payload
         },
-        handleShowServices:(state,action)=>{
+        handleShowServices: (state, action) => {
             state.services_provide = action.payload;
         },
-        handleAllServices:(state,action)=>{
+        handleAllServices: (state, action) => {
             state.AllSerivces = action.payload
         }
     }
