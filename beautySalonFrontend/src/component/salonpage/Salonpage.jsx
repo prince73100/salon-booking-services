@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Sercomponents } from '../service/Servicepage';
+import { CgMail } from "react-icons/cg";
 function Salonpage() {
     const token = localStorage.getItem('jwt');
     const { salonId } = useParams();
@@ -42,17 +43,31 @@ function Salonpage() {
             </div>
             <div>
                 <div className="flex justify-center">
-                    <div className="w-11/12 bg-rose-100 mt-5 lg:flex lg:gap-x-30">
+                    <div className="w-11/12 bg-rose-100 mt-5  lg:flex lg:gap-x-30">
                         <div className='lg:w-1/2'>
                             <div className="" >
                                 <img src={salon?.imageofSalon} alt="" style={{ width: '100%' }} />
-                                <div className='flex justify-between mt-5 px-5'>
-                                    <p className="font-semibold font-serif">{salon?.salonName}</p>
-                                    <p className=" font-serif">{salon.owner?.email}</p>
-                                </div>
+                            </div>
+
+                            <div className='px-5 py-10'>
+                                <p className="font-semibold font-serif">
+                                    <span className='text-rose-700'>Email.: </span>{salon?.owner?.email}
+                                </p>
+                                <p className="font-semibold font-serif">
+                                    <span className='text-rose-700'>Mobile No.:  +91 </span>{salon?.phone}
+                                </p>
+                                <p className="font-semibold font-serif">
+                                    <span className='text-rose-700'>Owner.: </span>{salon?.owner?.firstname} {salon?.owner?.lastname}
+                                </p>
+                                <p className="font-semibold font-serif">
+                                    <span className='text-rose-700'>Location: </span>{salon?.address}
+                                </p>
+                                <p className="font-semibold font-serif">
+                                    <span className='text-rose-700'>City: </span>{salon?.city}
+                                </p>
                             </div>
                         </div>
-                        <div className='mt-10 lg:w-1/2'>
+                        <div className=' lg:w-1/2'>
                             <h1 className='text-center font-bold text-xl font-serif'>Provide Services</h1>
                             <div className="services-container flex px-5 flex-wrap justify-center gap-x-5 ">
                                 {service.map((el, index) => <Sercomponents item={el} key={index} textSize={'text-xs'} ispriceDisplay={true} />)}

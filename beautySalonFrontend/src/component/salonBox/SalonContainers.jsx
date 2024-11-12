@@ -13,8 +13,11 @@ function SalonContainers({ item }) {
                 <p className='text-xl font-bold'>
                     {item.salonName}
                 </p>
-                <p className="address mb-5">
+                <p className="address">
                     {item.address}
+                </p>
+                <p className='mb-5 font-bold text-xl text-gray-500'>
+                    <span className='text-rose-500'>+91</span> {item.phone}
                 </p>
                 <Link to={`${state === true ? `salon-page/${item._id}` : `/login`}`} className='bg-rose-500 font-serif p-3 px-5 text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Book Now</Link>
             </div>

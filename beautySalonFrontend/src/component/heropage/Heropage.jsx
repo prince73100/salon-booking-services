@@ -39,15 +39,22 @@ function Heropage() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      dispatch(
-        customeraction.toupdateCurrentLocation([
-          position.coords.longitude,
-          position.coords.latitude
-        ])
-      );
-    })
-  }, [])
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        dispatch(
+          customeraction.toupdateCurrentLocation([
+            position.coords.longitude,
+            position.coords.latitude,
+          ])
+        );
+      },
+      (error) => {
+        console.error("Error getting location:", error);
+      },
+      { enableHighAccuracy: true }
+    );
+  }, []);
+  console.log(currentLocation)
 
   useEffect(() => {
     window.scrollTo(0, 0); // Scrolls to the top (x, y)
@@ -102,11 +109,11 @@ function Heropage() {
   const find_all_service_withInRange = async () => {
     try {
       const services = await axios.get('http://localhost:3000/api/v1/salon/uniqueServices')
-      const salonId = salon_with_in_range.map(el => el._id)
+      const salonId = salon_with_in_range.map(el => el?._id)
       console.log(salon_with_in_range)
       const servces_with_in_range = []
       services.data.services.forEach((el) => {
-        if (salonId.includes(el.servicesCreatedBy._id)) {
+        if (salonId.includes(el.servicesCreatedBy?._id)) {
           servces_with_in_range.push(el)
         }
       })
@@ -130,7 +137,7 @@ function Heropage() {
   }, []);
   useEffect(() => {
     fetchSalonWithIn()
-  }, [currentLocation,distance]);
+  }, [currentLocation, distance]);
   useEffect(() => {
     find_all_service_withInRange();
   }, [salon_with_in_range])
@@ -193,7 +200,7 @@ function Heropage() {
         <div className="salon_partner">
           {
             salon_with_in_range?.length === 0 ? <div className='salon-sup-container w-11/12 flex justify-center gap-x-20 gap-y-10 flex-wrap'>
-              <p className='text-rose-600 font-bold text-2xl'>No Any Salon Near By</p>
+              <p className='text-rose-600 font-bold text-2xl'>No Any Salon Near By......</p>
             </div> : <div className="salon-sup-container w-11/12 flex justify-center gap-x-20 gap-y-10 flex-wrap">
               {salon_with_in_range?.map((item, index) => <SalonContainers key={index} item={item} />)}
             </div>

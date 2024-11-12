@@ -83,6 +83,7 @@ function Header() {
     if (localStorage.getItem('role') === 'salon') return "/salonbusiness"
     if (localStorage.getItem('role') === 'artist') return "/salonbusiness"
     if (localStorage.getItem('role') === 'user') return "/"
+    if (!localStorage.getItem('role')) return "/"
   }
 
   return (

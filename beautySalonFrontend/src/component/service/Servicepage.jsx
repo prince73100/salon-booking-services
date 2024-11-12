@@ -44,15 +44,15 @@ function Servicepage() {
     const find_all_service_withInRange = async () => {
         try {
             const services = await axios.get('http://localhost:3000/api/v1/salon/uniqueServices')
-            const salonId = salon_with_in_range.map(el => el._id)
+            const salonId = salon_with_in_range.map(el => el?._id)
             const servces_with_in_range = []
             services.data.services.forEach((el) => {
-                if (salonId.includes(el.servicesCreatedBy._id)) {
+                if (salonId.includes(el.servicesCreatedBy?._id)) {
                     servces_with_in_range.push(el)
                 }
             })
             const unique_Array_with_in_range = servces_with_in_range.reduce((acc, currentv) => {
-                if (!acc.find(item => item.serviceName === currentv.serviceName)) {
+                if (!acc.find(item => item?.serviceName === currentv?.serviceName)) {
                     acc.push(currentv)
                 }
                 return acc
