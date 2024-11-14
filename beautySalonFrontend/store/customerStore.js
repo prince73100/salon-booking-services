@@ -50,9 +50,13 @@ const customerSlice = createSlice({
         services_provide: [],
         AllSerivces: [],
         currentLocation:[],
-        distance:5
+        distance:5,
+        rating:0
     },
     reducers: {
+        toupdaterating:(state,action)=>{
+             state.rating = action.payload
+        },
         toupdateDistance:(state,action)=>{
             state.distance = action.payload
         },

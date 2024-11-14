@@ -8,6 +8,7 @@ import userRoutes from './routes/user.routes.js'
 import artistRoutes from './routes/artist.route.js'
 import salonRoutes from './routes/salon.route.js'
 import bookingRoutes from './routes/booking.route.js'
+import ratingRoutes from './routes/ratingRoutes.js'
 import cors from 'cors'
 import cookieparser from 'cookie-parser'
 import { globalerrorHandler } from './controller/error.controller.js'
@@ -39,6 +40,8 @@ app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/artist', artistRoutes)
 app.use('/api/v1/salon', salonRoutes)
 app.use('/api/v1/booked',bookingRoutes)
+app.use('/api/v1/rating',ratingRoutes)
+
 
 // handle unhandled routes 
 

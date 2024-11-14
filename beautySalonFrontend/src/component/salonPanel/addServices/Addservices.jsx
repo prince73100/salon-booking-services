@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { serviceAction } from "../../../../store/salonSlice";
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Addservices() {
     const { service } = useSelector(store => store.salon)
     // console.log(service)
@@ -21,7 +23,6 @@ function Addservices() {
         'Facial',
         'Bleach',
         'Hair Spa',
-        'Beauty Salon Services',
         'Botox Treatment',
         'Cut',
         'Balayage'
@@ -68,22 +69,34 @@ function Addservices() {
     const handleAddService = async () => {
         const services = serviceRef.current.value;
         const price = priceRef.current.value;
+        let isexist = false
         if (!imagePath) {
             alert("Please select an image file.")
             return
         }
-        const formdata = new FormData();
-        formdata.append('serviceName', services);
-        formdata.append('price', price);
-        formdata.append('image', imagePath);
-        const servicesResult = await axios.post('http://localhost:3000/api/v1/salon/addServices', formdata, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${token}`
+        console.log("ka ho")
+
+        service.forEach(element => {
+            if (element.serviceName === services) {
+                isexist = true
             }
-        })
-        if (servicesResult.data.status === 'success') {
-            dispatch(serviceAction.addService(servicesResult.data.newServices))
+        });
+        if (!isexist) {
+            const formdata = new FormData();
+            formdata.append('serviceName', services);
+            formdata.append('price', price);
+            formdata.append('image', imagePath);
+            const servicesResult = await axios.post('http://localhost:3000/api/v1/salon/addServices', formdata, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (servicesResult.data.status === 'success') {
+                dispatch(serviceAction.addService(servicesResult.data.newServices))
+            }
+        }else{
+            toast.error(`${services} is already added in the list.`)
         }
     }
 
@@ -109,7 +122,7 @@ function Addservices() {
                     <div className="w-10/12 lg:flex lg:justify-evenly md:flex md:justify-evenly gap-x-20">
                         <div className=" lg:w-1/3 md:w-1/3  ">
                             <h1 className="lg:text-start lg:text-start text-center text-3xl font-serif lg:text-3xl md:lg:text-3xl  font-bold pt-10">Your Services</h1>
-                            {service.length === 0 && <div className="mt-10 font-serif font-semibold lg:text-start lg:text-start text-center">No any services add yet</div>}
+                            {service?.length === 0 && <div className="mt-10 font-serif font-semibold lg:text-start lg:text-start text-center">No any services add yet</div>}
                             {
                                 service.map((ser, index) => <div className="flex justify-between mt-5" key={index} >
                                     <img src={ser.image} alt="image" style={{ width: '50px', height: '50px' }} />
@@ -155,6 +168,7 @@ function Addservices() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </>
     )
 }

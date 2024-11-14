@@ -4,6 +4,7 @@ import asyncfunhandler from "../utility/asyncFunction.js"
 import { genToken } from '../utility/genreateToken.js'
 import sendEmail from "../utility/sendEmail.js"
 import crypto from 'crypto'
+import { sendSmsFunction } from "../utility/sendSms.js"
 
 const handleSignUp = asyncfunhandler(async (req, res, next) => {
     console.log(req.body)
@@ -50,6 +51,8 @@ const handlelogin = asyncfunhandler(async (req, res, next) => {
         httpOnly: true,
         secure: true
     }
+    const messagebody = `Hi ${user.firstname}, great to have you back at BeatyTime salon booking services. Check out what's new and keep exploring. Got questions? Our support team is ready to assist!`
+    sendSmsFunction(user.phone, messagebody)
     res.cookie('token', token, option).status(200).json({
         status: 'success',
         message: "User Loged In",
