@@ -41,14 +41,14 @@ function BookbytheService() {
     navigation('/paymentdeatails')
   }
   // fetch all salon with in range
-  const fetchSalonWithIn = async () => {
-    try {
-      const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/5/center/27.2072704,78.0468224`)
-      dispatch(customeraction.tosalonhandle(res.data.response))
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
+  // const fetchSalonWithIn = async () => {
+  //   try {
+  //     const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/5/center/27.2072704,78.0468224`)
+  //     dispatch(customeraction.tosalonhandle(res.data.response))
+  //   } catch (error) {
+  //     console.log(error.message)
+  //   }
+  // }
 
   // Fetch Booking Detail for a specifi detail
   const fetchBookingDetailForSalon = async () => {
@@ -71,11 +71,11 @@ function BookbytheService() {
   }, []);
 
   useEffect(() => {
-    fetchSalonWithIn();
+    // fetchSalonWithIn();
     fetchBookingDetailForSalon();
   }, []);
 
-  
+
 
   return (
     <div className='booking-detail-container bg-gradient-to-t from-rose-100 to-rose-400'>

@@ -4,11 +4,15 @@ import { useSelector } from 'react-redux'
 import { Sercomponents } from './Servicepage'
 function CostViseServices() {
     const { services_provide, AllSerivces } = useSelector(store => store.user)
+    const salonid = JSON.parse(localStorage.getItem('salonId'))
     const [category, setCategory] = useState([])
-    const [bgColor,setbgColor]=useState('')
+    const [bgColor, setbgColor] = useState('')
 
     const handleFilterServices = (servicename) => {
-        const filteredService = AllSerivces.filter((el) => el.serviceName === servicename)
+        const filteredService = JSON.parse(localStorage.getItem('servceswithinrange'))?.filter((el) => el.serviceName === servicename)
+        // const filteredService = AllSerivces?.filter((el) => el.serviceName === servicename)
+
+        console.log(filteredService)
         setCategory(filteredService)
         setbgColor(servicename)
     }
@@ -23,11 +27,11 @@ function CostViseServices() {
                 <div className="w-11/12   flex justify-between">
                     <div className="w-1/4 bg-white flex justify-center shadow-2xl min-h-96">
                         <ul className='w-10/12'>
-                            {services_provide.map((el, index) => <li key={index} className={`${bgColor===el.serviceName ? 'bg-rose-500 text-white':''}  side-bar-list  py-1 px-2 my-4 font-blod font-serif text-base cursor-pointer`} onClick={() => handleFilterServices(el.serviceName)} >{el.serviceName}</li>)}
+                            {services_provide.map((el, index) => <li key={index} className={`${bgColor === el.serviceName ? 'bg-rose-500 text-white' : ''}  side-bar-list  py-1 px-2 my-4 font-blod font-serif text-base cursor-pointer`} onClick={() => handleFilterServices(el.serviceName)} >{el.serviceName}</li>)}
                         </ul>
                     </div>
-                    <div className='flex justify-start  ' style={{width:'70%'}}>
-                        {category.map((el, index) => <Sercomponents key={index} item={el} ispriceDisplay={true} isSalonnameDisplay={true}/>)}
+                    <div className='flex justify-start flex-wrap gap-x-5 ' style={{ width: '70%' }}>
+                        {category.map((el, index) => <Sercomponents key={index} item={el} ispriceDisplay={true} isSalonnameDisplay={true} />)}
                     </div>
                 </div>
             </div>

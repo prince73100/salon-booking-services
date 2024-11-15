@@ -19,13 +19,14 @@ const createBooking = asyncfunhandler(async (req, res, next) => {
 const bookedConfirm = asyncfunhandler(async (req, res, next) => {
 
   const newBooking = new Booking({
-    razorpayPaymentId: req.body.razorpayPaymentId,
-    razorpayOrderId: req.body.razorpayOrderId,
+    razorpayPaymentId: req.body.razorpayPaymentId || "",
+    razorpayOrderId: req.body.razorpayOrderId || "",
     serviceName: req.body.bookedData.serviceName,
     price: req.body.bookedData.price,
     salonID: req.body.bookedData.salonId,
     bookedBy: req.user.id,
-    serviceDateAndTime: req.body.bookedData.date
+    serviceDateAndTime: req.body.bookedData.date,
+    ispayment: req.body.razorpayPaymentId ? true : false
   });
 
   await newBooking.save();
@@ -101,6 +102,7 @@ const bookedConfirm = asyncfunhandler(async (req, res, next) => {
         <p>Time: <span>${req.body.bookedData.date.split('T')[1].split('+')[0]}</span></p>
         <p>Service(s): <span>${req.body.bookedData.serviceName}</span></p>
         <p>Price: <span>${req.body.bookedData.price}</span></p>
+        <p>Payment Status: <span>${bookingDetail.ispayment===true? `Paid` :   `Pending`}</span></p>
         <p>Location: <span><a href="[Google Maps link]" target="_blank">[Salon Address]</a></span></p>
       </div>
 
@@ -129,7 +131,7 @@ const bookedConfirm = asyncfunhandler(async (req, res, next) => {
       message: "booking",
       html
     })
-    res.json({ message: 'Booking confirmed!' });
+    res.json({status:'success', message: 'Booking confirmed!' });
   } catch (error) {
     return next(new Apierror('there was an error for sending mail', 500))
   }
@@ -147,7 +149,7 @@ const getBookingDetailById = asyncfunhandler(async (req, res, next) => {
 
 // booking detail by userID
 const bookingByUserId = asyncfunhandler(async (req, res, next) => {
-  const bookHistory = await Booking.find({ bookedBy: req.user._id });
+  const bookHistory = await Booking.find({ bookedBy: req.user._id }).populate('salonID');
   res.status(200).json({
     status: 'success',
     bookHistory

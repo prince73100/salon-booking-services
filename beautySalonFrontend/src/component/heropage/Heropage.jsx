@@ -100,6 +100,7 @@ function Heropage() {
   const fetchSalonWithIn = async () => {
     try {
       const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
+      localStorage.setItem('salon_with_inrange',JSON.stringify(res.data.response))
       dispatch(customeraction.tosalonhandle(res.data.response))
     } catch (error) {
       console.log(error.message)

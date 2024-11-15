@@ -9,7 +9,7 @@ import { customeraction } from '../../../store/customerStore';
 import mainlogo from '../../assets/logo/logo.png'
 import { IoIosSearch } from "react-icons/io";
 import { authuseraction } from '../../../store/artistSlice';
-import { FaHistory } from "react-icons/fa";
+import { MdOutlineManageHistory } from "react-icons/md";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom'
@@ -118,7 +118,7 @@ function Header() {
             {(state === true && role === 'salon') && <li><Link to={'/addServices'}>Add Services</Link></li>}
             {state === true && role === 'user' && <li className='relative'>
               <Link to={'/history'}>
-                <FaHistory size={20} />
+                <MdOutlineManageHistory size={20} />
               </Link>
             </li>}
             {state === true ?

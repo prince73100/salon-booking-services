@@ -1,25 +1,122 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react'
-import axios from 'axios'
-function Bookinghistory() {
-    const token = localStorage.getItem('jwt');
-    const fetchAllBookingHistory = async () => {
-        const result = await axios.get(`http://localhost:3000/api/v1/booked/getbookingHistory`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        console.log(result)
-    }
-useEffect(()=>{
+import * as React from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+
+export default function BasicTable() {
+  const [bookDetail, setBookingDetail] = React.useState([]);
+  const token = localStorage.getItem('jwt');
+
+  const fetchAllBookingHistory = async () => {
+    const result = await axios.get(`http://localhost:3000/api/v1/booked/getbookingHistory`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setBookingDetail(result.data.bookHistory);
+    console.log(result);
+  };
+
+  console.log(bookDetail);
+
+  useEffect(() => {
     fetchAllBookingHistory();
-},[])
+  }, []);
 
-    return (
-        <div>
-
+  return (
+    <div>
+      <div className="hidden sm:block sm:w-full sm:flex sm:justify-center sm:mt-20">
+        <div className="w-11/12">
+          <h1 className="bg-rose-700 text-center font-serif text-2xl font-bold py-5 text-white">
+            Booking History
+          </h1>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 100 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <span className="text-lg font-bold">Service Name</span>
+                  </TableCell>
+                  <TableCell align="right">
+                    <span className="text-lg font-bold">Price</span>
+                  </TableCell>
+                  <TableCell align="right">
+                    <span className="text-lg font-bold">Payment Status</span>
+                  </TableCell>
+                  <TableCell align="right">
+                    <span className="text-lg font-bold">Salon Name</span>
+                  </TableCell>
+                  <TableCell align="right">
+                    <span className="text-lg font-bold">Date and Time</span>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {bookDetail.map((item) => (
+                  <TableRow key={item._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableCell component="th" scope="row">
+                      {item.serviceName}
+                    </TableCell>
+                    <TableCell align="right">{item.price}</TableCell>
+                    <TableCell align="right">{item.ispayment ? 'true' : 'false'}</TableCell>
+                    <TableCell align="right">{item.salonID.salonName}</TableCell>
+                    <TableCell align="right">
+                      {item.serviceDateAndTime.split('T')[0]} | {item.serviceDateAndTime.split('T')[1].slice(0, 5)} <span>{item.serviceDateAndTime.split('T')[1].slice(0, 5).split(':')[0]>= 12?'PM' :'AM'}</span>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
-    )
-}
+      </div>
 
-export default Bookinghistory
+      <div className='sm:hidden block mt-20'>
+        <h1 className="bg-rose-700 text-center font-serif text-2xl font-bold py-5 text-white">
+          Booking History
+        </h1>
+        <div className=" w-full flex justify-center">
+          <div className="w-11/12  flex justify-center">
+            <List sx={{ width: '90%', maxWidth: 360 }}>
+              {bookDetail.map((item) => (
+                <div className='border-b-2 border-rose-500' key={item._id}>
+                  <ListItem alignItems="flex-start" >
+                    <ListItemText
+                      primary={item?.salonID?.salonName}
+                      secondary={
+                        <React.Fragment>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            sx={{ color: 'text.primary', display: 'inline' }}
+                          >
+                            <span className='text-base font-semibold text-rose-600'>{item?.serviceName}- </span>
+                          </Typography>
+                          <span className='text-lg font-semibold'><span className='pl-5'>&#8377;</span>{` ${item?.price}`}</span> <br />
+
+                          <span className=' '><span className='text-rose-600 font-semibold'>Date and Time - </span> {item.serviceDateAndTime.split('T')[0]} | {item.serviceDateAndTime.split('T')[1].slice(0, 5)}</span> <span>{item.serviceDateAndTime.split('T')[1].slice(0, 5).split(':')[0]>= 12?'PM' :'AM'}</span>
+                        </React.Fragment>
+                      }
+                    />
+                  </ListItem>
+                </div>
+              ))}
+
+            </List>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

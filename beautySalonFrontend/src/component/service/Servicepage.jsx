@@ -18,16 +18,16 @@ export function Sercomponents({ item, ispriceDisplay = false, textSize = 'text-x
                 <img src={`${item?.image}`} alt="" style={{ width: '250px', height: '160px' }} className='transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300' />
             </div>
             <div className="service-content">
-                {isSalonnameDisplay && <div className="servicename  mt-4 mb-4 ml-5">
+                {isSalonnameDisplay && <div className="servicename  mt-4 mb-4">
                     <span className='font-bold text-lg'>  {item?.servicesCreatedBy?.salonName}</span> | <span className='text-sm'> {item?.servicesCreatedBy?.phone}</span>
                 </div>}
-                <div className={`${textSize} servicename  mt-2 mb-2 ml-5 font-serif  font-bold text-pink-700`}>
+                <div className={`${textSize} servicename  mt-2 mb-2  font-serif  font-bold text-pink-700`}>
                     {item?.serviceName}
                 </div>
-                {ispriceDisplay && <div className="servicename  mt-2 mb-2 ml-5 font-serif text-xl font-bold text-green-600">
+                {ispriceDisplay && <div className="servicename  mt-2 mb-2  font-serif text-xl font-bold text-green-600">
                     {item?.price}
                 </div>}
-                <div className="book-now w-3/5 mt-5 mb-4 ml-5">
+                <div className="book-now w-3/5 mt-5 mb-4 ">
                     {ispriceDisplay && <Link to={`${state === true ? `/bookingService/${item?._id}/${item?.serviceName}/${item.price}/${item?.servicesCreatedBy?._id}/${item?.servicesCreatedBy?.salonName}` : '/login'}`} className='bg-rose-500 font-serif p-3 px-5 text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Book</Link>}
 
                     {!ispriceDisplay && <Link to={`${state === true ? `/select-one-service` : '/login'}`} className='bg-rose-500 font-serif p-3 px-5 text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Continue</Link>}
@@ -39,8 +39,8 @@ export function Sercomponents({ item, ispriceDisplay = false, textSize = 'text-x
 
 function Servicepage() {
     const dispatch = useDispatch();
-    const { services_provide, salon_with_in_range } = useSelector(store => store.user)
-
+    const { services_provide } = useSelector(store => store.user)
+    const salon_with_in_range = JSON.parse(localStorage.getItem("salon_with_inrange"))
     const find_all_service_withInRange = async () => {
         try {
             const services = await axios.get('http://localhost:3000/api/v1/salon/uniqueServices')
@@ -51,6 +51,7 @@ function Servicepage() {
                     servces_with_in_range.push(el)
                 }
             })
+            localStorage.setItem('servceswithinrange', JSON.stringify(servces_with_in_range))
             const unique_Array_with_in_range = servces_with_in_range.reduce((acc, currentv) => {
                 if (!acc.find(item => item?.serviceName === currentv?.serviceName)) {
                     acc.push(currentv)
