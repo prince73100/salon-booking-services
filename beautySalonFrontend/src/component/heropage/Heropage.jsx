@@ -152,7 +152,7 @@ function Heropage() {
           <div className="lg:flex ">
             <div className=' lg:w-1/2 '>
               <div className=''>
-                <h1 className='text-2xl px-5 pt-5 lg:px-10 lg:text-4xl md:px-10 sm:px-10  font-bold font-serif text-centers md:text-4xl sm:text-3xl'>Effortless Beauty, Anytime prince.</h1>
+                <h1 className='text-2xl px-5 pt-5 lg:px-10 lg:text-4xl md:px-10 sm:px-10  font-bold font-serif text-centers md:text-4xl sm:text-3xl'>Effortless Beauty, Anytime.</h1>
                 <p className='text-justify pt-10 px-5'>"Discover a seamless booking experience with our beauty salon platform. Effortlessly find and book appointments at top salons with just a few clicks, choosing from a range of skilled and professional artists dedicated to delivering the best in beauty services."</p>
                 <div className=' w-1/2 mt-10'>
                   <p className='text-center pb-4'>(For professional)</p>
