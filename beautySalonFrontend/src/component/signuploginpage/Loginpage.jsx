@@ -18,7 +18,7 @@ function Loginpage() {
         console.log(apiUrl)
         console.log(data)
         try {
-            const res = await axios.post(`${apiUrl}/api/v1/user/login`, data)
+            const res = await axios.post(`https://salon-booking-services.onrender.com/api/v1/user/login`, data)
             const expireIn = Date.now() + 1 * 24 * 60 * 60 * 1000;
             const token = res.data.token
             localStorage.setItem('jwt', token)
