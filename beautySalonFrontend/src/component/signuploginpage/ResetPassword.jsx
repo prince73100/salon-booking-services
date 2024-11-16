@@ -7,6 +7,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from 'react-redux';
 import { customeraction } from '../../../store/customerStore';
+import apiUrl from '../../config/config';
+
 function ResetPassword() {
     const navigation = useNavigate()
     const dispatch = useDispatch();
@@ -19,7 +21,7 @@ function ResetPassword() {
             password: passref.current.value,
             confirmPassword: conPass.current.value
         }
-        const res = await axios.patch(`http://localhost:3000/api/v1/user/resetpassword/${token}`, data)
+        const res = await axios.patch(`${apiUrl}/api/v1/user/resetpassword/${token}`, data)
         if (res.data.status === 'success') {
             toast.success(`password updated and ${res.data.message}`, {
                 position: "top-center"

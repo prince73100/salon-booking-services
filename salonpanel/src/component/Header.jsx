@@ -10,7 +10,7 @@ function Header() {
 
   const onLogOutartist = async () => {
     const token = localStorage.getItem("jwt_token")
-    const resp = await axios.post(`http://localhost:3000/api/v1/salon/logout/${token}`)
+    const resp = await axios.post(`http://localhost:4000/api/v1/salon/logout/${token}`)
     localStorage.removeItem("jwt_token")
     localStorage.removeItem('states')
     dispatch(serviceAction.tosetstates(undefined))

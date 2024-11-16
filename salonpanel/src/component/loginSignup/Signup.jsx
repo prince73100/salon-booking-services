@@ -16,7 +16,7 @@ function Signup() {
   // for sign up handler
   const handleSubmits = async (data) => {
     try {
-      const user = await axios.post('http://localhost:3000/api/v1/salon/signup', data)
+      const user = await axios.post('http://localhost:4000/api/v1/salon/signup', data)
       navigate('/login')
       console.log(user);
     } catch (error) {
@@ -47,7 +47,7 @@ function Signup() {
 
     try {
       console.log(contactNum, password)
-      await axios.post('http://localhost:3000/api/v1/salon/login', { phonenumber: contactNum, password: password })
+      await axios.post('http://localhost:4000/api/v1/salon/login', { phonenumber: contactNum, password: password })
         .then((res) => {
           const status = " " + res.data.status
           console.log(status)

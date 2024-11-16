@@ -199,7 +199,7 @@ function Signup() {
 export const onRegistereduser = async (data) => {
     const formData = await data.request.formData();
     const postData = Object.fromEntries(formData);
-    const user = await axios.post("http://localhost:3000/api/v1/artist/artistsignup", postData)
+    const user = await axios.post("http://localhost:4000/api/v1/artist/artistsignup", postData)
     console.log(user);
     return redirect('/login');
 }

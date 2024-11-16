@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import apiUrl from "../../../config/config";
 function RegisteredBusiness() {
     const [currentLocation, setCurrentLocation] = useState([])
     const navigation = useNavigate()
@@ -28,7 +29,7 @@ function RegisteredBusiness() {
         formData.append('location', currentLocation)
 
         try {
-            const result = await axios.post('http://localhost:3000/api/v1/salon/rgistered', formData, {
+            const result = await axios.post(`${apiUrl}/api/v1/salon/rgistered`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`

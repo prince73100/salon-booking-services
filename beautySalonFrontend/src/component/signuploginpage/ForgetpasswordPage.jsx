@@ -4,6 +4,8 @@ import { useRef } from 'react'
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import apiUrl from '../../config/config';
+
 function ForgetpasswordPage() {
     const emailRef = useRef();
 
@@ -12,7 +14,7 @@ function ForgetpasswordPage() {
             email: emailRef.current.value
         }
         try {
-            const res = await axios.post('http://localhost:3000/api/v1/user/forgetPassword', data)
+            const res = await axios.post(`${apiUrl}/api/v1/user/forgetPassword`, data)
             if (res.data.status === 'success') {
                 toast.success(res.data.message, {
                     position: "top-center"

@@ -6,7 +6,7 @@ function Jobpost() {
     const handlePostjob = async (data) => {
         try {
             const token = localStorage.getItem('jwt_token')
-            const jonpost = await axios.post(`http://localhost:3000/api/v1/salon/postjob/${token}`,data)
+            const jonpost = await axios.post(`http://localhost:4000/api/v1/salon/postjob/${token}`,data)
             const status = " " + jonpost.data.status
             if (status.charAt(1) === '4') {
                 alert(jonpost.data.message)

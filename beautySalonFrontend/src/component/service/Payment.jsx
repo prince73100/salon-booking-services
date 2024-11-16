@@ -2,17 +2,20 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import apiUrl from '../../config/config';
 function Payment() {
     const token = localStorage.getItem('jwt')
     const { bookedData } = useSelector(store => store.user)
+    const navigation = useNavigate()
     const [paymentmethod, setpaymentmethod] = useState('upi')
     console.log(paymentmethod)
     const handlePayment = async () => {
         try {
             if (paymentmethod === 'upi') {
                 // 1. create order
-                const orderResponse = await axios.post('http://localhost:3000/api/v1/booked/order', bookedData, {
+                const orderResponse = await axios.post(`${apiUrl}/api/v1/booked/order`, bookedData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -28,7 +31,7 @@ function Payment() {
                     handler: async function (response) {
                         const paymentId = response.razorpay_payment_id;
                         const orderId = response.razorpay_order_id;
-                        const res = await axios.post('http://localhost:3000/api/v1/booked/confirm', {
+                        const res = await axios.post(`${apiUrl}/api/v1/booked/confirm`, {
                             razorpayPaymentId: paymentId,
                             razorpayOrderId: orderId,
                             bookedData
@@ -49,7 +52,7 @@ function Payment() {
                 console.log(orderResponse)
             }
             else {
-                const res = await axios.post('http://localhost:3000/api/v1/booked/confirm', {
+                const res = await axios.post(`${apiUrl}/api/v1/booked/confirm`, {
                     bookedData
                 }, {
                     headers: {

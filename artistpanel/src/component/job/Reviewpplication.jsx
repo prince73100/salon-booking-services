@@ -8,7 +8,7 @@ function Reviewpplication() {
 
     const onsubmitform = async () => {
         const token = localStorage.getItem('token')
-        const res = await axios.post(`http://localhost:3000/api/v1/artist/applicationsubmit/${token}`, appdata)
+        const res = await axios.post(`http://localhost:4000/api/v1/artist/applicationsubmit/${token}`, appdata)
         console.log(res);
         alert(res.data.message)
         navigate('/')

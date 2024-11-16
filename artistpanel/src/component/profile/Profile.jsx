@@ -8,7 +8,7 @@ function Profile() {
   const dispatch = useDispatch()
   const onLogOutartist = async () => {
     const token = localStorage.getItem("token")
-    const resp = await axios.post(`http://localhost:3000/api/v1/artist/artistlogout/${token}`)
+    const resp = await axios.post(`http://localhost:4000/api/v1/artist/artistlogout/${token}`)
     localStorage.removeItem("token")
     localStorage.removeItem('states')
     dispatch(authuseraction.updatestate(undefined))

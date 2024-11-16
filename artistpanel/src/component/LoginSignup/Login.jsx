@@ -56,7 +56,7 @@ export const login = async (data) => {
         alert("Both field are require")
         return null;
     }
-    const resp = await axios.post("http://localhost:3000/api/v1/artist/artistlogin", postData)
+    const resp = await axios.post("http://localhost:4000/api/v1/artist/artistlogin", postData)
     const strnum = " " + resp.data.status
     if (strnum.charAt(1) == "4") {
         alert(resp.data.message)

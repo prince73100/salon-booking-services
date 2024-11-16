@@ -13,13 +13,13 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-
+import apiUrl from '../../config/config';
 export default function BasicTable() {
   const [bookDetail, setBookingDetail] = React.useState([]);
   const token = localStorage.getItem('jwt');
 
   const fetchAllBookingHistory = async () => {
-    const result = await axios.get(`http://localhost:3000/api/v1/booked/getbookingHistory`, {
+    const result = await axios.get(`${apiUrl}/api/v1/booked/getbookingHistory`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -28,7 +28,6 @@ export default function BasicTable() {
     console.log(result);
   };
 
-  console.log(bookDetail);
 
   useEffect(() => {
     fetchAllBookingHistory();

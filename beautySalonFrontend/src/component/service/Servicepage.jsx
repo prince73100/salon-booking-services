@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { customeraction } from '../../../store/customerStore.js'
+import apiUrl from '../../config/config.js'
 
 export function Sercomponents({ item, ispriceDisplay = false, textSize = 'text-xl', isSalonnameDisplay }) {
     const { state } = useSelector(store => store.user)
@@ -43,7 +44,7 @@ function Servicepage() {
     const salon_with_in_range = JSON.parse(localStorage.getItem("salon_with_inrange"))
     const find_all_service_withInRange = async () => {
         try {
-            const services = await axios.get('http://localhost:3000/api/v1/salon/uniqueServices')
+            const services = await axios.get(`${apiUrl}/api/v1/salon/uniqueServices`)
             const salonId = salon_with_in_range.map(el => el?._id)
             const servces_with_in_range = []
             services.data.services.forEach((el) => {

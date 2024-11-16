@@ -7,30 +7,32 @@ import { useDispatch } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react'
+import apiUrl from '../../config/config'
+
 function Loginpage() {
     const { register, handleSubmit } = useForm()
     const navigation = useNavigate()
     const dispatch = useDispatch();
 
     const login = async (data) => {
-
+        console.log(data)
         try {
-            const res = await axios.post('http://localhost:3000/api/v1/user/login', data)
+            const res = await axios.post(`${apiUrl}/api/v1/user/login`, data)
             const expireIn = Date.now() + 1 * 24 * 60 * 60 * 1000;
             const token = res.data.token
             localStorage.setItem('jwt', token)
             localStorage.setItem('exipreIn', expireIn)
-            localStorage.setItem('role',res.data.user.role)
+            localStorage.setItem('role', res.data.user.role)
             dispatch(customeraction.toUpdatestate(true))
             if (res.data.user.role === "artist") {
                 navigation('/jobs')
-            }else if(res.data.user.role === "salon"){
+            } else if (res.data.user.role === "salon") {
                 navigation('/salonbusiness')
             }
-            else if(res.data.user.role === "admin"){
+            else if (res.data.user.role === "admin") {
                 navigation('#')
             }
-            else{
+            else {
                 navigation('/')
             }
         } catch (error) {
@@ -73,7 +75,7 @@ function Loginpage() {
                                     {...register("password", { required: true })}
                                 />
                             </div>
-                        <Link className='text-rose-500 font-serif font-bold my-10' to={'/forgetPassword'}>Forget your password?</Link>
+                            <Link className='text-rose-500 font-serif font-bold my-10' to={'/forgetPassword'}>Forget your password?</Link>
                         </div>
                         <div className="sm:col-span-6">
                             <div className="mt-2">

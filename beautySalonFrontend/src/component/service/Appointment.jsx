@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { customeraction } from '../../../store/customerStore'
 import { useNavigate } from 'react-router-dom'
+import apiUrl from '../../config/config'
 
 
 function Appointment() {
@@ -25,7 +26,7 @@ function Appointment() {
   // handle get all services a salon 
   const onandleChange = (e) => {
     const salonid = e.target.value
-    axios.get(`http://localhost:3000/api/v1/salon/getservice/${salonid}`).then((res) => {
+    axios.get(`${apiUrl}/api/v1/salon/getservice/${salonid}`).then((res) => {
       dispatch(customeraction.toserviceHandle(res.data.allServices))
     })
   }
@@ -41,7 +42,7 @@ function Appointment() {
   }
   // For fetch all Salon
   useEffect(() => {
-    axios.get('http://localhost:3000/api/v1/salon/getallsalon').then((res) => {
+    axios.get(`${apiUrl}/api/v1/salon/getallsalon`).then((res) => {
       dispatch(customeraction.tosalonhandle(res.data.getAllSalon))
     })
   }, [])

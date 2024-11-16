@@ -3,13 +3,15 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect } from 'react';
+import apiUrl from '../../config/config';
+
 function SignUpLogin() {
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
     const signUp = async (data) => {
         try {
             // eslint-disable-next-line no-unused-vars
-            const user = await axios.post('http://localhost:3000/api/v1/user/signup', data)
+            const user = await axios.post(`${apiUrl}/api/v1/user/signup`, data)
             navigate("/login")
         } catch (error) {
             toast.error(error.response.data.message)

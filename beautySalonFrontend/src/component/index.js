@@ -22,6 +22,7 @@ import ResetPassword from "./signuploginpage/ResetPassword";
 import CostViseServices from "./service/CostViseServices";
 import Salonpage from "./salonpage/Salonpage";
 import Bookinghistory from "./bookbytheservice/Bookinghistory";
+import BookingPage from "./salonPanel/bookingpage/BookingPage";
 export {
     Artiestdetail,
     Artistfulldetail,
@@ -46,5 +47,6 @@ export {
     ResetPassword,
     CostViseServices,
     Salonpage,
-    Bookinghistory
+    Bookinghistory,
+    BookingPage
 }

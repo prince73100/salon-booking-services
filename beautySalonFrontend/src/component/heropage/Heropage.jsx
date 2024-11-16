@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
@@ -18,6 +19,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { customeraction } from '../../../store/customerStore.js'
 import axios from 'axios'
+import apiUrl from '../../config/config.js'
 
 
 
@@ -50,8 +52,7 @@ function Heropage() {
       },
       (error) => {
         console.error("Error getting location:", error);
-      },
-      { enableHighAccuracy: true }
+      }
     );
   }, []);
   console.log(currentLocation)
@@ -99,7 +100,7 @@ function Heropage() {
 
   const fetchSalonWithIn = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
+      const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
       localStorage.setItem('salon_with_inrange',JSON.stringify(res.data.response))
       dispatch(customeraction.tosalonhandle(res.data.response))
     } catch (error) {
@@ -109,7 +110,7 @@ function Heropage() {
 
   const find_all_service_withInRange = async () => {
     try {
-      const services = await axios.get('http://localhost:3000/api/v1/salon/uniqueServices')
+      const services = await axios.get(`${apiUrl}/api/v1/salon/uniqueServices`)
       const salonId = salon_with_in_range.map(el => el?._id)
       console.log(salon_with_in_range)
       const servces_with_in_range = []
@@ -151,7 +152,7 @@ function Heropage() {
           <div className="lg:flex ">
             <div className=' lg:w-1/2 '>
               <div className=''>
-                <h1 className='text-2xl px-5 pt-5 lg:px-10 lg:text-4xl md:px-10 sm:px-10  font-bold font-serif text-centers md:text-4xl sm:text-3xl'>Effortless Beauty, Anytime.</h1>
+                <h1 className='text-2xl px-5 pt-5 lg:px-10 lg:text-4xl md:px-10 sm:px-10  font-bold font-serif text-centers md:text-4xl sm:text-3xl'>Effortless Beauty, Anytime prince.</h1>
                 <p className='text-justify pt-10 px-5'>"Discover a seamless booking experience with our beauty salon platform. Effortlessly find and book appointments at top salons with just a few clicks, choosing from a range of skilled and professional artists dedicated to delivering the best in beauty services."</p>
                 <div className=' w-1/2 mt-10'>
                   <p className='text-center pb-4'>(For professional)</p>

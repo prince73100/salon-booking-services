@@ -16,7 +16,7 @@
 //       return;
 //     }
 //     try {
-//       await axios.post('http://localhost:3000/api/v1/salon/login', data)
+//       await axios.post('http://localhost:4000/api/v1/salon/login', data)
 //         .then((res) => {
 //           const status = " " + res.data.status
 //           if (status.charAt(1) === '4') {

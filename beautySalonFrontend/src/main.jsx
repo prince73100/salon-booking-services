@@ -25,7 +25,8 @@ import {
   ResetPassword,
   CostViseServices,
   Salonpage,
-  Bookinghistory
+  Bookinghistory,
+  BookingPage
 } from './component/index.js'
 import Errorpage from './component/error/Errorpage.jsx'
 
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
       { path: '/select-one-service', element: <CostViseServices /> },
       { path: '/salon-page/:salonId', element: <Salonpage /> },
       { path: '/history', element: <Bookinghistory /> },
+      {path:'/upcomingBook',element:<BookingPage/>},
       {path:'*',element:<Errorpage/>}
     ]
   }

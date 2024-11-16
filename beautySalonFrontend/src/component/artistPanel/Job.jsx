@@ -15,7 +15,7 @@ function Job() {
   const [jobdetail, setjobdetail] = useState()
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/v1/salon/getalljobs').then((res) => {
+    axios.get('http://localhost:4000/api/v1/salon/getalljobs').then((res) => {
       dispatch(authuseraction.toupdatesjobs(res.data.allJob))
       console.log(res)
     })

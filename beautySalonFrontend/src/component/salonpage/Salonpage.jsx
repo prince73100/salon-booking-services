@@ -7,6 +7,7 @@ import ReactStars from 'react-rating-stars-component';
 import { useDispatch } from 'react-redux';
 import { customeraction } from '../../../store/customerStore';
 import RatingComponent from '../rating/RatingComponent';
+import apiUrl from '../../config/config';
 
 function Salonpage() {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function Salonpage() {
     // Function to fetch salon data
     const fetchSalonData = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/v1/salon/getsalonById/${salonId}`);
+            const response = await axios.get(`${apiUrl}/api/v1/salon/getsalonById/${salonId}`);
             setSalon(response.data.salonbyId);
         } catch (error) {
             console.error('Error fetching salon data:', error);
@@ -30,7 +31,7 @@ function Salonpage() {
     // Function to fetch services data
     const fetchServices = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/v1/salon/getservices/${salonId}`, {
+            const response = await axios.get(`${apiUrl}/api/v1/salon/getservices/${salonId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -46,7 +47,7 @@ function Salonpage() {
         const data = { rating: numRating };
         console.log(data)
         try {
-            const response = await axios.post(`http://localhost:3000/api/v1/rating/postrating/${salonId}`, data, {
+            const response = await axios.post(`${apiUrl}/api/v1/rating/postrating/${salonId}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -61,7 +62,7 @@ function Salonpage() {
     // Function to get rating by ID
     const fetchRatingById = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/v1/rating/getrating/${salonId}`, {
+            const response = await axios.get(`${apiUrl}/api/v1/rating/getrating/${salonId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

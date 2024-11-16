@@ -13,6 +13,7 @@ import { MdOutlineManageHistory } from "react-icons/md";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom'
+import apiUrl from '../../config/config';
 
 
 function Header() {
@@ -50,7 +51,7 @@ function Header() {
   }
   const [name, setname] = useState({});
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/user/profile`, {
+    axios.get(`${apiUrl}/api/v1/user/profile`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -107,20 +108,20 @@ function Header() {
           <ul>
             <li>Home</li>
             {/* User */}
-            {(state === true && role === 'salon') ? <></> : <li><Link to={'/service'}>Service</Link></li>}
             {(state === true && role === 'user') && <li><Link to={'#'}>Gallery</Link></li>}
+            {(state === true && role === 'user') && <li><Link to={'/service'}>Service</Link></li>}
             <li><Link to={'#'}>About</Link></li>
+            {state === true && role === 'user' && <li className='relative'> <Link to={'/history'}> <MdOutlineManageHistory size={20} /> </Link></li>}
+
+            {/* salon route */}
             {(state === true && role === 'salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
             {(state === true && role === 'salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
-            {/* Artist */}
-            {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
-            {/* salon route */}
             {(state === true && role === 'salon') && <li><Link to={'/addServices'}>Add Services</Link></li>}
-            {state === true && role === 'user' && <li className='relative'>
-              <Link to={'/history'}>
-                <MdOutlineManageHistory size={20} />
-              </Link>
-            </li>}
+            {(state === true && role === 'salon') && <li><Link to={'/upcomingBook'}>Booking</Link></li>}
+
+            {/* Artist */}
+
+            {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
             {state === true ?
               <>
                 <Popup trigger={<button className="profile">{profilename}</button>} position="bottom right">

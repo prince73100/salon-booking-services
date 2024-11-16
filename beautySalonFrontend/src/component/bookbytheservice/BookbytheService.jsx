@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom';
 import { customeraction } from '../../../store/customerStore'
 import axios from 'axios'
+import apiUrl from '../../config/config'
 
 function BookbytheService() {
   const { salon_with_in_range } = useSelector(store => store.user)
@@ -43,7 +44,7 @@ function BookbytheService() {
   // fetch all salon with in range
   // const fetchSalonWithIn = async () => {
   //   try {
-  //     const res = await axios.get(`http://localhost:3000/api/v1/salon/findSalon_with-in/distance/5/center/27.2072704,78.0468224`)
+  //     const res = await axios.get(`http://localhost:4000/api/v1/salon/findSalon_with-in/distance/5/center/27.2072704,78.0468224`)
   //     dispatch(customeraction.tosalonhandle(res.data.response))
   //   } catch (error) {
   //     console.log(error.message)
@@ -53,7 +54,7 @@ function BookbytheService() {
   // Fetch Booking Detail for a specifi detail
   const fetchBookingDetailForSalon = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/booked/getSalon/${salonId}`)
+      const res = await axios.get(`${apiUrl}/api/v1/booked/getSalon/${salonId}`)
       const scheduleArray = res.data.bookingDetails.map((el) => {
         const obj = {}
         obj.title = 'Booked',

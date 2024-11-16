@@ -50,7 +50,7 @@ function Services() {
             try {
                 const token = localStorage.getItem('jwt_token')
                 console.log(token);
-                const services = await axios.post(`http://localhost:3000/api/v1/salon/addservice/${token}`, service).then((res) => {
+                const services = await axios.post(`http://localhost:4000/api/v1/salon/addservice/${token}`, service).then((res) => {
                     alert(res.data.message)
                     console.log(res);
                 })

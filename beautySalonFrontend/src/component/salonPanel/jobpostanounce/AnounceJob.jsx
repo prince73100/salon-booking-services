@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form"
 import axios from 'axios'
+import apiUrl from "../../../config/config";
 function Anouncejob() {
     const token = localStorage.getItem('jwt');
     const { register, handleSubmit } = useForm()
 
     const hadleRegistered = async (data) => {
         try {
-            const result = await axios.post('http://localhost:3000/api/v1/salon/postingjob', data, {
+            const result = await axios.post(`${apiUrl}/api/v1/salon/postingjob`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

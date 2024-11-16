@@ -8,6 +8,7 @@ import { serviceAction } from "../../../../store/salonSlice";
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import apiUrl from "../../../config/config.js";
 function Addservices() {
     const { service } = useSelector(store => store.salon)
     // console.log(service)
@@ -50,7 +51,7 @@ function Addservices() {
     const handleDeleteServices = async (serviceId) => {
         try {
             if (serviceId) {
-                const res = await axios.delete(`http://localhost:3000/api/v1/salon/deleteservices/${serviceId}`, {
+                const res = await axios.delete(`${apiUrl}/api/v1/salon/deleteservices/${serviceId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -86,7 +87,7 @@ function Addservices() {
             formdata.append('serviceName', services);
             formdata.append('price', price);
             formdata.append('image', imagePath);
-            const servicesResult = await axios.post('http://localhost:3000/api/v1/salon/addServices', formdata, {
+            const servicesResult = await axios.post(`${apiUrl}/api/v1/salon/addServices`, formdata, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`
@@ -101,7 +102,7 @@ function Addservices() {
     }
 
     const fetchAllServices = async () => {
-        const res = await axios.get('http://localhost:3000/api/v1/salon/getservices', {
+        const res = await axios.get(`${apiUrl}/api/v1/salon/getservices`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
