@@ -15,6 +15,7 @@ function Loginpage() {
     const dispatch = useDispatch();
 
     const login = async (data) => {
+        console.log(apiUrl)
         console.log(data)
         try {
             const res = await axios.post(`${apiUrl}/api/v1/user/login`, data)
