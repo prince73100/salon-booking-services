@@ -20,7 +20,7 @@ import { useDispatch } from 'react-redux'
 import { customeraction } from '../../../store/customerStore.js'
 import axios from 'axios'
 import apiUrl from '../../config/config.js'
-
+import { BallTriangle } from 'react-loader-spinner'
 
 
 const Boxchooseus = ({ image, context }) => {
@@ -39,6 +39,7 @@ const Boxchooseus = ({ image, context }) => {
 function Heropage() {
   const { state, services_provide, salon_with_in_range, currentLocation, distance } = useSelector(store => store.user)
   const dispatch = useDispatch()
+  const [isloaded, setLoaded] = useState(false)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -101,8 +102,11 @@ function Heropage() {
   const fetchSalonWithIn = async () => {
     try {
       const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
-      localStorage.setItem('salon_with_inrange',JSON.stringify(res.data.response))
-      dispatch(customeraction.tosalonhandle(res.data.response))
+      if (res.data.status === 'success') {
+        setLoaded(true)
+        localStorage.setItem('salon_with_inrange', JSON.stringify(res.data.response))
+        dispatch(customeraction.tosalonhandle(res.data.response))
+      }
     } catch (error) {
       console.log(error.message)
     }
@@ -199,7 +203,19 @@ function Heropage() {
             </div>
           </div>
         </div>
-        <div className="salon_partner">
+        <div className='flex justify-center'>
+          {!isloaded && <BallTriangle
+            height={80}
+            width={100}
+            radius={5}
+            color="#FF007F"
+            ariaLabel="ball-triangle-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />}
+        </div>
+        {isloaded &&<div className="salon_partner">
           {
             salon_with_in_range?.length === 0 ? <div className='salon-sup-container w-11/12 flex justify-center gap-x-20 gap-y-10 flex-wrap'>
               <p className='text-rose-600 font-bold text-2xl'>No Any Salon Near By......</p>
@@ -207,15 +223,27 @@ function Heropage() {
               {salon_with_in_range?.map((item, index) => <SalonContainers key={index} item={item} />)}
             </div>
           }
-        </div>
+        </div>}
       </div>
 
       {/* top trending services */}
       <div className="service-heading flex justify-center mt-12">
         <div className='text-center font-serif text-4xl font-bold w-11/12 pb-10'> Top Trending Services</div>
       </div>
+      <div className='flex justify-center'>
+          {!isloaded && <BallTriangle
+            height={80}
+            width={100}
+            radius={5}
+            color="#FF007F"
+            ariaLabel="ball-triangle-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />}
+        </div>
       <div className="containers top-trending-services mb-20 ">
-        <div className="top-sub-trending-services w-11/12 ">
+        {isloaded && <div className="top-sub-trending-services w-11/12 ">
           {
             services_provide.length === 0 ? <div className="services-box  serive-2 flex justify-center ">
               <h1 className='text-center text-xl font-bold text-rose-500'>
@@ -225,8 +253,7 @@ function Heropage() {
               {services_provide?.map((item, index) => <Sercomponent key={index} item={item} />)}
             </div>
           }
-
-        </div>
+        </div>}
       </div>
       {/* top artist */}
       {/* <div className='main-heropage relative top-10 containers mb-20'>
@@ -248,7 +275,7 @@ function Heropage() {
         <div className="containers main-banner  flex justify-center mt-5">
           <div className="w-11/12">
             <div className='grid grid-cols-2 gap-x-10 gap-y-5 lg:grid-cols-4 lg:gap-x-5 md:grid-cols-4 md:gap-x-5 sm:grid-cols-4 sm:gap-x-5'>
-              {boxContent.map((item, index) => <Boxchooseus key={index} image={item.image} context={item.content} />)}
+              {boxContent.map((item, index) => <Boxchooseus key={index} image={item?.image} context={item?.content} />)}
             </div>
           </div>
         </div>

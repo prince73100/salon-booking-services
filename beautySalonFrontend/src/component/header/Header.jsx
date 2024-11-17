@@ -79,7 +79,9 @@ function Header() {
   const onhandlebackbtn = () => {
     setMobileView(false)
   }
-
+  const closemanue = () => {
+    setMobileView(false)
+  }
   const handlelogoRoute = () => {
     if (localStorage.getItem('role') === 'salon') return "/salonbusiness"
     if (localStorage.getItem('role') === 'artist') return "/salonbusiness"
@@ -156,24 +158,24 @@ function Header() {
             <IoArrowBack size={30} />
           </div>
           <ul>
-            <li>Home</li>
+            <li onClick={closemanue}>Home</li>
             {/* User */}
-            {(state === true && role === 'salon') ? <></> : <li><Link to={'/service'}>Service</Link></li>}
+            {(state === true && role === 'salon') ? <></> : <li onClick={closemanue}><Link to={'/service'}>Service</Link></li>}
             {(state === true && role === 'user') && <li><Link to={'#'}>Gallery</Link></li>}
-            <li><Link to={'#'}>About</Link></li>
-            {(state === true && role === 'salon') && <li><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
-            {(state === true && role === 'salon') && <li><Link to={'/anounceJob'}>Announce Job</Link></li>}
+            <li onClick={closemanue}><Link to={'#'}>About</Link></li>
+            {(state === true && role === 'salon') && <li onClick={closemanue}><Link to={'/regiteredbusiness'}>Start Business</Link></li>}
+            {(state === true && role === 'salon') && <li onClick={closemanue}><Link to={'/anounceJob'}>Announce Job</Link></li>}
             {/* Artist */}
-            {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
+            {(state === true && role === 'Artist') && <li onClick={closemanue}><Link to={'/jobs'}>Jobs</Link></li>}
             {/* salon route */}
-            {(state === true && role === 'salon') && <li><Link to={'/addServices'}>Add Services</Link></li>}
+            {(state === true && role === 'salon') && <li onClick={closemanue}><Link to={'/addServices'}>Add Services</Link></li>}
             {state === true ?
               <>
                 {/* <Popup trigger={<button className="profile">{profilename}</button>} position="bottom right">
                   <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
                 </Popup> */}
                 <li onClick={onLogout}>Logout</li>
-              </> : <ul><li><Link to={'/signup'}>SignUp</Link></li> <li><Link to={'/login'}>Login</Link></li> </ul>}
+              </> : <ul><li onClick={closemanue}><Link to={'/signup'}>SignUp</Link></li> <li onClick={closemanue}><Link to={'/login'}>Login</Link></li> </ul>}
             {/* {state === true && role === 'user' && <li className='relative'>
               <Link to={'/history'}>
                 <FaHistory size={20} />
