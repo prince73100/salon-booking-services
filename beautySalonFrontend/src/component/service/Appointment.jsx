@@ -51,7 +51,7 @@ function Appointment() {
     <form onSubmit={handleSubmit(onhandleSubmit)} className="border-b relative left-10 border-gray-900/10 pb-12 mt-20 w-11/12">
       <h2 className=" font-bold leading-7 text-gray-900 text-center text-4xl border-b-2 pb-4">Book Appointment</h2>
       <div className="dtae mt-4 relative left-10 ">
-        <h2 className='text-xl font-bold'>{appointmentData.dateStr?.substr(0, 10)}</h2>
+        <h2 className='text-xl font-bold'>{appointmentData?.dateStr?.substr(0, 10)}</h2>
       </div>
       <div className="flex justify-between">
         <div className=" w-1/2 mt-10 relative left-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -85,7 +85,7 @@ function Appointment() {
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
               >
                 <option value="">--select--</option>
-                {salon.map((item) => <option key={item.salonName} value={item._id}>{item.salonName}</option>)}
+                {salon?.map((item) => <option key={item.salonName} value={item._id}>{item.salonName}</option>)}
               </select>
             </div>
           </div>
@@ -157,7 +157,7 @@ function Appointment() {
             </div>
           </div>
           {
-            selectserviceforbook.map((item, index) => (
+            selectserviceforbook?.map((item, index) => (
               <div className="amountdetail grid grid-cols-3 mt-5" key={index} >
                 <div className="service  text-base">
                   {item.service}

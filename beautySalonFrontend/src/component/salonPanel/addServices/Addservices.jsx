@@ -9,8 +9,19 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import apiUrl from "../../../config/config.js";
+import * as React from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import { BallTriangle } from 'react-loader-spinner'
+
+
+
+
+
 function Addservices() {
     const { service } = useSelector(store => store.salon)
+    const [open, setOpen] = React.useState(false);
+    const [isload, setisload] = useState(false)
     // console.log(service)
     const token = localStorage.getItem('jwt')
     const serviceRef = useRef();
@@ -49,6 +60,7 @@ function Addservices() {
     };
 
     const handleDeleteServices = async (serviceId) => {
+        setOpen(true)
         try {
             if (serviceId) {
                 const res = await axios.delete(`${apiUrl}/api/v1/salon/deleteservices/${serviceId}`, {
@@ -57,6 +69,7 @@ function Addservices() {
                     }
                 })
                 if (res.data.status === 'success') {
+                    setOpen(false)
                     dispatch(serviceAction.deleteServices(serviceId))
                 }
             } else {
@@ -68,15 +81,15 @@ function Addservices() {
     }
 
     const handleAddService = async () => {
+        setOpen(true)
         const services = serviceRef.current.value;
         const price = priceRef.current.value;
         let isexist = false
         if (!imagePath) {
             alert("Please select an image file.")
+            setOpen(false)
             return
         }
-        console.log("ka ho")
-
         service.forEach(element => {
             if (element.serviceName === services) {
                 isexist = true
@@ -94,20 +107,24 @@ function Addservices() {
                 }
             })
             if (servicesResult.data.status === 'success') {
+                setOpen(false)
                 dispatch(serviceAction.addService(servicesResult.data.newServices))
             }
-        }else{
+        } else {
+            setOpen(false)
             toast.error(`${services} is already added in the list.`)
         }
     }
 
     const fetchAllServices = async () => {
+        setisload(true)
         const res = await axios.get(`${apiUrl}/api/v1/salon/getservices`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         if (res.data.status === 'success') {
+            setisload(false)
             dispatch(serviceAction.handleAllServices(res.data.allServices))
         }
     }
@@ -123,17 +140,32 @@ function Addservices() {
                     <div className="w-10/12 lg:flex lg:justify-evenly md:flex md:justify-evenly gap-x-20">
                         <div className=" lg:w-1/3 md:w-1/3  ">
                             <h1 className="lg:text-start lg:text-start text-center text-3xl font-serif lg:text-3xl md:lg:text-3xl  font-bold pt-10">Your Services</h1>
-                            {service?.length === 0 && <div className="mt-10 font-serif font-semibold lg:text-start lg:text-start text-center">No any services add yet</div>}
-                            {
-                                service.map((ser, index) => <div className="flex justify-between mt-5" key={index} >
-                                    <img src={ser.image} alt="image" style={{ width: '50px', height: '50px' }} />
-                                    <h1 className="font-serif text-xl font-bold">{ser.serviceName}</h1>
-                                    <h2 className="font-serif text-xl font-bold">{ser.price}</h2>
-                                    <RiDeleteBin5Line size={24} className="cursor-pointer" color="red" onClick={() => handleDeleteServices(ser._id)} />
-                                </div>
-                                )
-                            }
 
+                            <div className='flex justify-center mt-10'>
+                                {isload && <BallTriangle
+                                    height={80}
+                                    width={100}
+                                    radius={5}
+                                    color="#FF007F"
+                                    ariaLabel="ball-triangle-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass=""
+                                    visible={true}
+                                />}
+                            </div>
+
+                            {!isload && <div>
+                                {service?.length === 0 && <div className="mt-10 font-serif font-semibold lg:text-start lg:text-start text-center">No any services add yet</div>}
+                                {
+                                    service.map((ser, index) => <div className="flex justify-between mt-5" key={index} >
+                                        <img src={ser.image} alt="image" style={{ width: '50px', height: '50px' }} />
+                                        <h1 className="font-serif text-xl font-bold">{ser.serviceName}</h1>
+                                        <h2 className="font-serif text-xl font-bold">{ser.price}</h2>
+                                        <RiDeleteBin5Line size={24} className="cursor-pointer" color="red" onClick={() => handleDeleteServices(ser._id)} />
+                                    </div>
+                                    )
+                                }
+                            </div>}
                         </div>
                         <div className=" lg:w-1/3 md:w-1/3">
                             <h1 className="  font-serif text-3xl font-bold pt-10 lg:text-start lg:text-start text-center ">Enter Services</h1>
@@ -169,6 +201,15 @@ function Addservices() {
                     </div>
                 </div>
             </div>
+            {/* loader */}
+            {/*  backdrop*/}
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={open}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            {/* toaster */}
             <ToastContainer />
         </>
     )

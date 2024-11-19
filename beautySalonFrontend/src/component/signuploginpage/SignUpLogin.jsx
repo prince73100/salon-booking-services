@@ -4,15 +4,24 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect } from 'react';
 import apiUrl from '../../config/config';
+import * as React from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SignUpLogin() {
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
+    const [open, setOpen] = React.useState(false);
+
     const signUp = async (data) => {
+        setOpen(true)
         try {
             // eslint-disable-next-line no-unused-vars
             const user = await axios.post(`${apiUrl}/api/v1/user/signup`, data)
-            navigate("/login")
+            if (user.data.status === 'success') {
+                setOpen(false)
+                navigate("/login")
+            }
         } catch (error) {
             toast.error(error.response.data.message)
         }
@@ -81,7 +90,7 @@ function SignUpLogin() {
                                     />
                                 </div>
                             </div>
-                           
+
                             <div className="sm:col-span-3">
                                 <div className="mt-2">
                                     <input
@@ -143,6 +152,14 @@ function SignUpLogin() {
                     <div className="sm:col-span-full mt-10 py-10 px-8">
                         <p className='text-lg font-semibold'>Existing user? <Link to={'/login'} className='text-rose-500'>Login</Link> </p>
                     </div>
+                    {/* loader */}
+                    <Backdrop
+                        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                        open={open}
+                    >
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
+                    {/* toaster */}
                     <ToastContainer />
                 </div>
             </div>

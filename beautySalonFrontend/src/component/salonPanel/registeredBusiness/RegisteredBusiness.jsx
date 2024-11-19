@@ -5,8 +5,14 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import apiUrl from "../../../config/config";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
+
 function RegisteredBusiness() {
     const [currentLocation, setCurrentLocation] = useState([])
+    const [open, setOpen] = useState(false);
     const navigation = useNavigate()
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -17,7 +23,10 @@ function RegisteredBusiness() {
     const token = localStorage.getItem('jwt');
     const { register, handleSubmit } = useForm()
     console.log(currentLocation)
+
+
     const hadleRegistered = async (data) => {
+        setOpen(true)
         const formData = new FormData();
         formData.append('salonName', data.salonName);
         formData.append('phone', data.phone);
@@ -36,6 +45,7 @@ function RegisteredBusiness() {
                 }
             })
             if (result.data.status === 'success') {
+                setOpen(false)
                 toast.success(result.data.message, {
                     position: "top-center"
                 });
@@ -44,6 +54,7 @@ function RegisteredBusiness() {
                 toast.error(result.data.message, {
                     position: "top-center"
                 });
+                setOpen(false)
             }
         } catch (error) {
             console.log(error)
@@ -194,6 +205,14 @@ function RegisteredBusiness() {
                     </form>
                 </div>
             </div>
+            {/* loader */}
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={open}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            {/* toaster */}
             <ToastContainer />
         </div>
     )

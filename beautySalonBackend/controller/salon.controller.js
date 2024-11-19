@@ -101,6 +101,13 @@ const getServices = asyncfunhandler(async (req, res) => {
 })
 // handle Registered methods
 const handleRegistered = asyncfunhandler(async (req, res, next) => {
+    const isexist = await Salonregistered.find({ owner: req.user.id })
+    if (isexist.length > 0) {
+        return res.status(200).json({
+            status: 'error',
+            message: "Your Salon is already created."
+        })
+    }
     const paths = await uploadOncloudinary(req.file.path)
     const registeredSalon = await Salonregistered.create({
         salonName: req.body.salonName,

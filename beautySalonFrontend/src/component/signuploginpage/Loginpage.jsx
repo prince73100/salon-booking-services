@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form'
+/* eslint-disable no-unused-vars */
+import { set, useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -6,34 +7,42 @@ import { customeraction } from '../../../store/customerStore'
 import { useDispatch } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import apiUrl from '../../config/config'
+import * as React from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Loginpage() {
     const { register, handleSubmit } = useForm()
     const navigation = useNavigate()
     const dispatch = useDispatch();
+    const [open, setOpen] = React.useState(false);
 
     const login = async (data) => {
+        setOpen(true)
         console.log(data)
         try {
             const res = await axios.post(`${apiUrl}/api/v1/user/login`, data)
-            const expireIn = Date.now() + 1 * 24 * 60 * 60 * 1000;
-            const token = res.data.token
-            localStorage.setItem('jwt', token)
-            localStorage.setItem('exipreIn', expireIn)
-            localStorage.setItem('role', res.data.user.role)
-            dispatch(customeraction.toUpdatestate(true))
-            if (res.data.user.role === "artist") {
-                navigation('/jobs')
-            } else if (res.data.user.role === "salon") {
-                navigation('/salonbusiness')
-            }
-            else if (res.data.user.role === "admin") {
-                navigation('#')
-            }
-            else {
-                navigation('/')
+            if (res.data.status === 'success') {
+                setOpen(false)
+                const expireIn = Date.now() + 1 * 24 * 60 * 60 * 1000;
+                const token = res.data.token
+                localStorage.setItem('jwt', token)
+                localStorage.setItem('exipreIn', expireIn)
+                localStorage.setItem('role', res.data.user.role)
+                dispatch(customeraction.toUpdatestate(true))
+                if (res.data.user.role === "artist") {
+                    navigation('/jobs')
+                } else if (res.data.user.role === "salon") {
+                    navigation('/salonbusiness')
+                }
+                else if (res.data.user.role === "admin") {
+                    navigation('#')
+                }
+                else {
+                    navigation('/')
+                }
             }
         } catch (error) {
             toast.error(error.response.data.message)
@@ -93,6 +102,15 @@ function Loginpage() {
                 <div className="sm:col-span-full mt-10 px-20 py-10">
                     <p className='text-lg font-bold font-serif'>New user? <Link to={'/signup'} className='text-rose-500'>Sign Up</Link> </p>
                 </div>
+
+                {/*  backdrop*/}
+                <Backdrop
+                    sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                    open={open}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+                {/* toaster */}
                 <ToastContainer />
             </div>
         </div>
