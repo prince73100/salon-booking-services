@@ -14,6 +14,7 @@ import { IoReorderThreeOutline } from "react-icons/io5";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom'
 import apiUrl from '../../config/config';
+import { ThreeDots } from 'react-loader-spinner'
 
 
 function Header() {
@@ -24,6 +25,8 @@ function Header() {
   const token = localStorage.getItem("jwt")
   const role = localStorage.getItem('role')
   const [mobileView, setMobileView] = useState(false)
+  const [isloaded, setLoaded] = useState(false)
+
   ///searching
   let alljobs = []
   alljob.forEach(element => {
@@ -56,9 +59,12 @@ function Header() {
         Authorization: `Bearer ${token}`
       }
     }).then((res) => {
-      let firstchar = res.data.user.firstname.charAt(0).toUpperCase();
-      dispatch(customeraction.toupdateProfile(firstchar))
-      setname(res.data.user)
+      if (res.data.status === 'success') {
+        setLoaded(true)
+        let firstchar = res.data.user.firstname.charAt(0).toUpperCase();
+        dispatch(customeraction.toupdateProfile(firstchar))
+        setname(res.data.user)
+      }
     }).catch((error) => {
       console.log(error.message);
     })
@@ -83,12 +89,14 @@ function Header() {
     setMobileView(false)
   }
   const handlelogoRoute = () => {
+    console.log(localStorage.getItem('role') === 'salon')
     if (localStorage.getItem('role') === 'salon') return "/salonbusiness"
     if (localStorage.getItem('role') === 'artist') return "/salonbusiness"
     if (localStorage.getItem('role') === 'user') return "/"
     if (!localStorage.getItem('role')) return "/"
   }
 
+  console.log(handlelogoRoute())
   return (
     <>
       <header className='header'>
@@ -126,10 +134,36 @@ function Header() {
             {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
             {state === true ?
               <>
-                <Popup trigger={<button className="profile">{profilename}</button>} position="bottom right">
+                <Popup trigger={
+                  <button className="profile">
+                    {!isloaded ? <ThreeDots
+                      visible={true}
+                      height="30"
+                      width="10"
+                      color="#FFFFFF"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                      wrapperClass=""
+                    /> : `${profilename}`}
+
+                  </button>
+                }
+                  position="bottom right">
                   <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
                 </Popup>
-              </> : <ul><li><Link to={'/signup'}>SignUp</Link></li> <li><Link to={'/login'}>Login</Link></li> </ul>}
+              </> :
+              <ul>
+                <li>
+                  <Link to={'/signup'}>SignUp</Link>
+                </li>
+                <li>
+                  <Link to={'/login'}>Login</Link>
+                </li>
+              </ul>}
 
           </ul>
         </div>
@@ -137,7 +171,7 @@ function Header() {
 
 
       <header className=' mobile_view_header'>
-        <div className='header-logo'>
+        <div className='header-logo w-2/3'>
           <Link to={'/'}><img src={mainlogo} alt="" /></Link>
         </div>
         {(state === true && role === 'artist') && <div className="search w-1/4">
@@ -149,8 +183,32 @@ function Header() {
             {suggestion.map((item, index) => <div key={index} onClick={() => handlefindSalon(item)} className='border-b hover:bg-rose-100 hover:cursor-pointer' >{item}</div>)}
           </div>
         }
-        <div onClick={onhandlesidebar}>
-          < IoReorderThreeOutline size={40} />
+        <div className='flex justify-around w-1/3'>
+          {state && <Popup trigger={
+            <button className="profile">
+              {!isloaded ? <ThreeDots
+                visible={true}
+                height="30"
+                width="10"
+                color="#FFFFFF"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+                wrapperClass=""
+              /> : `${profilename}`}
+
+            </button>
+          }
+            position="bottom right">
+            <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
+          </Popup>}
+
+          <div onClick={onhandlesidebar}>
+            < IoReorderThreeOutline size={40} />
+          </div>
         </div>
 
         {mobileView && <div className='mobile-views-list-items'>

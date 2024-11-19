@@ -215,7 +215,7 @@ function Heropage() {
             visible={true}
           />}
         </div>
-        {isloaded &&<div className="salon_partner">
+        {isloaded && <div className="salon_partner">
           {
             salon_with_in_range?.length === 0 ? <div className='salon-sup-container w-11/12 flex justify-center gap-x-20 gap-y-10 flex-wrap'>
               <p className='text-rose-600 font-bold text-2xl'>No Any Salon Near By......</p>
@@ -231,17 +231,17 @@ function Heropage() {
         <div className='text-center font-serif text-4xl font-bold w-11/12 pb-10'> Top Trending Services</div>
       </div>
       <div className='flex justify-center'>
-          {!isloaded && <BallTriangle
-            height={80}
-            width={100}
-            radius={5}
-            color="#FF007F"
-            ariaLabel="ball-triangle-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />}
-        </div>
+        {!isloaded && <BallTriangle
+          height={80}
+          width={100}
+          radius={5}
+          color="#FF007F"
+          ariaLabel="ball-triangle-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />}
+      </div>
       <div className="containers top-trending-services mb-20 ">
         {isloaded && <div className="top-sub-trending-services w-11/12 ">
           {

@@ -1,0 +1,21 @@
+@media (max-width: 768px) {
+    .fc-toolbar {
+      flex-direction: column;
+    }
+    .fc .fc-toolbar-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+      
+    }
+    .fc .fc-button {
+      font-size: 12px;
+      margin: 5px 0;
+    }
+    .fc-timegrid-col .fc-day {
+        font-size: 14px; /* Adjust this size for day text in time-based views */
+      }
+    .fc-daygrid-day-number {
+        font-size: 15px;
+      }
+  }
+  
