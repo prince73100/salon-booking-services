@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
@@ -18,6 +19,8 @@ import { ThreeDots } from 'react-loader-spinner'
 
 
 function Header() {
+
+
   const { state, profilename } = useSelector(store => store.user)
   const { alljob } = useSelector(store => store.artistsevices)
   const dispatch = useDispatch()
@@ -91,7 +94,7 @@ function Header() {
   const handlelogoRoute = () => {
     console.log(localStorage.getItem('role') === 'salon')
     if (localStorage.getItem('role') === 'salon') return "/salonbusiness"
-    if (localStorage.getItem('role') === 'artist') return "/salonbusiness"
+    if (localStorage.getItem('role') === 'artist') return "/jobs"
     if (localStorage.getItem('role') === 'user') return "/"
     if (!localStorage.getItem('role')) return "/"
   }
@@ -99,16 +102,19 @@ function Header() {
   console.log(handlelogoRoute())
   return (
     <>
-      <header className='header'>
+      <header className='border-b border-rose-700 hidden lg:block md:block sm:block lg:h-20 lg:flex lg:justify-around lg:items-center lg:fixed lg:top-0 lg:w-full lg:z-10 lg:bg-white  md:flex md:justify-around md:items-center md:fixed md:top-0 md:w-full md:z-10 md:bg-white  sm:flex sm:justify-around sm:items-center sm:fixed sm:top-0 sm:w-full sm:z-10 sm:bg-white'>
         <div className='header-logo'>
           <Link to={`${handlelogoRoute()}`}>
             <img src={mainlogo} alt="" />
           </Link>
         </div>
+        {/*         
         {(state === true && role === 'artist') && <div className="search w-1/4">
           <IoIosSearch />
           <input type="search" placeholder='Search Salon for job' onChange={handleChange} value={searchKeyword} />
-        </div>}
+        </div>} */}
+
+
         {
           suggestion.length > 0 && <div className='absolute top-14 left-96 bg-white p-4 shadow-lg w-56 z-10 '>
             {suggestion.map((item, index) => <div key={index} onClick={() => handlefindSalon(item)} className='border-b hover:bg-rose-100 hover:cursor-pointer' >{item}</div>)}
@@ -133,7 +139,7 @@ function Header() {
 
             {(state === true && role === 'Artist') && <li><Link to={'/jobs'}>Jobs</Link></li>}
             {state === true ?
-              <>
+              <div className='hidden lg:block md:block sm:block' >
                 <Popup trigger={
                   <button className="profile">
                     {!isloaded ? <ThreeDots
@@ -155,7 +161,7 @@ function Header() {
                   position="bottom right">
                   <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
                 </Popup>
-              </> :
+              </div> :
               <ul>
                 <li>
                   <Link to={'/signup'}>SignUp</Link>
@@ -169,47 +175,51 @@ function Header() {
         </div>
       </header>
 
+      {/* mobile */}
+      <div className=' block lg:hidden md:hidden sm:hidden  flex justify-center   '>
+        <div className='w-11/12 mobile_view_header flex justify-between border-b border-rose-700'>
+          <div onClick={onhandlesidebar}>
+            < IoReorderThreeOutline size={40} />
+          </div>
+          <div className='header-logo  bg-rose-300'>
+            <Link to={handlelogoRoute()}><img src={mainlogo} alt="" /></Link>
+          </div>
+          <div className='flex justify-around '>
+            {state && <Popup trigger={
+              <button className="profile">
+                {!isloaded ? <ThreeDots
+                  visible={true}
+                  height="30"
+                  width="10"
+                  color="#FFFFFF"
+                  radius="9"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  wrapperClass=""
+                /> : `${profilename}`}
 
-      <header className=' mobile_view_header'>
-        <div className='header-logo w-2/3'>
-          <Link to={'/'}><img src={mainlogo} alt="" /></Link>
+              </button>
+            }
+              position="bottom right">
+              <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
+            </Popup>}
+          </div>
+
         </div>
-        {(state === true && role === 'artist') && <div className="search w-1/4">
+
+        {/* {(state === true && role === 'artist') && <div className="search w-1/4">
           <IoIosSearch />
           <input type="search" placeholder='Search Salon for job' onChange={handleChange} value={searchKeyword} />
-        </div>}
+        </div>} */}
         {
           suggestion.length > 0 && <div className='absolute top-14 left-96 bg-white p-4 shadow-lg w-56 z-10 '>
             {suggestion.map((item, index) => <div key={index} onClick={() => handlefindSalon(item)} className='border-b hover:bg-rose-100 hover:cursor-pointer' >{item}</div>)}
           </div>
         }
-        <div className='flex justify-around w-1/3'>
-          {state && <Popup trigger={
-            <button className="profile">
-              {!isloaded ? <ThreeDots
-                visible={true}
-                height="30"
-                width="10"
-                color="#FFFFFF"
-                radius="9"
-                ariaLabel="three-dots-loading"
-                wrapperStyle={{
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-                wrapperClass=""
-              /> : `${profilename}`}
 
-            </button>
-          }
-            position="bottom right">
-            <Profile name={name.firstname} lastname={name.lastname} email={name.email} />
-          </Popup>}
-
-          <div onClick={onhandlesidebar}>
-            < IoReorderThreeOutline size={40} />
-          </div>
-        </div>
 
         {mobileView && <div className='mobile-views-list-items'>
           <div className='backbtn' onClick={onhandlebackbtn}>
@@ -241,7 +251,7 @@ function Header() {
             </li>} */}
           </ul>
         </div>}
-      </header>
+      </div>
     </>
   )
 }

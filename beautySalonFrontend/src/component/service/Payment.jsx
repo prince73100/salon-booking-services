@@ -5,13 +5,18 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import apiUrl from '../../config/config';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 function Payment() {
     const token = localStorage.getItem('jwt')
     const { bookedData } = useSelector(store => store.user)
     const navigation = useNavigate()
     const [paymentmethod, setpaymentmethod] = useState('upi')
+    const [open, setOpen] = React.useState(false);
     console.log(paymentmethod)
     const handlePayment = async () => {
+        setOpen(true)
         try {
             if (paymentmethod === 'upi') {
                 // 1. create order
@@ -20,36 +25,37 @@ function Payment() {
                         Authorization: `Bearer ${token}`
                     }
                 })
-                console.log(orderResponse)
                 //2. Open Razorpay payment modal with order_id and other details
-
-                const options = {
-                    key: "rzp_test_jQ97VLuhTDd5xp",
-                    amount: orderResponse.data.amount * 100,
-                    currency: orderResponse.data.currency,
-                    order_id: orderResponse.data.razorpayOrderId,
-                    handler: async function (response) {
-                        const paymentId = response.razorpay_payment_id;
-                        const orderId = response.razorpay_order_id;
-                        const res = await axios.post(`${apiUrl}/api/v1/booked/confirm`, {
-                            razorpayPaymentId: paymentId,
-                            razorpayOrderId: orderId,
-                            bookedData
-                        }, {
-                            headers: {
-                                Authorization: `Bearer ${token}`
-                            }
-                        });
-                        console.log(res)
-                        alert('Payment Successful!');
-                    },
-                    theme: {
-                        color: "#F37254",
-                    },
+                if (orderResponse.status === 200) {
+                    setOpen(false)
+                    const options = {
+                        key: "rzp_test_jQ97VLuhTDd5xp",
+                        amount: orderResponse.data.amount * 100,
+                        currency: orderResponse.data.currency,
+                        order_id: orderResponse.data.razorpayOrderId,
+                        handler: async function (response) {
+                            const paymentId = response.razorpay_payment_id;
+                            const orderId = response.razorpay_order_id;
+                            const res = await axios.post(`${apiUrl}/api/v1/booked/confirm`, {
+                                razorpayPaymentId: paymentId,
+                                razorpayOrderId: orderId,
+                                bookedData
+                            }, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                }
+                            });
+                            alert('Payment Successful!');
+                        },
+                        theme: {
+                            color: "#F33A6A",
+                        },
+                    }
+                    const rzp = new window.Razorpay(options);
+                    rzp.open();
+                } else {
+                    alert("issue during payment")
                 }
-                const rzp = new window.Razorpay(options);
-                rzp.open();
-                console.log(orderResponse)
             }
             else {
                 const res = await axios.post(`${apiUrl}/api/v1/booked/confirm`, {
@@ -61,6 +67,7 @@ function Payment() {
                 });
                 if (res.data.status === 'success') {
                     alert('Your Booking is confirm')
+                    setOpen(false)
                 }
             }
         } catch (error) {
@@ -135,6 +142,13 @@ function Payment() {
                     </div>
                 </div>
             </div>
+            {/*  backdrop*/}
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={open}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>
     )
 }

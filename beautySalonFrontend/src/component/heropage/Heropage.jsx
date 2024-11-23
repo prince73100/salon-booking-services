@@ -158,9 +158,9 @@ function Heropage() {
               <div className=''>
                 <h1 className='text-2xl px-5 pt-5 lg:px-10 lg:text-4xl md:px-10 sm:px-10  font-bold font-serif text-centers md:text-4xl sm:text-3xl'>Effortless Beauty, Anytime.</h1>
                 <p className='text-justify pt-10 px-5'>"Discover a seamless booking experience with our beauty salon platform. Effortlessly find and book appointments at top salons with just a few clicks, choosing from a range of skilled and professional artists dedicated to delivering the best in beauty services."</p>
-                <div className=' w-1/2 mt-10'>
-                  <p className='text-center pb-4'>(For professional)</p>
-                  <div className='  flex justify-center'>
+                <div className='mt-10 ml-5 lg:w-1/2 lg:ml-5 md:ml-5 sm:ml-5'>
+                  <p className='text-start pb-4'>(For professional)</p>
+                  <div className='  flex justify-start'>
                     <Link className='bg-rose-500 font-serif p-3  text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Join as Artist/Salon</Link>
                   </div>
                 </div>
@@ -320,15 +320,3 @@ function Heropage() {
 export default Heropage
 
 
-/*<div className="banner ">
-<img src={salonbanner} alt="Banner" style={{ width: '100%', height: '450px' }} />
-</div>
-<div className="serchBar">
-  <div className="searchlogo">
-    <FaSearch color='white' />
-  </div>
-  <input type="search" placeholder='Serach here salon' />
-</div>
-<div className="book-button absolute top-96 left-10">
-  <Link to={`${state === true ? "/bookingdetail" : "/login"}`} className='text-white bg-rose-600 p-4 rounded-3xl px-8 cursor-pointer font-bold'>Book Appoitment</Link>
-</div>*/

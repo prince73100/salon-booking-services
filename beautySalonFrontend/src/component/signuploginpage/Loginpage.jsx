@@ -100,7 +100,7 @@ function Loginpage() {
                     </div>
                 </form>
                 <div className="sm:col-span-full mt-10 px-20 py-10">
-                    <p className='text-lg font-bold font-serif'>New user? <Link to={'/signup'} className='text-rose-500'>Sign Up</Link> </p>
+                    <p className='text-lg font-bold font-serif'>Don&apos;t have an account? <Link to={'/signup'} className='text-rose-500'>Sign Up</Link> </p>
                 </div>
 
                 {/*  backdrop*/}

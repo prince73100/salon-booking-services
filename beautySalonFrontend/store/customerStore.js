@@ -26,15 +26,9 @@ const tokenformlocal = () => {
         return undefined
     }
 }
-// const fetchliveLocation = () => {
-//     let curlocation = [];
-    
-//     navigator.geolocation.getCurrentPosition((position) => {
-//         curlocation = [position.coords.longitude, position.coords.latitude]
-//     })
-//     console.log(curlocation)
-//     return curlocation
-// }
+
+
+
 
 const customerSlice = createSlice({
     name: "user",
@@ -49,15 +43,15 @@ const customerSlice = createSlice({
         totalbookprice: 0,
         services_provide: [],
         AllSerivces: [],
-        currentLocation:[],
-        distance:5,
-        rating:0
+        currentLocation: [],
+        distance: 5,
+        rating: 0
     },
     reducers: {
-        toupdaterating:(state,action)=>{
-             state.rating = action.payload
+        toupdaterating: (state, action) => {
+            state.rating = action.payload
         },
-        toupdateDistance:(state,action)=>{
+        toupdateDistance: (state, action) => {
             state.distance = action.payload
         },
         toupdateCurrentLocation: (state, action) => {

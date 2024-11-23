@@ -5,13 +5,20 @@ import mainlogo from '../../assets/logo/logo.png'
 
 import './footer.css'
 function Footer() {
+    const handlelogoRoute = () => {
+        console.log(localStorage.getItem('role') === 'salon')
+        if (localStorage.getItem('role') === 'salon') return "/salonbusiness"
+        if (localStorage.getItem('role') === 'artist') return "/salonbusiness"
+        if (localStorage.getItem('role') === 'user') return "/"
+        if (!localStorage.getItem('role')) return "/"
+      }
     return (
         <div className='footer '>
             <div className='footerContainer flex justify-center'>
                 <div className="w-11/12 grid grid-cols-2 grid-x-10 lg:grid-cols-4 lg:gap-x-10 md:grid-cols-4 md:gap-x-10 sm:grid-cols-4 sm:gap-x-10    mt-5 ">
                     <div className='flex justify-center  '>
                         <div className='header_logo w-2/3'>
-                            <Link to={'/'}><img src={mainlogo} alt="" width={250} /></Link>
+                            <Link to={handlelogoRoute()}><img src={mainlogo} alt="" width={250} /></Link>
                         </div>
                     </div>
                     <div className='footer_grid flex justify-center'>
@@ -50,7 +57,7 @@ function Footer() {
                     </div>
                 </div>
             </div>
-            <div className="bottom_fotter bg-rose-500">
+            <div className="bottom_fotter bg-rose-700">
                 <p className='text-center text-white font-bold font-serif '>Copyright © 2024 The Parfois. All Rights Reserved.</p>
             </div>
         </div>

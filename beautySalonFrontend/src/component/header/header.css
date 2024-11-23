@@ -65,7 +65,7 @@
     display: none;
 }
 
-@media (max-width:572px) {
+@media (max-width:640px) {
     .list-items ul {
         gap: 10px;
     }
@@ -83,7 +83,6 @@
         top: 0;
         width: 100%;
         z-index: 10;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
     .mobile-views-list-items{
         position: absolute;
@@ -94,6 +93,7 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+        z-index: 20;
     }
     .mobile-views-list-items ul li{
         padding: 10px 80px;

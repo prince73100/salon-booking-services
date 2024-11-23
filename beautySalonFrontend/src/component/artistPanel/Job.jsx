@@ -23,11 +23,39 @@ function Job() {
 
   return (
     <div className='mt-20 relative '>
-      <div className="border-b">
-        <h1 className='text-center text-3xl font-bold'>Job feed</h1>
+      <div className="py-4 bg-rose-700">
+        <h1 className='text-center text-4xl font-bold font-serif text-white'>Job feed</h1>
       </div>
-      <div className=' w-4/5 absolute right-40 mt-4'>
-        <h1>job bades on your acitivity</h1>
+      <div>
+        <div className='filter-body-left-bar'>
+          
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+
+  )
+}
+
+export default Job
+
+
+/*
+
+  <div className=' mt-4'>
+        <h1 className='text-center font-serif text-2xl font-bold' >job bades on your acitivity</h1>
+        <div className="">
+          <div>
+            <div>
+              <input type="search" />
+            </div>
+            <div>
+              <input type="text" />
+            </div>
+          </div>
+        </div>
         <div className='flex justify-between'>
           <div className='w-1/2 '>
             {alljob.map((item) => <Link key={item._id} to={`/`} onClick={() => { setjobdetail(item) }} >< Jobs salonname={item.salonname} jobtitle={item.Jobtitle} salary={item.salary} skill={item.skill} responsibility={item.responsibility} education={item.education} address={item.address} /></Link>)}
@@ -54,9 +82,6 @@ function Job() {
           </div>}
         </div>
       </div>
-    </div>
 
-  )
-}
 
-export default Job
+*/
