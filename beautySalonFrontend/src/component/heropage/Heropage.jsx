@@ -102,8 +102,8 @@ function Heropage() {
 
   const fetchSalonWithIn = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
-      // const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/28.6183478,77.0489761`)
+      // const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
+      const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/28.6183478,77.0489761`)
 
       if (res.data.status === 'success') {
         setLoaded(true)
