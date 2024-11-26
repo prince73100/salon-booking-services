@@ -1,3 +1,4 @@
+import { Comment } from "../model/comment.model.js";
 import { Rating } from "../model/rating.js";
 import Apierror from "../utility/Apierror.js";
 import asyncfunhandler from "../utility/asyncFunction.js";
@@ -30,7 +31,38 @@ const ratingById = asyncfunhandler(async (req, res, next) => {
     })
 })
 
+// ----------------------COMMENT -----------------------------------
+
+const createNewComment = asyncfunhandler(async(req,res,next)=>{
+    const newComment = await Comment.create({
+        comment:req.body.comment,
+        salon:req.params.salonId,
+        commentby:req.user._id
+    })
+
+    res.status(201).json({
+        status:'success',
+        newComment
+    })
+})
+
+const getAllComment = asyncfunhandler(async(req,res,next)=>{
+    const q = req.query;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const skip = (page-1)*limit;
+
+    const allComment = await Comment.find({salon:req.params.salonId}).skip(skip).limit(limit).sort("-createdAt").populate('commentby')
+    res.status(200).json({
+        status:'success',
+        allComment
+    })
+})
+
+
 export {
     ratingCreate,
-    ratingById
+    ratingById,
+    createNewComment,
+    getAllComment
 }

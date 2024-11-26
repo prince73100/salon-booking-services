@@ -1,22 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Sercomponents } from '../service/Servicepage';
-import ReactStars from 'react-rating-stars-component';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { customeraction } from '../../../store/customerStore';
 import RatingComponent from '../rating/RatingComponent';
 import apiUrl from '../../config/config';
+import Comment from './Comment';
 
 function Salonpage() {
+    const { profilename, comment } = useSelector(store => store.user)
     const dispatch = useDispatch();
     const token = localStorage.getItem('jwt');
     const { salonId } = useParams();
     const [salon, setSalon] = useState({});
     const [services, setServices] = useState([]);
-    const [rating, setRating] = useState(0); 
-    const [showrating,setshowrating] = useState(false)
+    const [rating, setRating] = useState(0);
+    const [showrating, setshowrating] = useState(false)
 
     // Function to fetch salon data
     const fetchSalonData = async () => {
@@ -53,7 +55,7 @@ function Salonpage() {
                 },
             });
             console.log('Rating response:', response);
-            dispatch(customeraction.toupdaterating(numRating)); 
+            dispatch(customeraction.toupdaterating(numRating));
         } catch (error) {
             console.error('Error posting rating:', error);
         }
@@ -70,9 +72,9 @@ function Salonpage() {
             console.log(response)
             const salonRating = response.data.rating;
             const ratingValue = salonRating ? salonRating.rating : 0;
-            setRating(ratingValue); 
+            setRating(ratingValue);
             setshowrating(response?.data?.rating?.israting)
-            dispatch(customeraction.toupdaterating(ratingValue)); 
+            dispatch(customeraction.toupdaterating(ratingValue));
         } catch (error) {
             console.error('Error fetching rating:', error);
         }
@@ -83,14 +85,20 @@ function Salonpage() {
         fetchSalonData();
         fetchServices();
     }, []);
+
     useEffect(() => {
         fetchRatingById();
-    }, [rating,showrating]);
-console.log(rating)
+    }, [rating, showrating]);
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
+
+    console.log(rating)
     return (
         <div className="w-full">
-            <div className="top_service_banner bg-rose-500">
-                <h1 className="py-8 text-center text-4xl font-bold font-serif text-white">
+            <div className="top_service_banner  flex justify-center ">
+                <h1 className="py-4 sm:py-8 w-11/12 text-center bg-rose-500 text-base sm:text-3xl font-bold font-serif text-white">
                     Welcome to - {salon?.salonName}
                 </h1>
             </div>
@@ -122,12 +130,14 @@ console.log(rating)
                                     {salon?.city}
                                 </p>
                             </div>
-                            {/* Rating Component */}
-                           <div className='px-5'>
-                           < RatingComponent postrating={handleRatingChange} showrating={showrating} rating={rating} />
-                           </div>
-                        </div>
+                            
+                            {/* Rating  */}
+                            <div className='px-5'>
+                                < RatingComponent postrating={handleRatingChange} showrating={showrating} rating={rating} />
+                            </div>
 
+                            < Comment salonId={salonId} token={token} />
+                        </div>
                         {/* Services Section */}
                         <div className="lg:w-1/2">
                             <h1 className="text-center font-bold text-xl font-serif">Provide Services</h1>

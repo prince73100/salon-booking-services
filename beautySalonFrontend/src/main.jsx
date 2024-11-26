@@ -30,6 +30,7 @@ import {
   BookingPage
 } from './component/index.js'
 import Errorpage from './component/error/Errorpage.jsx'
+import Userprofile from './component/userprofile/Userprofile.jsx'
 
 
 const ProtectRoute = ({ element, requiredRole }) => {
@@ -62,6 +63,8 @@ const router = createBrowserRouter([
       { path: '/select-one-service', element: <ProtectRoute element={<CostViseServices />} requiredRole='user' /> },
       { path: '/history',  element: <ProtectRoute element={<Bookinghistory />} requiredRole='user' /> },
       { path: '/salon-page/:salonId', element: <ProtectRoute element={<Salonpage />} requiredRole='user' /> },
+      { path: '/profile', element: <ProtectRoute element={<Userprofile />} requiredRole='user' /> },
+
 
 
       { path: '/bookingdetail', element: <Servicebookdetail /> }, // not in use

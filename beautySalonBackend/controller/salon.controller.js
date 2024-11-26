@@ -31,7 +31,6 @@ const getUniqueServices = asyncfunhandler(async (req, res, next) => {
 // find salon within range        findSalon_with-in/distance/:distance/center/:latlng
 const findSalonWith_in = asyncfunhandler(async (req, res, next) => {
     const { distance, latlng } = req.params;
-    // console.log(latlng)
     const [lat, lng] = latlng.split(',');
     const lnglat = [lng, lat];
     const radius = distance / 6378.1;

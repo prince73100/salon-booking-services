@@ -25,6 +25,7 @@ function BookbytheService() {
       alert("Please not select previous time")
       return
     }
+    window.scrollTo(0,700)
     setdates(data.dateStr)
   }
   const handleServices = () => {

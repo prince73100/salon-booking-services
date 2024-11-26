@@ -9,7 +9,7 @@ const updateAccount = asyncfunhandler(async (req, res, next) => {
     // allow only email or  phone number to be updated
     const allowObject = {}
     Object.keys(req.body).forEach(el => {
-        if (['email', 'phone'].includes(el)) allowObject[el] = req.body[el]
+        if (['firstname','email', 'phone'].includes(el)) allowObject[el] = req.body[el]
     })
     const updateUser = await User.findByIdAndUpdate(req.user.id, allowObject, {
         new: true,
@@ -24,7 +24,7 @@ const updateAccount = asyncfunhandler(async (req, res, next) => {
 
 // allowObject[el] = req.body.email;
 const getUser = asyncfunhandler(async (req, res, next) => {
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.user._id).select('-password')
     if (!user) {
         return next(new Apierror('user not login or session expire', 404))
     }

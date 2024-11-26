@@ -45,9 +45,17 @@ const customerSlice = createSlice({
         AllSerivces: [],
         currentLocation: [],
         distance: 5,
-        rating: 0
+        rating: 0,
+        comment:[]
     },
     reducers: {
+        toaddComment:(state,action)=>{
+            state.comment.push(action.payload);
+        },
+        tohandleComment:(state,action)=>{
+            // state.comment = [...state.comment, ...action.payload];
+            state.comment = action.payload;
+        },
         toupdaterating: (state, action) => {
             state.rating = action.payload
         },

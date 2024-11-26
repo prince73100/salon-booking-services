@@ -64,6 +64,7 @@ function Header() {
     }).then((res) => {
       if (res.data.status === 'success') {
         setLoaded(true)
+        localStorage.setItem('currentuser',JSON.stringify(res.data.user))
         let firstchar = res.data.user.firstname.charAt(0).toUpperCase();
         dispatch(customeraction.toupdateProfile(firstchar))
         setname(res.data.user)
@@ -221,7 +222,7 @@ function Header() {
         }
 
 
-        {mobileView && <div className='mobile-views-list-items'>
+        {mobileView && <div className='mobile-views-list-items fixed'>
           <div className='backbtn' onClick={onhandlebackbtn}>
             <IoArrowBack size={30} />
           </div>

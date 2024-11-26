@@ -1,7 +1,7 @@
 .header {
     background-color: rgb(255, 253, 253);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     height: 70px;
     position: fixed;

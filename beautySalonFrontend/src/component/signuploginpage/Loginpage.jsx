@@ -46,6 +46,7 @@ function Loginpage() {
             }
         } catch (error) {
             toast.error(error.response.data.message)
+            setOpen(false)
         }
     }
     useEffect(() => {
@@ -99,7 +100,7 @@ function Loginpage() {
                         </div>
                     </div>
                 </form>
-                <div className="sm:col-span-full mt-10 px-20 py-10">
+                <div className="sm:col-span-full mt-10 px-8 py-10">
                     <p className='text-lg font-bold font-serif'>Don&apos;t have an account? <Link to={'/signup'} className='text-rose-500'>Sign Up</Link> </p>
                 </div>
 

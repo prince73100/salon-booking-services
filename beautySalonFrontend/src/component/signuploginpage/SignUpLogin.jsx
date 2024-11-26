@@ -37,7 +37,7 @@ function SignUpLogin() {
                         <h1 className='font-serif text-center font-bold text-3xl'>Create an account</h1>
                     </div>
                     <form onSubmit={handleSubmit(signUp)} className=' flex justify-center '>
-                        <div className="w-11/12 mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="w-3/4 mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
                                 <div className="mt-2">
                                     <input

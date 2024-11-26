@@ -21,6 +21,7 @@ import { customeraction } from '../../../store/customerStore.js'
 import axios from 'axios'
 import apiUrl from '../../config/config.js'
 import { BallTriangle } from 'react-loader-spinner'
+import Userprofile from '../userprofile/Userprofile.jsx'
 
 
 const Boxchooseus = ({ image, context }) => {
@@ -101,7 +102,9 @@ function Heropage() {
 
   const fetchSalonWithIn = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
+      // const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
+      const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/28.6183478,77.0489761`)
+
       if (res.data.status === 'success') {
         setLoaded(true)
         localStorage.setItem('salon_with_inrange', JSON.stringify(res.data.response))
@@ -161,7 +164,7 @@ function Heropage() {
                 <div className='mt-10 ml-5 lg:w-1/2 lg:ml-5 md:ml-5 sm:ml-5'>
                   <p className='text-start pb-4'>(For professional)</p>
                   <div className='  flex justify-start'>
-                    <Link className='bg-rose-500 font-serif p-3  text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Join as Artist/Salon</Link>
+                    <Link to={'/signup'} className='bg-rose-500 font-serif p-3  text-white font-bold transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover: duration-300'>Join as Artist/Salon</Link>
                   </div>
                 </div>
               </div>

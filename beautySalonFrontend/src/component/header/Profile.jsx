@@ -1,32 +1,44 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { customeraction } from '../../../store/customerStore'
-import { useNavigate } from 'react-router-dom'
-function Profile({name,lastname,email}) {
-const dispatch = useDispatch()
-const navigation = useNavigate()
+import { Link, useNavigate } from 'react-router-dom'
+import { CgProfile } from "react-icons/cg";
+import Divider from '@mui/material/Divider';
+import { LuLogOut } from "react-icons/lu";
 
-    const onLogout = ()=>{
+
+function Profile({ name, lastname, email }) {
+    const dispatch = useDispatch()
+    const navigation = useNavigate()
+
+    const onLogout = () => {
         dispatch(customeraction.toUpdatestate(undefined))
         dispatch(customeraction.toUpdateToken(""))
         localStorage.removeItem('jwt')
         localStorage.removeItem('exipreIn')
         localStorage.removeItem('role')
+        localStorage.removeItem('currentuser')
         navigation('/login')
     }
 
     return (
 
-        <div className="bg-slate-50 w-72 h-32 text-center rounded-lg">
-            <h1 className='text-lg font-bold '>{name + " " +lastname}</h1>
-            <h1>{email}</h1>
-            <div className="">
-                <button className='bg-sky-500 absolute bottom-1.5 left-28 px-3 py-2 rounded-md' onClick={onLogout}>Logout</button>
+        <div className="bg-slate-50 w-72 text-center rounded-lg">
+            <div className='border-t-4 border-rose-700 py-4 px-5'>
+                <Link className='flex justify-start items-center gap-x-5 py-2 hover:cursor-pointer' to={'/profile'}>
+                    <CgProfile />
+                    <p>Profile</p>
+                </Link>
+                <Divider />
+                <div className='flex justify-start items-center gap-x-5 py-2 hover:cursor-pointer' onClick={onLogout}>
+                    <LuLogOut />
+                    <p>Logout</p>
+                </div>
             </div>
         </div>
-
     )
 }
 
