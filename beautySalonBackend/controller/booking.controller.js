@@ -30,7 +30,12 @@ const bookedConfirm = asyncfunhandler(async (req, res, next) => {
   });
 
   await newBooking.save();
-  const bookingDetail = await Booking.findById(newBooking._id).populate('salonID')
+  const bookingDetail = await Booking.findById(newBooking._id).populate({
+    path: 'salonID',
+    populate: { path: "owner" }
+  })
+
+
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,10 +103,10 @@ const bookedConfirm = asyncfunhandler(async (req, res, next) => {
       <p>Thank you for booking with <strong>${bookingDetail.salonID.salonName}</strong>! We’re excited to pamper you and help you look and feel your best.</p>
       
       <div class="details">
-        <p>Date: <span>${req.body.bookedData.date.split('T')[0]}</span></p>
-        <p>Time: <span>${req.body.bookedData.date.split('T')[1].split('+')[0]}</span></p>
-        <p>Service(s): <span>${req.body.bookedData.serviceName}</span></p>
-        <p>Price: <span>${req.body.bookedData.price}</span></p>
+        <p>Date: <span>${req.body?.bookedData?.date?.split('T')[0]}</span></p>
+        <p>Time: <span>${req.body?.bookedData?.date?.split('T')[1].split('+')[0]}</span></p>
+        <p>Service(s): <span>${req.body?.bookedData.serviceName}</span></p>
+        <p>Price: <span>${req.body.bookedData?.price}</span></p>
         <p>Payment Status: <span>${bookingDetail.ispayment === true ? `Paid` : `Pending`}</span></p>
         <p>Location: <span><a href="[Google Maps link]" target="_blank">[Salon Address]</a></span></p>
       </div>
@@ -131,7 +136,7 @@ const bookedConfirm = asyncfunhandler(async (req, res, next) => {
       message: "booking",
       html
     })
-    res.json({ status: 'success', message: 'Booking confirmed!' });
+    res.json({ status: 'success', message: 'Booking confirmed!', bookingDetail });
   } catch (error) {
     return next(new Apierror('there was an error for sending mail', 500))
   }
@@ -149,7 +154,7 @@ const getBookingDetailById = asyncfunhandler(async (req, res, next) => {
 
 // booking detail by userID
 const bookingByUserId = asyncfunhandler(async (req, res, next) => {
-  const bookHistory = await Booking.find({ bookedBy: req.user._id }).populate('salonID').sort('-serviceDateAndTime')
+  const bookHistory = await Booking.find({ bookedBy: req.user._id }).populate('salonID').sort('-createdAt')
   res.status(200).json({
     status: 'success',
     bookHistory

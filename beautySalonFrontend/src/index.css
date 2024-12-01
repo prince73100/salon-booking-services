@@ -2,229 +2,156 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply font-sans;
+  }
+}
+
 .mt-8 {
-    margin-top: 80px;
+  @apply mt-20;
 }
 
 .containers {
-    width: 100%;
+  @apply w-full;
 }
-
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-track {
-    background: #eae6e6;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #ed4c5a;
-}
-
 
 .footerSuBcontainer {
-    display: flex;
-    justify-content: space-between;
-    width: 70%;
-    height: 80%;
-    margin-top: 40px;
+  @apply flex justify-between w-[70%] h-4/5 mt-10;
 }
 
 .header-logo {
-    background-color: white;
-    height: fit-content;
+  @apply bg-[white] h-fit;
 }
 
 .serchBar {
-    position: absolute;
-    top: 200px;
-    left: 25%;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    width: 50%;
-
+  @apply absolute h-[50px] flex justify-center w-6/12 left-1/4 top-[200px];
 }
 
 .serchBar input {
-    width: fit-content;
-    padding-left: 10px;
-    outline: none;
-    border: none;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    width: 50%;
+  @apply w-fit w-6/12 pl-2.5 rounded-tr-[5px] rounded-br-[5px] border-[none];
+  outline: none;
 }
 
 .searchlogo {
-    background-color: rgb(241, 60, 60);
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+  @apply w-[50px] flex justify-center items-center rounded-tl-[5px] rounded-bl-[5px];
 }
 
 .booking-detail-container {
-    margin-top: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  @apply flex justify-center items-center mt-[70px];
 }
 
 .booking-subdetails-container {
-    width: 80%;
-    padding-top: 50px;
+  @apply w-4/5 pt-[50px];
 }
 
 .stepbar {
-    margin-top: 71px;
+  @apply mt-[71px];
 }
 
 .bookingdeatils {
-    margin-top: 50px;
+  @apply mt-[50px];
 }
 
 .booking_timing {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 100%;
+  @apply bg-[white] w-full p-5 rounded-[5px];
 }
 
 .salon-list {
-    width: 35%;
-    border-radius: 5px;
+  @apply w-[35%] rounded-[5px];
 }
 
 hr {
-    margin-top: 40px;
-    border: 1px solid white;
-}
-
-.total_amount_details {
-    
+  @apply border mt-10 border-solid border-[white];
 }
 
 .total_flex {
-    display: flex;
-    width: 70%;
-    justify-content: space-between;
-    position: relative;
-    left: 10%;
+  @apply flex w-[70%] justify-between relative left-[10%];
 }
 
 .payment {
-    margin-top: 71px;
+  @apply mt-[71px];
 }
 
 .verticle_line {
-    height: 100vh;
-    width: 2px;
-    background-color: rgb(222, 53, 90);
+  @apply h-screen w-0.5;
 }
 
 .promocode_input {
-    background-color: rgb(218, 219, 220);
-    padding-left: 5px;
-    border: none;
-    outline: none;
-    height: 40px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+  @apply h-10 pl-[5px] rounded-tl-[5px] rounded-bl-[5px] border-[none];
+  outline: none;
 }
 
 .promo_btn {
-    height: 40px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    color: white;
-    font-weight: 700;
-    padding-left: 5px;
-    padding-right: 5px;
+  @apply h-10 text-[white] font-bold px-[5px] rounded-tr-[5px] rounded-br-[5px];
 }
 
 .top-trending-services {
-    display: flex;
-    justify-content: center;
+  @apply flex justify-center;
 }
 
 .artist_center {
-    display: flex;
-    justify-content: center;
+  @apply flex justify-center;
 }
-
 
 .Service-info {
-    min-width: 300px;
-    animation-name: slideInBox;
-    animation-duration: 30s;
-    animation-timing-function: linear;
-    animation-delay: 0.01s;
-    animation-iteration-count: infinite;
-    /* animation-direction: alternate; */
-    /* animation: slideInBox 15s forwards infinite; */
+  @apply min-w-[300px];
+  /* animation-name: slideInBox;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-delay: 0.01s;
+  animation-iteration-count: infinite; */
 }
-.Service-info:hover{
-    
-}
-@keyframes slideInBox {
-    0% {
-        transform: translateX(550%);
-    }
-
-
-    100% {
-        transform: translateX(-580%);
-    }
-}
-
 
 .services-box {
-    display: flex;
-    overflow-x: hidden;
+  @apply flex justify-center flex-wrap
 }
 
 .artist-full-details {
-    margin-top: 71px;
+  @apply mt-[71px];
 }
 
 .salon_partner {
-    display: flex;
-    justify-content: center;
+  @apply flex justify-center;
 }
 
-.salon-sup-container {}
-
 .search {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    /* height: 30px; */
-    background-color: rgb(223, 215, 215);
-    padding: 4px;
-    border-radius: 20px;
-
+  @apply flex justify-around items-center p-1 rounded-[20px];
 }
 
 .search input {
-    background-color: rgb(223, 215, 215);
-    padding: 5px;
-    border: none;
-    outline: none;
+  @apply p-[5px] border-[none];
+  outline: none;
 }
 
-/* .services-box {
-    animation: scroll 20s linear infinite; 
-  } */
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
+::-webkit-scrollbar {
+  width: 5px;
+}
 
-    100% {
-        transform: translateX(-100%);
-    }
+::-webkit-scrollbar-track {
+  background: #eae6e6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ed4c5a;
+}
+
+@keyframes slideInBox {
+  0% {
+    transform: translateX(550%);
+  }
+
+  100% {
+    transform: translateX(-580%);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
 }

@@ -19,11 +19,11 @@ function Anouncejob() {
     }
     return (
         <div className="registered-business-container mt-24">
-            <h1 className="text-center font-serif text-4xl font-bold">Anounce Job Post</h1>
+            <h1 className="text-center  text-4xl font-bold">Anounce Job Post</h1>
             <div className=" flex justify-center mt-5">
                 <div className="registered-form w-11/12 lg:flex md:flex   ">
                     <div className=" lg:flex lg:block md:flex md:block left-side-container lg:w-1/2 md:w-1/2 bg-rose-500  items-center justify-center ">
-                        <h1 className="text-4xl text-center font-serif lg:text-5xl md:text-4xl sm:text3xl font-bold text-white"> Post a Job which is available for Artist </h1>
+                        <h1 className="text-4xl text-center  lg:text-5xl md:text-4xl sm:text3xl font-bold text-white"> Post a Job which is available for Artist </h1>
                     </div>
                     <form onSubmit={handleSubmit(hadleRegistered)} className="form-container lg:w-1/2 md:w-1/2  bg-white">
                         <div className="border-b border-gray-900/10 pb-12 pl-4">

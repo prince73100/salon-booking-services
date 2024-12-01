@@ -95,20 +95,20 @@ function Comment({ salonId, token }) {
         <>
             <div className='px-5 my-20 relative '>
                 <div>
-                    <h1 className='font-bold text-xl font-serif'>
+                    <h1 className='font-bold text-xl '>
                         {data.length} Comment
                     </h1>
                 </div>
                 <div className='flex gap-x-10  lg:flex lg:justify-between lg:items-center md:flex md:justify-between md:items-center sm:flex sm:justify-between sm:items-center mt-10'>
-                    <div className='bg-gray-600 text-white font-bold font-serif py-2 px-4 rounded-full'>
+                    <div className='bg-gray-600 text-white font-bold  py-2 px-4 rounded-full'>
                         {profilename}
                     </div>
                     <div className="input-comment w-3/4  lg:w-3/4 md:w-3/4 sm:w-3/4  flex justify-between items-center h-10 border-b-2 border-rose-700 ">
-                        <input type="text" placeholder='Add Comment' className='border-none outline-none w-10/12  font-serif bg-transparent ' ref={commentref} />
+                        <input type="text" placeholder='Add Comment' className='border-none outline-none w-10/12   bg-transparent ' ref={commentref} />
                     </div>
                 </div>
                 <div className='mt-5 absolute right-5'>
-                    <button className='bg-rose-500 text-white font-serif font-bold text-lg px-2 py-2 rounded-xl active:bg-rose-700'
+                    <button className='bg-rose-500 text-white  font-bold text-lg px-2 py-2 rounded-xl active:bg-rose-700'
                         onClick={onhandleComment}
                     >
                         Comment
@@ -119,13 +119,13 @@ function Comment({ salonId, token }) {
             {
                 data.length > 0 ? <div className="comment-list px-1 sm:px-5 h-72  overflow-y-scroll">
                     {data?.map((comment) => <div className=' flex items-center gap-x-2 sm:gap-x-5 lg:flex lg:justify-between md:flex md:justify-between sm:flex sm:justify-between my-10 py-2' key={comment._id}>
-                        <div className='flex justify-center h-8 w-8 items-center bg-gray-600 text-white font-bold font-serif   rounded-full lg:h-10 lg:w-10 md:h-10 md:w-10 sm:h-10 sm:w-10'>
+                        <div className='flex justify-center h-8 w-8 items-center bg-gray-600 text-white font-bold    rounded-full lg:h-10 lg:w-10 md:h-10 md:w-10 sm:h-10 sm:w-10'>
                             {comment?.commentby?.firstname?.charAt(0)?.toUpperCase()}
                         </div>
                         <div className="input-comment w-11/12    items-center h-10">
                             <div className=''>
                                 <div className='flex justify-between sm:gap-x-5  '>
-                                    <p className='font-bold font-serif'>{comment.commentby.email}</p>
+                                    <p className='font-bold '>{comment.commentby.email}</p>
                                     <p className='text-green-700 font-bold'>{
                                         returnDayyesrminsecondfunction(comment?.createdAt)
                                     }</p>
@@ -140,7 +140,7 @@ function Comment({ salonId, token }) {
                         <CircularProgress sx={{ color: "red" }} />
                     </Box>}
 
-                    {hasMore && <p className="text-center text-rose-700" onClick={fetchnextdata}> <span className=' font-serif cursor-pointer text-rose-700 underline '>see more comment</span> ...</p>}
+                    {hasMore && <p className="text-center text-rose-700" onClick={fetchnextdata}> <span className='  cursor-pointer text-rose-700 underline '>see more comment</span> ...</p>}
                 </div> : <></>
             }
         </>

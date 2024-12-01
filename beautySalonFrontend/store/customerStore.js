@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+
+
 const datafromlocal = () => {
     try {
         const currentDate = Date.now()
@@ -46,13 +48,17 @@ const customerSlice = createSlice({
         currentLocation: [],
         distance: 5,
         rating: 0,
-        comment:[]
+        comment: [],
+        bookingHistory: []
     },
     reducers: {
-        toaddComment:(state,action)=>{
+        toaddBookingHistory: (state, action) => {
+            state.bookingHistory.push(action.payload)
+        },
+        toaddComment: (state, action) => {
             state.comment.push(action.payload);
         },
-        tohandleComment:(state,action)=>{
+        tohandleComment: (state, action) => {
             // state.comment = [...state.comment, ...action.payload];
             state.comment = action.payload;
         },

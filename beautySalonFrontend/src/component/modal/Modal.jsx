@@ -29,7 +29,7 @@ export default function BasicModal() {
         </p>
 
         <div className='flex justify-center mt-5'>
-          <button className='bg-rose-500 px-4 py-3 rounded text-white font-bold font-serif' onClick={handleClose}>OK</button>
+          <button className='bg-rose-500 px-4 py-3 rounded text-white font-bold ' onClick={handleClose}>OK</button>
         </div>
       </Box>
     </Modal>

@@ -72,12 +72,12 @@ function Signup() {
         <div className=' register-login flex mt-10  '>
           <div className={`${status === 'signin' ? 'bg-white' : 'bg-rose-500'}`}  >
 
-            {status === 'signup' && <div className="welcombox relative top-60 left-20 w-3/4 font-serif font-bold">
+            {status === 'signup' && <div className="welcombox relative top-60 left-20 w-3/4  font-bold">
               <h1 className='text-white text-5xl'>Welcome to our salon Network !</h1>
             </div>}
             {/* onSubmit={handleSubmit(handleLogin)} */}
             <div className="  p-4   " style={{ visibility: `${status === 'signin' ? '' : 'hidden'}` }} >
-              <h2 className=" font-bold leading-7   text-4xl  font-serif"  >Sign In</h2>
+              <h2 className=" font-bold leading-7   text-4xl  "  >Sign In</h2>
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className=" font-page-details sm:col-span-full">
                   <label htmlFor="contactnumber" className="block text-sm font-bold leading-6 text-gray-900">
@@ -128,12 +128,12 @@ function Signup() {
 
           <div className={`${status === 'signup' ? 'bg-white' : 'bg-rose-500'}`}>
 
-            {status === 'signin' && <div className="welcombox relative top-60 left-20 w-3/4 font-serif font-bold">
+            {status === 'signin' && <div className="welcombox relative top-60 left-20 w-3/4  font-bold">
               <h1 className='text-white text-5xl'>Sign in and enjoye your business!</h1>
             </div>}
 
             <form onSubmit={handleSubmit(handleSubmits)} className="  border-b p-4" style={{ visibility: `${status === 'signup' ? '' : 'hidden'}` }}  >
-              <h2 className=" font-bold leading-7 text-gray-900 text-4xl font-serif">Registered</h2>
+              <h2 className=" font-bold leading-7 text-gray-900 text-4xl ">Registered</h2>
               <div className="font-page-details mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                 <div className="sm:col-span-full">
                   <label htmlFor="first-name" className="block text-sm font-bold leading-6 text-gray-900">

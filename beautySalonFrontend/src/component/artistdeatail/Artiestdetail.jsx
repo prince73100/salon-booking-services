@@ -13,16 +13,16 @@ function Artiestdetail({ artiest }) {
       </div>
 
       <div className="card-info relative top-10 left-14">
-        <div className="name font-serif text-xl font-bold">
+        <div className="name  text-xl font-bold">
           {artiest.name}
         </div>
-        <div className="email font-serif">
+        <div className="email ">
           {artiest.emailId}
         </div>
-        <div className="contact font-serif">
+        <div className="contact ">
           {artiest.Mobile_No}
         </div>
-        <div className="contact font-serif">
+        <div className="contact ">
           <Starrating />
         </div>
       </div>

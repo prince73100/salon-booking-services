@@ -29,20 +29,20 @@ function Herosection() {
             <div className="sub-hero-page mt-5 w-9/12">
                 <div className="headn-hearo flex justify-center items-center ">
                     <div className='   w-1/2'>
-                        <div className="font-serif text-5xl font-bold">
+                        <div className=" text-5xl font-bold">
                             Join Our Salon Network & Grow Your Business!
                         </div>
-                        <p className='text-xl font-serif text-justify mt-10'>"Expand your reach and attract more clients by joining a platform designed to help salons succeed. Simplify your bookings, manage your clients, and thrive."</p>
+                        <p className='text-xl  text-justify mt-10'>"Expand your reach and attract more clients by joining a platform designed to help salons succeed. Simplify your bookings, manage your clients, and thrive."</p>
                     </div>
                     <div className="image-geader">
                         <img src={heroImage} alt="" width={500} />
                     </div>
                 </div>
                 <div className="hero-btn mt-10">
-                    <Link to={'/signup'} className='bg-rose-500 text-white font-serif font-bold p-5 rounded-lg'>Join Now</Link>
+                    <Link to={'/signup'} className='bg-rose-500 text-white  font-bold p-5 rounded-lg'>Join Now</Link>
                 </div>
                 <div className="featured-highlights mt-20 ">
-                    <div className="offers font-serif text-5xl font-bold text-center ">
+                    <div className="offers  text-5xl font-bold text-center ">
                         We Are Offers
                     </div>
                     <div className="offers-box flex flex-row flex-wrap justify-center gap-20 mt-20">

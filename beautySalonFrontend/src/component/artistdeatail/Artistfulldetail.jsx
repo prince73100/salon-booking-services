@@ -6,7 +6,7 @@ function Artistfulldetail() {
     return (
         <div className='bg-gradient-to-t from-rose-100 to-rose-400 flex justify-center artist-full-details'>
             <div className=' w-10/12   '>
-                <h1 className='text-4xl font-bold px-4 py-4 font-serif'>Artist Info</h1>
+                <h1 className='text-4xl font-bold px-4 py-4 '>Artist Info</h1>
                 <div className='flex gap-x-96 px-10 py-10'>
                     <div>
                         <div className="profiles flex justify-center">

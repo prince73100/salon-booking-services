@@ -34,10 +34,10 @@ export default function BasicTable() {
   }, []);
 
   return (
-    <div>
+    <div className=' '>
       <div className="hidden sm:block sm:w-full sm:flex sm:justify-center sm:mt-20">
         <div className="w-11/12">
-          <h1 className="bg-rose-700 text-center font-serif text-2xl font-bold py-5 text-white">
+          <h1 className="bg-rose-700 text-center  text-2xl font-bold py-5 text-white">
             Booking History
           </h1>
           <TableContainer component={Paper}>
@@ -51,7 +51,7 @@ export default function BasicTable() {
                     <span className="text-lg font-bold">Price</span>
                   </TableCell>
                   <TableCell align="right">
-                    <span className="text-lg font-bold">Payment Status</span>
+                    <span className="text-lg font-bold">Payment method</span>
                   </TableCell>
                   <TableCell align="right">
                     <span className="text-lg font-bold">Salon Name</span>
@@ -62,16 +62,16 @@ export default function BasicTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {bookDetail.map((item) => (
+                {bookDetail?.map((item) => (
                   <TableRow key={item._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row">
                       {item.serviceName}
                     </TableCell>
                     <TableCell align="right">{item.price}</TableCell>
-                    <TableCell align="right">{item.ispayment ? 'true' : 'false'}</TableCell>
+                    <TableCell align="right">{item.ispayment ? <span className='text-green-500'>Online pament</span>: <span className='text-rose-500'>Cash payment</span>}</TableCell>
                     <TableCell align="right">{item.salonID.salonName}</TableCell>
                     <TableCell align="right">
-                      {item.serviceDateAndTime.split('T')[0]} | {item.serviceDateAndTime.split('T')[1].slice(0, 5)} <span>{item.serviceDateAndTime.split('T')[1].slice(0, 5).split(':')[0]>= 12?'PM' :'AM'}</span>
+                      {item.serviceDateAndTime?.split('T')[0]} | {item?.serviceDateAndTime?.split('T')[1]?.slice(0, 5)} <span>{item.serviceDateAndTime?.split('T')[1]?.slice(0, 5)?.split(':')[0]>= 12?'PM' :'AM'}</span>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -82,10 +82,10 @@ export default function BasicTable() {
       </div>
 
       <div className='sm:hidden block mt-20'>
-        <h1 className="bg-rose-700 text-center font-serif text-2xl font-bold py-5 text-white">
+        <h1 className="bg-rose-700 text-center  text-2xl font-bold py-5 text-white">
           Booking History
         </h1>
-        <div className=" w-full flex justify-center">
+        <div className=" w-full h-full flex justify-center ">
           <div className="w-11/12  flex justify-center">
             <List sx={{ width: '90%', maxWidth: 360 }}>
               {bookDetail.map((item) => (
@@ -103,8 +103,8 @@ export default function BasicTable() {
                             <span className='text-base font-semibold text-rose-600'>{item?.serviceName}- </span>
                           </Typography>
                           <span className='text-lg font-semibold'><span className='pl-5'>&#8377;</span>{` ${item?.price}`}</span> <br />
-
-                          <span className=' '><span className='text-rose-600 font-semibold'>Date and Time - </span> {item.serviceDateAndTime.split('T')[0]} | {item.serviceDateAndTime.split('T')[1].slice(0, 5)}</span> <span>{item.serviceDateAndTime.split('T')[1].slice(0, 5).split(':')[0]>= 12?'PM' :'AM'}</span>
+                          <span className=' '><span className='text-rose-600 font-semibold'>Date and Time - </span> {item.serviceDateAndTime?.split('T')[0]} | {item.serviceDateAndTime?.split('T')[1]?.slice(0, 5)}</span> <span>{item.serviceDateAndTime?.split('T')[1]?.slice(0, 5)?.split(':')[0]>= 12?'PM' :'AM'}</span> <br />
+                          <span className='text-sm  font-bold text-rose-600'>Payment Method: <span>{item.ispayment ? <span className='text-green-700'>Online pament</span>: <span className='text-black '>Cash payment</span>}</span> </span>
                         </React.Fragment>
                       }
                     />

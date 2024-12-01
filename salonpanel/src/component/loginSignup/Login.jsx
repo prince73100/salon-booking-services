@@ -36,7 +36,7 @@
 //   }
 //   return (
 //     <form onSubmit={handleSubmit(handleLogin)} className=" border-gray-900/10 pb-12 w-1/3 relative inset-x-2/4 top-10">
-//       <h2 className=" font-bold leading-7 text-gray-900 text-center text-4xl  font-serif">Sign In</h2>
+//       <h2 className=" font-bold leading-7 text-gray-900 text-center text-4xl  ">Sign In</h2>
 //       <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 //         <div className=" font-page-details sm:col-span-full">
 //           <label htmlFor="contactnumber" className="block text-sm font-bold leading-6 text-gray-900">

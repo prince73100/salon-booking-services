@@ -98,7 +98,7 @@ function Salonpage() {
     return (
         <div className="w-full">
             <div className="top_service_banner  flex justify-center ">
-                <h1 className="py-4 sm:py-8 w-11/12 text-center bg-rose-500 text-base sm:text-3xl font-bold font-serif text-white">
+                <h1 className="py-4 sm:py-8 w-11/12 text-center bg-rose-500 text-base sm:text-3xl font-bold  text-white">
                     Welcome to - {salon?.salonName}
                 </h1>
             </div>
@@ -109,23 +109,23 @@ function Salonpage() {
                         <div className="lg:w-1/2">
                             <img src={salon?.imageofSalon} alt="Salon" style={{ width: '100%' }} />
                             <div className="px-5 py-10">
-                                <p className="font-semibold font-serif">
+                                <p className="font-semibold ">
                                     <span className="text-rose-700">Email: </span>
                                     {salon?.owner?.email}
                                 </p>
-                                <p className="font-semibold font-serif">
+                                <p className="font-semibold ">
                                     <span className="text-rose-700">Mobile No.: +91 </span>
                                     {salon?.phone}
                                 </p>
-                                <p className="font-semibold font-serif">
+                                <p className="font-semibold ">
                                     <span className="text-rose-700">Owner: </span>
                                     {salon?.owner?.firstname} {salon?.owner?.lastname}
                                 </p>
-                                <p className="font-semibold font-serif">
+                                <p className="font-semibold ">
                                     <span className="text-rose-700">Location: </span>
                                     {salon?.address}
                                 </p>
-                                <p className="font-semibold font-serif">
+                                <p className="font-semibold ">
                                     <span className="text-rose-700">City: </span>
                                     {salon?.city}
                                 </p>
@@ -140,7 +140,7 @@ function Salonpage() {
                         </div>
                         {/* Services Section */}
                         <div className="lg:w-1/2">
-                            <h1 className="text-center font-bold text-xl font-serif">Provide Services</h1>
+                            <h1 className="text-center font-bold text-xl ">Provide Services</h1>
                             <div className="services-container flex px-5 flex-wrap justify-center gap-x-5">
                                 {services.map((serviceItem, index) => (
                                     <Sercomponents

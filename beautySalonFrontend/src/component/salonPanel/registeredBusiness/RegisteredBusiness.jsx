@@ -62,11 +62,11 @@ function RegisteredBusiness() {
     }
     return (
         <div className="registered-business-container mt-24">
-            <h1 className="text-center font-serif text-4xl font-bold">Start Your Business</h1>
+            <h1 className="text-center  text-4xl font-bold">Start Your Business</h1>
             <div className=" flex justify-center mt-5">
                 <div className="lg:w-10/12  md:w-11/12 registered-form w-11/12 lg:flex  md:flex  ">
                     <div className="lg:block md:block   hidden  left-side-container w-full bg-rose-500 lg:flex lg:items-center lg:justify-center md:flex md:items-center md:justify-center sm:flex sm:items-center sm:justify-center ">
-                        <h1 className="lg:text-6xl lg:font-serif md:text-4xl md:font-serif  text-center font-serif text-xl font-bold text-white"> Registered <br /> and
+                        <h1 className="lg:text-6xl lg: md:text-4xl md:  text-center  text-xl font-bold text-white"> Registered <br /> and
                             <br />  Grow Your Business</h1>
                     </div>
                     <form onSubmit={handleSubmit(hadleRegistered)} className="form-container w-full bg-white">

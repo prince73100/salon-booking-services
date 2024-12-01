@@ -24,7 +24,7 @@ function Job() {
   return (
     <div className='mt-20 relative '>
       <div className="py-4 bg-rose-700">
-        <h1 className='text-center text-4xl font-bold font-serif text-white'>Job feed</h1>
+        <h1 className='text-center text-4xl font-bold  text-white'>Job feed</h1>
       </div>
       <div>
         <div className='filter-body-left-bar'>
@@ -45,7 +45,7 @@ export default Job
 /*
 
   <div className=' mt-4'>
-        <h1 className='text-center font-serif text-2xl font-bold' >job bades on your acitivity</h1>
+        <h1 className='text-center  text-2xl font-bold' >job bades on your acitivity</h1>
         <div className="">
           <div>
             <div>

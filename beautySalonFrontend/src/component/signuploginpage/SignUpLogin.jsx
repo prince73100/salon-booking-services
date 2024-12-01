@@ -34,7 +34,7 @@ function SignUpLogin() {
             <div className="form w-full  mt-8 rounded-lg  shadow-lg shadow-rose-500/100  lg:w-1/2 md:w-3/4 ">
                 <div className=''>
                     <div className="heading  pt-2">
-                        <h1 className='font-serif text-center font-bold text-3xl'>Create an account</h1>
+                        <h1 className=' text-center font-bold text-3xl'>Create an account</h1>
                     </div>
                     <form onSubmit={handleSubmit(signUp)} className=' flex justify-center '>
                         <div className="w-3/4 mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -150,7 +150,7 @@ function SignUpLogin() {
                         </div>
                     </form>
                     <div className="sm:col-span-full mt-10 py-10 px-8">
-                        <p className='text-lg font-semibold font-serif'>Already have an account? <Link to={'/login'} className='text-rose-500'>Login</Link> </p>
+                        <p className='text-lg font-semibold '>Already have an account? <Link to={'/login'} className='text-rose-500'>Login</Link> </p>
                     </div>
                     {/* loader */}
                     <Backdrop
