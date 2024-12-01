@@ -1,7 +1,7 @@
-// const apiUrl = `https://salon-booking-services.onrender.com`
+const apiUrl = `https://salon-booking-services.onrender.com`
 
 
-const apiUrl = `http://localhost:4000`
+// const apiUrl = `http://localhost:4000`
 
 
 

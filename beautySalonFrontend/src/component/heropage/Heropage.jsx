@@ -109,10 +109,12 @@ function Heropage() {
 
   const fetchSalonWithIn = async () => {
     try {
-      // const res = await axios.get(`${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`)
       const res = await axios.get(
-        `${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/28.6183478,77.0489761`
+        `${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/${currentLocation[1]},${currentLocation[0]}`
       );
+      // const res = await axios.get(
+      //   `${apiUrl}/api/v1/salon/findSalon_with-in/distance/${distance}/center/28.6183478,77.0489761`
+      // );
 
       if (res.data.status === "success") {
         setLoaded(true);
@@ -171,7 +173,7 @@ function Heropage() {
       >
         <div className="w-11/12 bg-rose-100 ">
           <div className="lg:flex ">
-            <div className={`lg:w-1/2 ${state ? "flex items-center" :""}`}>
+            <div className={`lg:w-1/2 ${state ? "flex items-center" : ""}`}>
               <div className="">
                 <h1 className="text-2xl px-5 pt-5 lg:px-10 lg:text-4xl md:px-10 sm:px-10  font-bold  text-centers md:text-4xl sm:text-3xl">
                   Effortless Beauty, Anytime.
@@ -206,7 +208,8 @@ function Heropage() {
           <hr className="bg-rose-500  h-1" />
           <div className="welcome_1">
             <h1 className="text-2xl lg:text-4xl md:text-3xl pt-10 px-2 font-bold  text-center ">
-              Welcome to <span className="text-rose-600">Beauty Time</span> – Where Beauty Meets Convenience
+              Welcome to <span className="text-rose-600">Beauty Time</span> –
+              Where Beauty Meets Convenience
             </h1>
             <div className="flex justify-center py-5">
               <div className="w-11/12">
