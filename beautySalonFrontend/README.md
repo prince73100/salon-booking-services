@@ -145,11 +145,14 @@ This project features a two-panel architecture designed to cater to two user rol
 
 ## Repository:
 
-**Frontend:   [ https://github.com/prince73100/salon-booking- services/tree/main/beautySalonFrontend** ](https://github.com/prince73100/salon-booking-services/tree/main/beautySalonFrontend)**
+### Frontend:   
+* https://github.com/prince73100/salon-booking-services/tree/main/beautySalonFrontend
 
-**Backend :  [** https://github.com/prince73100/salon-booking- services/tree/main/beautySalonBackend ](https://github.com/prince73100/salon-booking-services/tree/main/beautySalonBackend)**
+### Backend : 
+* https://github.com/prince73100/salon-booking-services/tree/main/beautySalonBackend
 
-**Deployment Link:[** https://beautytime-eta.vercel.app/ ](https://beautytime-eta.vercel.app/)
+### Deployment Link:
+* https://beautytime-eta.vercel.app/
 
 
 # Command:
@@ -177,7 +180,7 @@ delay in initialization.
 
   Email id: testuser1@gmail.com 
 
-  Password: test123** 
+  Password: test123
 
 
 ### Login for Salon:
